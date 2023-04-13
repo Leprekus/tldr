@@ -4,11 +4,6 @@ import { JWT } from 'next-auth/jwt';
 import { AdapterUser } from 'next-auth/adapters';
 import refreshAccessToken from '@/utils/refreshAccessToken';
 
-interface CustomSession extends Session {
-  accessToken?: string;
-  user: User
-
-}
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -49,7 +44,7 @@ export default NextAuth({
       return refreshAccessToken(token);
     },
     async session(params: {
-      session: CustomSession;
+      session: Session;
       token: JWT;
       user: AdapterUser;
   }) {
