@@ -30,10 +30,11 @@ export default NextAuth({
   }) {
       const { token, user, account } = params;
       // Initial sign in
+   
       if (account && user) {
         return {
-          accessToken: account.accessToken,
-          accessTokenExpires: Date.now() + (account.expires_in as number) * 1000,
+          accessToken: account.access_token,
+          accessTokenExpires: Date.now() + (account.expires_at as number) * 1000,
           refreshToken: account.refresh_token,
           user,
         };
@@ -55,8 +56,10 @@ export default NextAuth({
     const { session, token, user } = params
       // Send properties to the client, like an access_token and user id from a provider.
       session.accessToken = (token.accessToken as string);
-      session.user.id = (token.id as string);
-
+      session.user = (token.user as User);
+      console.log({ sessionTwo : session})
+      console.log({ tokenTwo: token })
+      console.log({ userTwo: user})
       return session;
     },
   },
