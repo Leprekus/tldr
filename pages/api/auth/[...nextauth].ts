@@ -52,9 +52,6 @@ export default NextAuth({
       // Send properties to the client, like an access_token and user id from a provider.
       session.accessToken = (token.accessToken as string);
       session.user = (token.user as User);
-      console.log({ sessionTwo : session})
-      console.log({ tokenTwo: token })
-      console.log({ userTwo: user})
       return session;
     },
   },
