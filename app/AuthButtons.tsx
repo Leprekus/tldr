@@ -3,6 +3,7 @@ import { signIn, signOut } from 'next-auth/react'
 import React from 'react'
 
 export default function AuthButtons() {
+ 
   return (
     <>
     <button onClick={() => signIn()}>Sign In</button>

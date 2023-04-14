@@ -1,8 +1,12 @@
 import NextAuth, { Account, Session, User } from 'next-auth';
 import RedditProvider from 'next-auth/providers/reddit';
-import { JWT } from 'next-auth/jwt';
+import { JWT, getToken } from 'next-auth/jwt';
 import { AdapterUser } from 'next-auth/adapters';
 import refreshAccessToken from '@/utils/refreshAccessToken';
+
+// 1. getServerSession
+// 2. if (!user) use client
+// 3. fetch posts
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -13,6 +17,7 @@ export default NextAuth({
       authorization: {
         params: {
           duration: 'permanent',
+          scope: '*',
         },
       },
     }),
