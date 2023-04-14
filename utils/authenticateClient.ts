@@ -1,3 +1,6 @@
+import { IClientToken } from '@/typings';
+
+
 export default async function authenticateClient() {
 
   // Define the URL for the access token endpoint
@@ -21,8 +24,8 @@ export default async function authenticateClient() {
 
   // Send a request to the token endpoint to retrieve the access token
   const response = await fetch(tokenUrl, options);
-  const data = await response.json();
+  const data: IClientToken = await response.json();
 
   // Return the access token from the response
-  return data.access_token;
+  return data;
 }
