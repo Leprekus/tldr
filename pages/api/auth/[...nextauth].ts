@@ -4,6 +4,7 @@ import { JWT, getToken } from 'next-auth/jwt';
 import { AdapterUser } from 'next-auth/adapters';
 import refreshAccessToken from '@/utils/refreshAccessToken';
 import { signIn } from 'next-auth/react';
+import authenticateClient from '@/utils/authenticateClient';
 
 // 1. getServerSession
 // 2. if (!user) use client
@@ -28,14 +29,15 @@ export default NextAuth({
       token: JWT;
       user: User;
       account: Account | null;
-  }) {
+    }) {
       const { token, user, account } = params;
-      // Initial sign in
    
+      // Initial sign in
       if (account && user) {
         return {
           accessToken: account.access_token,
-          accessTokenExpires: Date.now() + (account.expires_at as number) * 1000,
+          accessTokenExpires:
+            Date.now() + (account.expires_at as number) * 1000,
           refreshToken: account.refresh_token,
           user,
         };
@@ -49,15 +51,11 @@ export default NextAuth({
       // Access token has expired, try to update it
       return refreshAccessToken(token);
     },
-    async session(params: {
-      session: Session;
-      token: JWT;
-      user: AdapterUser;
-  }) {
-    const { session, token, user } = params
+    async session(params: { session: Session; token: JWT; user: AdapterUser }) {
+      const { session, token, user } = params;
       // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = (token.accessToken as string);
-      session.user = (token.user as User);
+      session.accessToken = token.accessToken as string;
+      session.user = token.user as User;
       return session;
     },
   },
