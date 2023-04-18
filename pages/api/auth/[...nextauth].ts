@@ -35,7 +35,7 @@ export default NextAuth({
       // Initial sign in
       if (account && user) {
         return {
-          accessToken: account.access_token,
+          0: account.access_token,
           accessTokenExpires:
             Date.now() + (account.expires_at as number) * 1000,
           refreshToken: account.refresh_token,

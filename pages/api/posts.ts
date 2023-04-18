@@ -1,11 +1,10 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 import { setCookie } from 'cookies-next';
+import authenticateClient from '@/utils/authenticateClient';
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const token = jwt.sign('credentials', process.env.NEXTAUTH_SECRET!)
-  setCookie('test', token, { req, res, maxAge: 60 * 60 * 24 })
-
-  return res.status(200)
+  const token = req.body
+  
   }
 
 export default handler
