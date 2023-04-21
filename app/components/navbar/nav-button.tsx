@@ -7,7 +7,8 @@ export function NavButtonMobile({ children, href }: { children: string | ReactNo
   return (
     
     <Link
-    className='bg-slate-800 py-3 px-10 rounded-md'
+    className='bg-opacity-20 bg-purple-700 hover:bg-opacity-40 active:bg-opacity-60 transition-all
+    py-2 px-7 rounded-md'
     href={href}
     >{ children }</Link>
   )
