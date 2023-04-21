@@ -12,38 +12,8 @@ interface IClientToken {
   scope: 'read write';
 }
 export async function middleware(req: NextRequest) {
-  const response = NextResponse.next();
-  const accessToken = req.cookies.get('accessToken')?.value;
-  const accessTokenExpires = req.cookies.get('accessTokenExpires')?.value;
-  const userToken = await getSession();
-
-  if (userToken?.accessToken) {
-    response.cookies.set('accessToken', userToken.accessToken);
-    response.cookies.set({
-      name: 'accessToken',
-      value: userToken.accessToken,
-    });
-    return response;
-  }
-
-  if(parseInt(accessTokenExpires!) < Date.now()) {
-
-  }
-  const clientToken = await authenticateClient();
-  response.cookies.set('accessToken', clientToken.access_token);
-  response.cookies.set({
-    name: 'accessToken',
-    value: JSON.stringify(clientToken.access_token),
-  });
-  response.cookies.set(
-    'accessTokenExpires',
-    JSON.stringify(clientToken.expires_in * 3600)
-  );
-  response.cookies.set({
-    name: 'accessTokenExpires',
-    value: JSON.stringify(clientToken.expires_in * 3600),
-  });
-  return response;
+  
+  
 }
 
 // See "Matching Paths" below to learn more

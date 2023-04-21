@@ -9,7 +9,7 @@ export const preload = () => {
   posts()
 }
 export const posts = async () => {
-  const req = await fetch('https://www.reddit.com/.json')
+  const req = await fetch('https://www.reddit.com/.json', { next: { revalidate: 120 } })
   const data = await req.json()
   return data
 }
@@ -24,17 +24,17 @@ export default async function Home() {
 
 //'https://www.reddit.com/search.json?q=query'
   const data = await posts()
-  const textPosts = data.data.children.filter(post => post.data?.selftext)
-  console.log({textPosts})
+  const textPosts = data.data.children.filter((post) => post.data?.selftext)
+  console.log({data})
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-    <AuthButtons/>
-    {textPosts.map((post, i) => (
+     <AuthButtons/>
+    {textPosts.map((post, i: number) => (
         <div key={i} className='w-96 flex flex-col gap-y-2 my-6'>
           <h2 className='text-lg text-purple-300'>{post.data.title}</h2>
           <p>{post.data?.selftext}</p>
         </div>
-      ))}
+      ))} *
    
     </main>
   )
