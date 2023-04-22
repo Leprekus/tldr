@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='max-w-7xl overflow-x-hidden'>
+      <body className='max-w-7xl mx-auto overflow-x-hidden'>
         <Providers>
           <NavbarMain/>
           {children}

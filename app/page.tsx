@@ -4,6 +4,7 @@ const inter = Inter({ subsets: ['latin'] })
 import { cookies } from 'next/headers'
 import snoowrap, { Listing, Submission } from 'snoowrap'
 import { cache } from 'react'
+import Card from './components/Card'
 
 export const preload = () => {
   posts()
@@ -25,16 +26,17 @@ export default async function Home() {
 //'https://www.reddit.com/search.json?q=query'
   const data = await posts()
   const textPosts = data.data.children.filter((post) => post.data?.selftext)
-  console.log({data})
+  console.log({data: textPosts[0]})
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     <AuthButtons/>
+     {/* <AuthButtons/> */}
     {textPosts.map((post, i: number) => (
-        <div key={i} className='w-96 flex flex-col gap-y-2 my-6'>
-          <h2 className='text-lg text-purple-300'>{post.data.title}</h2>
-          <p>{post.data?.selftext}</p>
-        </div>
-      ))} *
+        <Card key={i} 
+          title={post.data.title}
+          text={post.data.selftext}
+          />
+        
+      ))} 
    
     </main>
   )
