@@ -6,13 +6,13 @@ import snoowrap, { Listing, Submission } from 'snoowrap'
 import { cache } from 'react'
 import Card from './components/Card'
 
-export const preload = () => {
+const preload = () => {
   posts()
 }
-export const posts = async () => {
-  const req = await fetch('https://www.reddit.com/.json', { next: { revalidate: 120 } })
-  const data = await req.json()
-  return data
+const posts = async () => {
+  const response = await fetch('https://www.reddit.com/.json', { next: { revalidate: 120 } })
+  const json = await response.json()
+  return json
 }
 export default async function Home() {
   // const token  = cookies().get('token')?.value
@@ -25,15 +25,15 @@ export default async function Home() {
 
 //'https://www.reddit.com/search.json?q=query'
   const data = await posts()
-  const textPosts = data.data.children.filter((post) => post.data?.selftext)
+  const textPosts = data.data.children.filter((post) => post.data?.selftext).map(post => post.data)
   console.log({data: textPosts[0]})
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
      {/* <AuthButtons/> */}
     {textPosts.map((post, i: number) => (
         <Card key={i} 
-          title={post.data.title}
-          text={post.data.selftext}
+          title={post.title}
+          text={post.selftext}
           />
         
       ))} 

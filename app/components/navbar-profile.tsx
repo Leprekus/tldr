@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Hr from './Hr'
 import List from './ListItem'
 import ListItem from './ListItem'
+import { NavButtonMobile } from './navbar/nav-button'
 
 export default function NavbarProfile() {
   const { data: session } = useSession()
@@ -25,7 +26,8 @@ const handleDisplaySettings = () => {
     return setDisplaySettings('hidden')
 }
   return (
-    <div className='flex items-center justify-end pr-16 pt-4 gap-x-4 hover:cursor-pointer'>
+    <div className='flex items-center justify-between px-8 pt-4 gap-x-4 hover:cursor-pointer'>
+        <NavButtonMobile href='/'>Home</NavButtonMobile>
         {
             session && 
             <div 

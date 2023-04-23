@@ -1,15 +1,19 @@
 export const navItems = [
     {
-        title: 'Home',
-        href: '/'
+        title: 'Science',
+        href: 'r/science'
     },
     {
-        title: 'News',
-        href: '/news'
+        title: 'World News',
+        href: 'r/WorldNews'
     },
     {
-        title: 'Trending',
-        href: '/trending'
+        title: 'Philosophy',
+        href: 'r/Philosophy'
+    },
+    {
+        title: 'Personal Finance',
+        href: 'r/PersonalFinance'
     },
 
 ]

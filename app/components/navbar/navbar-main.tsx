@@ -12,22 +12,25 @@ export default function NavbarMain() {
   return (
     <nav className='flex flex-col gap-y-4 max-w-7xl'>
     <NavbarProfile/>
-    <div className='flex justify-evenly
-    sm:gap-x-4 sm:mx-8 sm:justify-center ms:justify-center'>
-      {navItems.map((item, i) => (
-        <NavButtonMobile
-        key={i}
-        href={item.href}
-        >
-          {item.title}
-        </NavButtonMobile>
-      ))}
-        <input
-          className='hidden sm:inline-block text-gray-600 rounded-md w-26'
+    <div className='flex flex-col gap-y-4 flex-shrink-0
+    justify-start'>
+      <input
+          className=' text-gray-600 rounded-md w-44 h-8'
           value={inputText}
           placeholder='Search'
           onChange={(e) => setInputText(e.target.value)}
         />
+      <div className='flex justify-between'>
+        {navItems.map((item, i) => (
+          <NavButtonMobile
+          key={i}
+          href={item.href}
+          >
+            {item.title}
+          </NavButtonMobile>
+        ))}
+      </div>
+      
     </div>
     </nav>
   );
