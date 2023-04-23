@@ -4,6 +4,7 @@ import { NavButtonMobile } from './nav-button';
 import navItems from '@/lib/navItems';
 import NavbarProfile from '../navbar-profile';
 import SearchBar from '../SearchBar';
+import Pill from '../Pill';
 
 export default function NavbarMain() {  
   return (
@@ -21,7 +22,6 @@ export default function NavbarMain() {
         ))}
       </div>
       
-    
     </nav>
   );
 }

@@ -16,6 +16,10 @@ export interface IClientToken {
     num_comments: number;
     thumbnail?: string;
     selftext?: string;
+    upvote_ratio: number;
+    ups: number;
+    downs: number;
+    created: number;
   }
 
   type RedditPostsResponse = RedditResponse<{
