@@ -1,10 +1,7 @@
 import { Inter } from 'next/font/google'
-import AuthButtons from './AuthButtons'
 const inter = Inter({ subsets: ['latin'] })
-import { cookies } from 'next/headers'
-import snoowrap, { Listing, Submission } from 'snoowrap'
-import { cache } from 'react'
 import Card from './components/Card'
+import { IRedditPost, RedditPostsResponse } from '@/typings'
 
 const preload = () => {
   posts()
@@ -24,15 +21,18 @@ export default async function Home() {
   // })
 
 //'https://www.reddit.com/search.json?q=query'
-  const data = await posts()
-  const textPosts = data.data.children.filter((post) => post.data?.selftext).map(post => post.data)
+
+  const data: RedditPostsResponse = await posts()
+
+  const textPosts = data.data.children.filter((post: RedditPostsResponse) => post.data?.selftext).map((post:RedditPostsResponse) => post.data)
   console.log({data: textPosts[0]})
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-    {textPosts.map((post, i: number) => (
+    {textPosts.map((post: IRedditPost, i: number) => (
+     
         <Card key={i} 
           title={post.title}
-          text={post.selftext}
+          text={post.selftext!}
           />
         
       ))} 
