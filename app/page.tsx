@@ -28,8 +28,7 @@ export default async function Home() {
   const textPosts = data.data.children.filter((post) => post.data?.selftext).map(post => post.data)
   console.log({data: textPosts[0]})
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     {/* <AuthButtons/> */}
+    <main className="flex min-h-screen flex-col items-center justify-between">
     {textPosts.map((post, i: number) => (
         <Card key={i} 
           title={post.title}
