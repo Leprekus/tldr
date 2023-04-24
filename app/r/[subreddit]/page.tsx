@@ -16,8 +16,7 @@ const posts = json.data.children.map((child:RedditPostsResponse) => child.data);
             posts.map((post:IRedditPost, i:number) => (
                 <Card
                 key={i}
-                title={post.title}
-                text={post?.selftext!}
+                data={posts}
                 />
             ))
         }

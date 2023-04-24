@@ -3,8 +3,6 @@ import RedditProvider from 'next-auth/providers/reddit';
 import { JWT, getToken } from 'next-auth/jwt';
 import { AdapterUser } from 'next-auth/adapters';
 import refreshAccessToken from '@/utils/refreshAccessToken';
-import { signIn } from 'next-auth/react';
-import authenticateClient from '@/utils/authenticateClient';
 
 // 1. getServerSession
 // 2. if (!user) use client

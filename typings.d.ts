@@ -20,6 +20,8 @@ export interface IClientToken {
     ups: number;
     downs: number;
     created: number;
+    subreddit_name_prefixed: string;
+    id: string;
   }
 
   type RedditPostsResponse = RedditResponse<{

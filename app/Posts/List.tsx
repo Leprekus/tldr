@@ -17,7 +17,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
       {posts.map((post: IRedditPost, i: number) => (
         <>
-        <Card key={i} title={post.title} text={post.selftext!} />
+        <Card key={i} data={post} />
         <p>ratip {post.upvote_ratio}</p>
         <p>upvotes {post.ups}</p>
         <p>downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>

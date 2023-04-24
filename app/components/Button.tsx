@@ -1,11 +1,12 @@
 import React, { CSSProperties, EventHandler, MouseEventHandler, ReactNode, useState } from 'react'
 
 
-export default function Button({ variant='primary', children, className='', onClick, onMouseOver, onMouseEnter, onMouseLeave }: { variant?: 'primary' | 'secondary' | 'tertiary', children: string | ReactNode, className?: string,onClick?: MouseEventHandler, onMouseOver?: MouseEventHandler, onMouseEnter?: MouseEventHandler, onMouseLeave?: MouseEventHandler,}) {
+export default function Button({ variant='primary', rounded=false, children, className='', onClick, onMouseOver, onMouseEnter, onMouseLeave }: { variant?: 'primary' | 'secondary' | 'tertiary', rounded?: boolean, children: string | ReactNode, className?: string,onClick?: MouseEventHandler, onMouseOver?: MouseEventHandler, onMouseEnter?: MouseEventHandler, onMouseLeave?: MouseEventHandler,}) {
  let style = ''
  if(variant === 'primary') style = ''
  if(variant === 'secondary') style = `text-blue-500 border-blue-500 hover:bg-blue-500 hover:bg-opacity-10 active:bg-opacity-30 transition-all`
  if(variant === 'tertiary') style = 'opacity-100'
+ if(rounded) style += 'rounded-full'
 
  const [dimStyle, setDimStyle] = useState()
  const mouseEventHandler = (e: any) => {

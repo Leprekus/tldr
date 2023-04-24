@@ -1,17 +1,19 @@
-import { NextRequest } from 'next/server';
-// This function can be marked `async` if using `await` inside
-interface IClientToken {
-  access_token: string;
-  token_type: 'bearer';
-  expires_in: 3600;
-  scope: 'read write';
-}
-export async function middleware(req: NextRequest) {
-  
-  
-}
+import { getToken } from 'next-auth/jwt';
+import { getSession } from 'next-auth/react';
+import { NextRequest, NextResponse } from 'next/server';
 
-// See "Matching Paths" below to learn more
-export const config = {
-  matcher: '/:path*',
-};
+export default async function requireSession(
+  req: NextRequest,
+  res: NextResponse,
+  next: () => void
+) {
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  if (!session) {
+    
+    return new NextResponse(
+      JSON.stringify({ success: false, message: 'authentication failed' }),
+      { status: 401, headers: { 'content-type': 'application/json' } }
+    )
+  }
+  return NextResponse.next();
+}

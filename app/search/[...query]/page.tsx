@@ -35,8 +35,7 @@ export default async function Page({ params }: { params: { query: [EndpointKeys,
         {posts.map((post: IRedditPost, i: number) => (
      
      <Card key={i} 
-       title={post.title}
-       text={post.selftext!}
+       data={posts}
        />
      
    ))} 
