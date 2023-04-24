@@ -22,6 +22,7 @@ export default NextAuth({
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt(params: {
       token: JWT;
@@ -33,9 +34,8 @@ export default NextAuth({
       // Initial sign in
       if (account && user) {
         return {
-          0: account.access_token,
-          accessTokenExpires:
-            Date.now() + (account.expires_at as number) * 1000,
+          accessToken: account.access_token,
+          accessTokenExpires: Date.now() + (account.expires_at as number) * 1000,
           refreshToken: account.refresh_token,
           user,
         };
@@ -51,9 +51,15 @@ export default NextAuth({
     },
     async session(params: { session: Session; token: JWT; user: AdapterUser }) {
       const { session, token, user } = params;
+
+      if(token) {
+        session.user = token.user;
+        session.accessToken = (token.accessToken as string);
+        session.error = (token.error as string); 
+      }
       // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken as string;
-      session.user = token.user as User;
+      // session.accessToken = token.accessToken as string;
+      // session.user = token.user as User;
       return session;
     },
   },
