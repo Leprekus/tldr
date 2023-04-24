@@ -18,8 +18,7 @@ export default function Card({ data }: { data: IRedditPost }) {
   const [upvoteFill, setUpvoteFill] = useState(likes === 1 ? 'red' : 'gray')
   const [downvoteFill, setDownvoteFill] = useState(likes === -1 ? 'red' : 'gray')
 
-  console.log({ session })
-
+ console.log({ data })
   const [displayAlert, setDisplayAlert] = useState(false)
   const handleShowMore = () => {
     if (height === '500') {
@@ -40,18 +39,24 @@ export default function Card({ data }: { data: IRedditPost }) {
     }
   };
 
-  const handleUpvote = async () => {
-    const value = userLikes === 1 ? 0 : 1
+  const handleVote = async (direction: string) => {
+    //id is fullname of a thing = ex t3_id
+    let value = 0;
+    if(direction === 'up') value = userLikes === 1 ? 0 : 1;
+    if(direction === 'down') value = userLikes === -1 ? 0 : -1;
+
+    const fullName = 't3_' + id
+    
     const response = await fetch(options.baseUrl + 'api/user/vote', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
         },
-        body: JSON.stringify({ id, dir: value })
+        body: JSON.stringify({ fullName, dir: value })
         
       })
     const json = await response.json()
-    console.log({ json })
+    console.log({ message: json.message })
     if(response.status === 401) {
       setDisplayAlert(true)
   }
@@ -60,27 +65,7 @@ export default function Card({ data }: { data: IRedditPost }) {
     }
 
   }
-  const handleDownVote = async () => {
-    const value = userLikes === -1 ? 0 : -1
-    const response = await fetch(options.baseUrl + 'api/user/vote', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-        body: JSON.stringify({ id, dir: value })
-        
-      })
-    const json = await response.json()
-    console.log({ json })
-    if(response.status === 401) {
-        setDisplayAlert(true)
-    }
-    if(response.ok) {
-      setUserLikes(value)
-    }
 
-
-  }
   const handleComments = () => {
 
   }
@@ -119,14 +104,14 @@ export default function Card({ data }: { data: IRedditPost }) {
         className='h-24 p-6 bg-zinc-50 '
       >
         <Button 
-        onClick={handleUpvote}
+        onClick={() => handleVote('up')}
         rounded>
           <p className={userLikes === 1 ? 'text-red-500' : 'text-gray-500'}>upvote</p>
         </Button>
         <Button 
-        onClick={handleDownVote}
+        onClick={() => handleVote('down')}
         rounded>
-            <p className={userLikes === 1 ? 'text-red-500' : 'text-gray-500'}>downvote</p>
+            <p className={userLikes === -1 ? 'text-red-500' : 'text-gray-500'}>downvote</p>
         </Button>
         <Button 
         onClick={handleComments}
