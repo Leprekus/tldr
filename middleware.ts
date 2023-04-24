@@ -17,3 +17,7 @@ export default async function requireSession(
   }
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: '/api/user',
+}
