@@ -7,27 +7,27 @@ export default function Alert({ severity='informational', message, setDisplay }:
     const [position, setPosition] = useState('translate(-50%, 0)')
     useEffect(() => {
         const id = setTimeout(() => {
-            setOpacity('opacity-0')
+            //setOpacity('opacity-0')
             setDisplay(false)
         }, 5000)
         return () => clearTimeout(id)
     }, [])
 
     let style = ''
-    if(severity === 'informational') style ='bg-gradient-to-r from-blue-400 to-blue-50 text-blue-950'
+    if(severity === 'informational') style ='bg-gradient-to-r from-blue-100 to-blue-50 text-blue-900'
     if(severity === 'success') style =''
     if(severity === 'warning') style ='bg-yellow-400'
     if(severity === 'error') style ='bg-red-500'
     return (
     <div 
-    style={{ minWidth: 350, left: '50%', transform: 'translate(-50%,0)' }}
-    className={ style + ` absolute h-fit max-w-md rounded-md 
+    style={{ minWidth: 350, left: '50%',top: 25, transform: 'translate(-50%,0)' }}
+    className={ style + ` fixed h-fit max-w-md rounded-md
     z-50 p-4 flex ${opacity} gap-x-4 text-sm transition-all`}
     >
         <div className='w-6 h-6'>
-            <InformationIcon fill='#172554'/>
+            <InformationIcon fill='rgb(30 58 138)'/>
         </div>
-        <p>Alert { message }</p>
+        <p>{ message }</p>
     </div>
   )
 }

@@ -19,5 +19,5 @@ export default async function requireSession(
 }
 
 export const config = {
-  matcher: '/api/user',
+  matcher: '/api/user/:path*',
 }
