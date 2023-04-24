@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import Pill from './Pill'
 import { signIn, signOut, useSession } from 'next-auth/react'
@@ -30,6 +31,7 @@ const handleDisplaySettings = () => {
         <NavButtonMobile href='/'>Home</NavButtonMobile>
         {
             session && 
+            <>
             <div 
             onClick={handleDisplaySettings}
             className='flex gap-x-4 items-center relative'>
@@ -37,8 +39,11 @@ const handleDisplaySettings = () => {
                {session.user?.image && <Image src={session.user.image} alt='profile-icon' width={48} height={48}/>}
                <span>u/{session.user.name}</span>
 
+            
+              
+            </div>
                 <ul className ={`
-                left-4
+                right-0
                 h-fit w-48 bg-[#282828] absolute top-16 flex flex-col justify-between items-center rounded-md ${displaySettings} transition-all ovefflow-hidden`}>
                     <ListItem>Settings</ListItem>
                     
@@ -48,12 +53,10 @@ const handleDisplaySettings = () => {
                     <Hr/>
                     <li className='p-4'>
                     <Pill
-                    onClick={() => signOut}>Sign Out</Pill>
+                    onClick={() => signOut()}>Sign Out</Pill>
                     </li>
                 </ul>
-            
-              
-            </div>
+                </>
         }
         {!session && 
         <Pill

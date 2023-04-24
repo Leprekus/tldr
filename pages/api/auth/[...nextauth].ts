@@ -47,7 +47,7 @@ export default NextAuth({
       }
 
       // Access token has expired, try to update it
-      return refreshAccessToken(token);
+      return await refreshAccessToken(token);
     },
     async session(params: { session: Session; token: JWT; user: AdapterUser }) {
       const { session, token, user } = params;

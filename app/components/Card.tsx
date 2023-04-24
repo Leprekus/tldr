@@ -5,6 +5,7 @@ import { IRedditPost } from '@/typings';
 import Alert from './Alert';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
+import { UpvoteIcon } from './Icons';
 
 export default function Card({ data }: { data: IRedditPost }) {
     const { title, selftext, subreddit_name_prefixed, ups, id, likes } = data
@@ -39,8 +40,7 @@ export default function Card({ data }: { data: IRedditPost }) {
 
   const handleUpvote = async () => {
     const value = userLikes === 1 ? 0 : 1
-    setUserLikes(value)
-    const response = await fetch(options.baseUrl + 'api/user/upvote', {
+    const response = await fetch(options.baseUrl + 'api/user/vote', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
@@ -50,15 +50,33 @@ export default function Card({ data }: { data: IRedditPost }) {
       })
     const json = await response.json()
     console.log({ json })
-    if(!response?.ok) {
-        setDisplayAlert(true)
-    }
+    if(response.status === 401) {
+      setDisplayAlert(true)
+  }
     if(response.ok) {
-
+      setUserLikes(value)
     }
 
   }
-  const handleDownVote = () => {
+  const handleDownVote = async () => {
+    const value = userLikes === -1 ? 0 : -1
+    const response = await fetch(options.baseUrl + 'api/user/vote', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({ id, dir: value })
+        
+      })
+    const json = await response.json()
+    console.log({ json })
+    if(response.status === 401) {
+        setDisplayAlert(true)
+    }
+    if(response.ok) {
+      setUserLikes(value)
+    }
+
 
   }
   const handleComments = () => {
@@ -101,12 +119,12 @@ export default function Card({ data }: { data: IRedditPost }) {
         <Button 
         onClick={handleUpvote}
         rounded>
-            upvote
+          <p className={userLikes === 1 ? 'text-red-500' : 'text-gray-500'}>upvote</p>
         </Button>
         <Button 
         onClick={handleDownVote}
         rounded>
-            downvote
+            <p className={userLikes === 1 ? 'text-red-500' : 'text-gray-500'}>downvote</p>
         </Button>
         <Button 
         onClick={handleComments}
