@@ -19,10 +19,10 @@ export default async function Page({ params }: { params: { query: [EndpointKeys,
       //post / default query
         'p': 'https://www.reddit.com/search.json?q='+ query
     }
-    console.log({ filter, query })
+
     const response = await fetch(endpoints[filter]);
     const json = await response.json()
-    console.log({ json, url: endpoints[filter] })
+  
     if(json?.error) return (
       <>
       <p>message: {json.message}</p>

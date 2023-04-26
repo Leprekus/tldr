@@ -1,13 +1,27 @@
 'use client';
-import React, { useState } from 'react';
-import PostFilters from '../components/PostFilters';
+import React, { useEffect, useState } from 'react';
+import PostFilters from '../PostFilters';
 import { IRedditPost, RedditPostsResponse } from '@/typings';
-import Card from '../components/Card';
+import Card from '../Card';
+import { useSession } from 'next-auth/react';
+import options from '@/lib/Options';
 
 export default function List({ data }: { data: RedditPostsResponse }) {
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);
-  console.log({ post: data[0] })
+    (async() => {
+      const data = await fetch(options.baseUrl + '/api/user/liked')
+      console.log(data)
+      //const a = await data.json()
+      //console.log(a)
+    })()
+    // const { data: session } = useSession()
+    // const headers = { authorization: 'Bearer ' + session?.accessToken }
+    // const [userLikedPosts, setUserLikedPosts] = useState([])
+    
+ 
+   
+    
   return (
     <div>
       <PostFilters 

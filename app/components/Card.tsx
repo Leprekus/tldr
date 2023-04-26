@@ -18,7 +18,6 @@ export default function Card({ data }: { data: IRedditPost }) {
   const [upvoteFill, setUpvoteFill] = useState(likes === 1 ? 'red' : 'gray')
   const [downvoteFill, setDownvoteFill] = useState(likes === -1 ? 'red' : 'gray')
 
- console.log({ data })
   const [displayAlert, setDisplayAlert] = useState(false)
   const handleShowMore = () => {
     if (height === '500') {
