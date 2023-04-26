@@ -24,10 +24,6 @@ export default async function Home() {
 
   const postsData = data.data.children.map((post:RedditPostsResponse) => post.data)
 
-  const token = await fetch(options.baseUrl + 'api/user/liked')
-  // const token = await getServerSession(authOptions)
-  console.log({ serverRequest: (token)})
-  
   
  
   return (

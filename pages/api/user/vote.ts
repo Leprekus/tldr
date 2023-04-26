@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   })
 
   if(!response.ok) {
-    return res.status(response.status).json({ message: response.statusText })
+    return res.status(response.status).json({ message: 'Reddit: ' + response.statusText })
   }
   return res.status(200).json({ message: response.statusText })
   

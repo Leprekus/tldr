@@ -8,19 +8,7 @@ import options from '@/lib/Options';
 
 export default function List({ data }: { data: RedditPostsResponse }) {
     const originalData = structuredClone(data)
-    const [posts, setPosts] = useState(data);
-    (async() => {
-      const data = await fetch(options.baseUrl + '/api/user/liked')
-      console.log(data)
-      //const a = await data.json()
-      //console.log(a)
-    })()
-    // const { data: session } = useSession()
-    // const headers = { authorization: 'Bearer ' + session?.accessToken }
-    // const [userLikedPosts, setUserLikedPosts] = useState([])
-    
- 
-   
+    const [posts, setPosts] = useState(data);    
     
   return (
     <div>
