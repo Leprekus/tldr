@@ -7,23 +7,18 @@ import React, { ReactNode, useEffect } from 'react'
 export default function SetToken({ children }: { children: ReactNode }) {
   const { data: session } = useSession()
   //priorities:
-  const key = 'accessToken'
+  const key = 'session'
   useEffect(() => {
-    //create cookie
-    setCookie(key, session ? session.accessToken : null)
+    //set session in cookie or null if there is no session
+    setCookie(key, session ? { accessToken :session.accessToken, name: session.user.name } : null)
 
     //if session exists and tokens do not match update token
     if(session?.accessToken && session.accessToken !== getCookie(key)) {
-      setCookie(key, session.accessToken)
-    }
-
-    //if session is null set accessToken cookie to null
-    if(!session) {
-      setCookie(key, null)
+      setCookie(key, { accessToken :session.accessToken, name: session.user.name })
     }
 
   }, [ session ])
-
+  console.log({ session: session?.accessToken})
     return (
     <>
     { children }
