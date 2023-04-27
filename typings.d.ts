@@ -36,3 +36,10 @@ export interface IClientToken {
     after?: string | null;
     before?: string | null;
   }>;
+
+  interface IWrapperSearchEndpoints {
+    [key: string]: string | undefined;
+    subreddits: string;
+    user: string;
+    query: string;
+  }

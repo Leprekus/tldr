@@ -26,16 +26,18 @@ export default async function Search({ params }: { params: { query: [EndpointKey
     }
 
     //const response = await fetch(endpoints[filter]);
+    const data = endpoints[filter]
     const session = JSON.parse(cookies().get('session')?.value!)
   
-    const response = await fetch('https://oauth.reddit.com/users/search?q=chrisdh79', {
-      headers : {
-        Authentication: 'Bearer ' + session.accessToken
-      }
-    })
+    // const response = await fetch('https://oauth.reddit.com/users/search?q=chrisdh79', {
+    //   headers : {
+    //     Authentication: 'Bearer ' + session.accessToken
+    //   }
+    // })
   
-    const json = response
-    console.log({ json })
+    const r = new RedditWrapper()
+    const json = await r.searchUnauthenticated({ subreddits: 'my query'})
+    //console.log({ json })
   
 
     

@@ -1,4 +1,4 @@
-import { IRedditPost, RedditPostsResponse } from '@/typings';
+import { IRedditPost, IWrapperSearchEndpoints, RedditPostsResponse } from '@/typings';
 
 // Todos
 // [ ] add sorting options to getfront page
@@ -95,6 +95,32 @@ class RedditWrapper {
         const data = await this.fetchData(this._baseUrl, endpoint, {})
         return data
 
+    }
+    async searchUnauthenticated (search: {
+        [key: string]: string | undefined;
+        subreddits?: string;
+        user?: string;
+        query?: string;
+    }) {
+        const key = Object.keys(search)[0]
+        const query: any = search[key]
+
+        const endpoints: IWrapperSearchEndpoints = {
+            subreddits: 'search.json?q=' + query,
+            user: 'user/' + query + '/.json',
+            query: 'search.json?q=' + query
+        }
+
+        const endpoint = endpoints[key]
+
+        const data = await this.fetchData(this._unauthUrl, endpoint!, {})
+        return data 
+
+    }
+    async searchAuthenticated (search: string) {
+        const endpoint = 'user/' + name + '/downvoted'
+        const data = await this.fetchData(this._baseUrl, endpoint, {})
+        return data
     }
 }
 
