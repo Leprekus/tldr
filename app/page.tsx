@@ -32,7 +32,7 @@ const posts = async () => {
 
   redditWrapper.setAccessToken(session.accessToken)
 
-  const frontpage = await redditWrapper.getUpvoted(session.name)
+  const frontpage = await redditWrapper.getUserFrontPage(session.name)
   
   return frontpage
 
