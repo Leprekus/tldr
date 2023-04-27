@@ -6,11 +6,13 @@ import Alert from './Alert';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
 import { UpvoteIcon } from './Icons';
+import Link from 'next/link';
 
 export default function Card({ data }: { data: IRedditPost }) {
     const { title, selftext, subreddit_name_prefixed, ups, id, likes } = data
   
     const { data: session } = useSession()
+
   const [height, setHeight] = useState('500');
   const [showMore, setShowMore] = useState(true);
   const [dimStyle, setDimStyle] = useState('opacity-100');
@@ -81,7 +83,7 @@ export default function Card({ data }: { data: IRedditPost }) {
     >
       <div className='bg-zinc-50 py-4 px-6'>
         <h1 className='text-lg'>{title}</h1>
-        <p>{subreddit_name_prefixed}</p>
+        <Link href={subreddit_name_prefixed}><Button variant='ghost'>{subreddit_name_prefixed}</Button></Link>
       </div>
       <div className='p-6 h-72 overflow-hidden text-sm'>
         {showMore ? <p>tldr;</p> : <p>{selftext}</p>}
