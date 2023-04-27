@@ -32,6 +32,7 @@ const posts = async () => {
     authorization: 'Bearer ' + session.accessToken,
   },
 }
+
 const userFrontPage = async () => {
   //works
   const response = await fetch('https://oauth.reddit.com/.json?sort=new', options)
