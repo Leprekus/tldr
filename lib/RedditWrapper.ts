@@ -117,9 +117,12 @@ class RedditWrapper {
         return data 
 
     }
-    async searchAuthenticated (search: string) {
-        const endpoint = 'user/' + name + '/downvoted'
-        const data = await this.fetchData(this._baseUrl, endpoint, {})
+    async getSubreddit (params: {subreddit: string, auth: boolean }) {
+        const { subreddit, auth } = params
+        
+        const url = auth ? this._baseUrl : this._unauthUrl
+        const endpoint = 'r/' + subreddit
+        const data = await this.fetchData(url, endpoint, {})
         return data
     }
 }
