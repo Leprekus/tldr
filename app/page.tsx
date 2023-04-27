@@ -76,8 +76,6 @@ export default async function Home() {
       }
     })
   }
-  console.log({frontpage: frontpage[0].title})
-  console.log(upvoted[0].title)
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
