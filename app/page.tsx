@@ -10,11 +10,24 @@ import { getServerSession } from 'next-auth'
 import authOptions from '../pages/api/auth/[...nextauth]'
 import { getSession } from 'next-auth/react'
 import { getToken } from 'next-auth/jwt'
+
+import { getCookie } from 'cookies-next'
+import { cookies } from 'next/dist/client/components/headers'
 const preload = () => {
   posts()
 }
 const posts = async () => {
-  const response = await fetch('https://www.reddit.com/.json?sort=new', { next: { revalidate: 120 } })
+
+  const accessToken = cookies().get('accessToken')?.value
+
+  const headers = accessToken ? {
+      autorization: 'Bearer ' + accessToken
+  } : undefined
+ 
+  const response = await fetch('https://www.reddit.com/.json?sort=new', {
+    headers,
+    next: { revalidate: 300 }
+  })
   const json = await response.json()
   return json
 }
@@ -23,9 +36,7 @@ export default async function Home() {
   const data: RedditPostsResponse = await posts()
 
   const postsData = data.data.children.map((post:RedditPostsResponse) => post.data)
-
   
- 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
     <List data={postsData}/>

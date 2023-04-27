@@ -7,9 +7,30 @@ import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
 
 export default function List({ data }: { data: RedditPostsResponse }) {
+    const { data: session } = useSession()
+
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
+    const [votedPosts, setVotedPosts] = useState([])
     
+    useEffect(() => {
+      const fetchLiked = () => {
+        fetch('https://oauth.reddit.com/user/' + session?.user.name + '/liked.json', {
+        headers: { authorization: 'Bearer ' + session?.accessToken }
+      })
+      .then(res => res.json())
+      .then(json => {
+        const likedPosts = json.data.children.map(child => child.data.id)
+        //setVotedPosts(likedPosts)
+        console.log({ likedPosts })
+      });
+      }
+      if(session?.accessToken) { 
+        fetchLiked() 
+        console.log({ votedPosts })
+      }
+
+    }, [ votedPosts ])
   return (
     <div>
       <PostFilters 
@@ -19,11 +40,11 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
       {posts.map((post: IRedditPost, i: number) => (
         <>
-        <Card key={i} data={post} />
-        <p>ratip {post.upvote_ratio}</p>
-        <p>upvotes {post.ups}</p>
-        <p>downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
-        <p>created at: {post.created}</p>
+        <Card key={'post_' + i } data={post} />
+        <p key={'ratio_' + i }>ratip {post.upvote_ratio}</p>
+        <p key={'ups_' + i }>upvotes {post.ups}</p>
+        <p key={'downs_' + i }>downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
+        <p key={'created_' + i }>created at: {post.created}</p>
         </>
       ))}
     </div>
