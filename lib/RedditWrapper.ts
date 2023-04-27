@@ -1,14 +1,15 @@
 import { IRedditPost, RedditPostsResponse } from '@/typings';
-import { NextApiRequest } from 'next';
-import { NextServerOptions } from 'next/dist/server/next';
 
+// Todos
+// [ ] add sorting options to getfront page
 class RedditWrapper {
     private _baseUrl: string = 'https://oauth.reddit.com/';
-    private _accessToken: string;
+    private _unauthUrl: string = 'https://www.reddit.com/';
+    private _accessToken: string | null;
     private _GEToptions : RequestInit; 
     
     constructor(accessToken: string) {
-        this._accessToken = accessToken
+        this._accessToken = accessToken || null
         this._GEToptions = { 
             method: 'GET',
             headers: {
@@ -25,12 +26,24 @@ class RedditWrapper {
     }
 
     getAccessToken() {
+        if(!this._accessToken) throw Error('no token provided')
         return this._accessToken
     }
     setAccessToken(newAccessToken: string) {
         this._accessToken = newAccessToken
     }
 
+    async getFrontPage (params : {sort: 'new'} = { sort: 'new' }) {
+        const searchParams = new URLSearchParams({
+            ...params
+        })
+        const response = await fetch(this._unauthUrl + '.json?' + searchParams)
+        .catch(error => { throw Error(error) })
+        const data = await this.parsePosts(response)
+        return data
+
+
+    }
     async getUserFrontPage (params : {sort: 'new'} = { sort: 'new' }) {
         const searchParams = new URLSearchParams({
             ...params

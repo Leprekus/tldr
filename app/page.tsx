@@ -7,6 +7,7 @@ import RedditWrapper from '@/lib/RedditWrapper'
 
 
 const inter = Inter({ subsets: ['latin'] })
+
 export const revalidate = 300;
 
 const preload = () => {
@@ -19,68 +20,15 @@ const posts = async () => {
   //   name: john doe
   // }
   const session = JSON.parse(cookies().get('session')?.value!)
+  
+  const redditWrapper = new RedditWrapper(session.accessToken)
  
   if(!session) {
-    const response = await fetch('https://www.reddit.com/.json?sort=new', { next: { revalidate: 300 }})
-    const json = await response.json()
-    return json
+    const unauthFrontpage = await redditWrapper.getFrontPage()
+    return [ unauthFrontpage ]
   }
- const options = { 
-  //next: { revalidate: 300 },
-  method: 'GET',
-  headers: {
-    authorization: 'Bearer ' + session.accessToken,
-  },
-}
-
-const userFrontPage = async () => {
-  //works
-  const response = await fetch('https://oauth.reddit.com/.json?sort=new', options)
-  const json = await response.json()
-  const posts = json.data.children.map((post:RedditPostsResponse) => post.data)
-
-  return posts
-}
-
-const userUpvotes = async () => {
-  //works
-  const response = await fetch('https://oauth.reddit.com/user/'+ session.name + '/upvoted', options)
-  const json = await response.json()
-
-  const posts = json.data.children.map((post:RedditPostsResponse) => ({
-    [post.data.id]: post.data.likes
-  }))
-
-  return posts
-}
-
-const userDownvotes = async () => {
-  //works
-  const response = await fetch('https://oauth.reddit.com/user/'+ session.name + '/downvoted', options)
-  const json = await response.json()
-  const posts = json.data.children.map((post:RedditPostsResponse) => ({
-    [post.data.id]: post.data.likes
-  }))
   
-  return posts
-}
-const redditWrapper = new RedditWrapper(session.accessToken)
-
-const promises = [
-  //reddit homepage
-  redditWrapper.getUserFrontPage(),
-
-  //upvoted posts
-  redditWrapper.getUpvoted(session.name),
-
-  //downvoted posts
-  redditWrapper.getDownvoted(session.name)
   
-  //test
-  
-
-
-];
 
 const [frontpage, upvoted, downvoted] = 
   await Promise.all([
@@ -96,41 +44,35 @@ const [frontpage, upvoted, downvoted] =
   ])
     .catch(async (error) => {
       console.log({ FailedToResolvePromises: error})
-      const response = await fetch('https://www.reddit.com/.json?sort=new', { next: { revalidate: 300 }})
-      const json = await response.json()
-      const posts = json.data.children.map((post:RedditPostsResponse) => post.data)
+      const unauthFrontpage = await redditWrapper.getFrontPage()
 
-      return [posts, [], [] ]
+      return [unauthFrontpage, null, null ]
 
     })
     .catch(error => {
       console.log({ PromiseErro: error})
-      return [[], [], []]
+      return [null, null, null]
     });
 
-    console.log({ frontpage: frontpage[0], upvoted: upvoted[0], downvoted: downvoted[0] })
-
-  
-
-
-
-/////////////
- const response = await fetch('https://www.reddit.com/.json?sort=new', { next: { revalidate: 300 }})
- const json = await response.json()
- return json
-
+  return [ frontpage, upvoted, downvoted ]
 
 }
 export default async function Home() {
 
-  const data: RedditPostsResponse = await posts()
+  //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
+  const [frontpage, upvoted, downvoted] = await posts()
 
-  
-  const postsData = data.data.children.map((post:RedditPostsResponse) => post.data)
+  if(!frontpage) {
+    return <p>something went wrong</p>
+  }
+
+  if(upvoted && downvoted) {
+    //mix frontpage with upvote & downvote
+  }
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-    <List data={postsData}/>
+    <List data={frontpage}/>
    
     </main>
   )
