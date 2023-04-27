@@ -19,63 +19,33 @@ const posts = async () => {
   //   accessToken: xxxx,
   //   name: john doe
   // }
+  //const session = null
   const session = JSON.parse(cookies().get('session')?.value!)
   
-  const redditWrapper = new RedditWrapper(session.accessToken)
+  const redditWrapper = new RedditWrapper()
  
   if(!session) {
+
     const unauthFrontpage = await redditWrapper.getFrontPage()
-    return [ unauthFrontpage ]
+    return unauthFrontpage
   }
+
+  redditWrapper.setAccessToken(session.accessToken)
+
+  const frontpage = await redditWrapper.getUpvoted(session.name)
   
-  
-
-const [frontpage, upvoted, downvoted] = 
-  await Promise.all([
-      //reddit homepage
-  redditWrapper.getUserFrontPage(),
-
-  //upvoted posts
-  redditWrapper.getUpvoted(session.name),
-
-  //downvoted posts
-  redditWrapper.getDownvoted(session.name)
-
-  ])
-    .catch(async (error) => {
-      console.log({ FailedToResolvePromises: error})
-      const unauthFrontpage = await redditWrapper.getFrontPage()
-
-      return [unauthFrontpage, null, null ]
-
-    })
-    .catch(error => {
-      console.log({ PromiseErro: error})
-      return [null, null, null]
-    });
-
-  return [ frontpage, upvoted, downvoted ]
+  return frontpage
 
 }
 export default async function Home() {
 
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
-  const [frontpage, upvoted, downvoted] = await posts()
+  const frontpage = await posts()
 
   if(!frontpage) {
     return <p>something went wrong</p>
   }
 
-  if(upvoted && downvoted) {
-    frontpage.forEach((post: IRedditPost) => {
-      const upvote = upvoted.includes(post.id);
-      const downvote = downvoted.includes(post.id);
-      if (upvote || downvote) {
-        post.id = upvote || downvote
-        return 
-      }
-    })
-  }
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
