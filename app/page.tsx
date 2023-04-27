@@ -67,8 +67,17 @@ export default async function Home() {
   }
 
   if(upvoted && downvoted) {
-    //mix frontpage with upvote & downvote
+    frontpage.forEach((post: IRedditPost) => {
+      const upvote = upvoted.includes(post.id);
+      const downvote = downvoted.includes(post.id);
+      if (upvote || downvote) {
+        post.id = upvote || downvote
+        return 
+      }
+    })
   }
+  console.log({frontpage: frontpage[0].title})
+  console.log(upvoted[0].title)
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">

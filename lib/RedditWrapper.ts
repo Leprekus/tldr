@@ -57,9 +57,12 @@ class RedditWrapper {
     }
 
     //getMyProperty returns a value
-    async getUpvoted (name: string) {
+    async getUpvoted (name: string, params : {sort: 'new'} = { sort: 'new' }) {
 
-        const response = await fetch(this._baseUrl + 'user/'+ name + '/upvoted', this._GEToptions)
+        const searchParams = new URLSearchParams({
+            ...params
+        })
+        const response = await fetch(this._baseUrl + 'user/'+ name + '/upvoted?' + searchParams, this._GEToptions)
         .catch(error => { throw Error(error) })
         const data = await this.parsePosts(response)
         return data
