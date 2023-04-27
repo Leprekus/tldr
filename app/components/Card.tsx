@@ -9,14 +9,16 @@ import { UpvoteIcon } from './Icons';
 
 export default function Card({ data }: { data: IRedditPost }) {
     const { title, selftext, subreddit_name_prefixed, ups, id, likes } = data
+  
     const { data: session } = useSession()
   const [height, setHeight] = useState('500');
   const [showMore, setShowMore] = useState(true);
   const [dimStyle, setDimStyle] = useState('opacity-100');
 
-  const [userLikes, setUserLikes] = useState(likes)
-  const [upvoteFill, setUpvoteFill] = useState(likes === 1 ? 'red' : 'gray')
-  const [downvoteFill, setDownvoteFill] = useState(likes === -1 ? 'red' : 'gray')
+  
+  const [ isLiked, setIsLiked] = useState<boolean | null>(likes)
+  const [upvoteFill, setUpvoteFill] = useState(isLiked ? 'red' : 'gray')
+  const [downvoteFill, setDownvoteFill] = useState(isLiked ? 'red' : 'gray')
 
   const [displayAlert, setDisplayAlert] = useState(false)
   const handleShowMore = () => {
@@ -41,8 +43,8 @@ export default function Card({ data }: { data: IRedditPost }) {
   const handleVote = async (direction: string) => {
     //id is fullname of a thing = ex t3_id
     let value = 0;
-    if(direction === 'up') value = userLikes === 1 ? 0 : 1;
-    if(direction === 'down') value = userLikes === -1 ? 0 : -1;
+    if(direction === 'up') value = isLiked ? 0 : 1;
+    if(direction === 'down') value = !isLiked ? 0 : -1;
 
     const fullName = 't3_' + id
     
@@ -60,7 +62,10 @@ export default function Card({ data }: { data: IRedditPost }) {
       setDisplayAlert(true)
   }
     if(response.ok) {
-      setUserLikes(value)
+      if(value === -1) setIsLiked(false)
+      if(value === 0) setIsLiked(null)
+      if(value === 1) setIsLiked(true)
+   
     }
 
   }
@@ -105,12 +110,12 @@ export default function Card({ data }: { data: IRedditPost }) {
         <Button 
         onClick={() => handleVote('up')}
         rounded>
-          <p className={userLikes === 1 ? 'text-red-500' : 'text-gray-500'}>upvote</p>
+          <p className={isLiked ? 'text-red-500' : 'text-gray-500'}>upvote</p>
         </Button>
         <Button 
         onClick={() => handleVote('down')}
         rounded>
-            <p className={userLikes === -1 ? 'text-red-500' : 'text-gray-500'}>downvote</p>
+            <p className={!isLiked && isLiked !== null ? 'text-red-500' : 'text-gray-500'}>downvote</p>
         </Button>
         <Button 
         onClick={handleComments}
