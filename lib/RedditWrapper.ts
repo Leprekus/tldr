@@ -96,7 +96,7 @@ class RedditWrapper {
         return data
 
     }
-    async searchUnauthenticated (search: {
+    async search (search: {
         [key: string]: string | undefined;
         subreddits?: string;
         user?: string;
@@ -106,7 +106,7 @@ class RedditWrapper {
         const query: any = search[key]
 
         const endpoints: IWrapperSearchEndpoints = {
-            subreddits: 'search.json?q=' + query,
+            subreddits: 'subreddits/search.json?q=' + query,
             user: 'user/' + query + '/.json',
             query: 'search.json?q=' + query
         }

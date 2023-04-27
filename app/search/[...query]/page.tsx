@@ -6,40 +6,30 @@ import { cookies } from 'next/dist/client/components/headers';
 import React from 'react'
 
 interface IEndpoints {
-  'r': string;
-  'p': string;
-  'u': string;
+  'r': { subreddits: string };
+  'u': { user: string };
+  'p': { query: string };
 }
 type EndpointKeys = keyof IEndpoints;
 
 export default async function Search({ params }: { params: { query: [EndpointKeys, string] }}) {
     const [filter, query] = params.query
-
+    
+  const redditWrapper = new RedditWrapper()
   const endpoints: IEndpoints = {
       //subreddit query
-        'r': 'https://www.reddit.com/subreddits/search.json?q=' + query,
+        //'r': 'https://www.reddit.com/subreddits/search.json?q=' + query,
+        'r': { subreddits: query },
       //user query
-        'u': 'https://www.reddit.com/user/' + query + '/.json',
+        //'u': 'https://www.reddit.com/user/' + query + '/.json',
+        'u':{ user: query },
   
       //post / default query
-        'p': 'https://www.reddit.com/search.json?q='+ query
+        //'p': 'https://www.reddit.com/search.json?q='+ query
+        'p': { query: query },
     }
 
-    //const response = await fetch(endpoints[filter]);
-    const data = endpoints[filter]
-    const session = JSON.parse(cookies().get('session')?.value!)
-  
-    // const response = await fetch('https://oauth.reddit.com/users/search?q=chrisdh79', {
-    //   headers : {
-    //     Authentication: 'Bearer ' + session.accessToken
-    //   }
-    // })
-  
-    const r = new RedditWrapper()
-    const json = await r.searchUnauthenticated({ subreddits: 'my query'})
-    //console.log({ json })
-  
-
+    const posts = await redditWrapper.search(endpoints[filter])
     
 
     //const posts = json.data.children.map((child:RedditPostsResponse) => child.data);
@@ -48,8 +38,8 @@ export default async function Search({ params }: { params: { query: [EndpointKey
     
   
 
-  //   return (
-  //    <List data={posts}/>
+    return (
+     <List data={posts}/>
 
-  // )
+  )
 }
