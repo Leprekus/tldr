@@ -1,18 +1,14 @@
 import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
-import Card from './components/Card'
 import { IRedditPost, RedditPostsResponse } from '@/typings'
-import Pill from './components/Pill'
-import PostFilters from './components/PostFilters'
 import List from './components/Posts/List'
-import options from '@/lib/Options'
-import { getServerSession } from 'next-auth'
-import authOptions from '../pages/api/auth/[...nextauth]'
-import { getSession } from 'next-auth/react'
-import { getToken } from 'next-auth/jwt'
 
-import { getCookie } from 'cookies-next'
 import { cookies } from 'next/dist/client/components/headers'
+import RedditWrapper from '@/lib/RedditWrapper'
+
+
+const inter = Inter({ subsets: ['latin'] })
+export const revalidate = 300;
+
 const preload = () => {
   posts()
 }
@@ -30,7 +26,7 @@ const posts = async () => {
     return json
   }
  const options = { 
-  next: { revalidate: 300 },
+  //next: { revalidate: 300 },
   method: 'GET',
   headers: {
     authorization: 'Bearer ' + session.accessToken,
@@ -64,26 +60,39 @@ const userDownvotes = async () => {
   const posts = json.data.children.map((post:RedditPostsResponse) => ({
     [post.data.id]: post.data.likes
   }))
-
-  console.log({ success: 'esdf'})
   
   return posts
 }
+const redditWrapper = new RedditWrapper(session.accessToken)
 
 const promises = [
   //reddit homepage
-  userFrontPage(),
+  redditWrapper.getUserFrontPage(),
 
   //upvoted posts
-  userUpvotes(),
+  redditWrapper.getUpvoted(session.name),
 
   //downvoted posts
-  userDownvotes()
+  redditWrapper.getDownvoted(session.name)
+  
+  //test
+  
+
 
 ];
 
-const [userHomepage, upvoteIds, downvoteIds] = 
-  await Promise.all([promises])
+const [frontpage, upvoted, downvoted] = 
+  await Promise.all([
+      //reddit homepage
+  redditWrapper.getUserFrontPage(),
+
+  //upvoted posts
+  redditWrapper.getUpvoted(session.name),
+
+  //downvoted posts
+  redditWrapper.getDownvoted(session.name)
+
+  ])
     .catch(async (error) => {
       console.log({ FailedToResolvePromises: error})
       const response = await fetch('https://www.reddit.com/.json?sort=new', { next: { revalidate: 300 }})
@@ -97,6 +106,10 @@ const [userHomepage, upvoteIds, downvoteIds] =
       console.log({ PromiseErro: error})
       return [[], [], []]
     });
+
+    console.log({ frontpage: frontpage[0], upvoted: upvoted[0], downvoted: downvoted[0] })
+
+  
 
 
 

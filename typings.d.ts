@@ -24,6 +24,7 @@ export interface IClientToken {
     id: string;
     likes: number;
   }
+  
 
   type RedditPostsResponse = RedditResponse<{
     data: {
