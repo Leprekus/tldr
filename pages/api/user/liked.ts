@@ -1,8 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {  
  
-  console.log({ apiToken: req.headers.authorization })
-  const url = 'https://oauth.reddit.com/user/leprekus/liked'
+  console.log({ apiToken: req.headers.user })
+  const url = 'https://oauth.reddit.com/user/'+ req.headers.user + '/liked'
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -13,7 +13,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   if(!response.ok) {
     return res.status(response.status).json({ message: 'Reddit: ' + response.statusText })
   }
-  return res.status(200).json({ message: (await response.json()) })
+  return res.status(200).json(response)
   
   }
 

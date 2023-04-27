@@ -11,26 +11,8 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
-    const [votedPosts, setVotedPosts] = useState([])
     
-    useEffect(() => {
-      const fetchLiked = () => {
-        fetch('https://oauth.reddit.com/user/' + session?.user.name + '/liked.json', {
-        headers: { authorization: 'Bearer ' + session?.accessToken }
-      })
-      .then(res => res.json())
-      .then(json => {
-        const likedPosts = json.data.children.map(child => child.data.id)
-        //setVotedPosts(likedPosts)
-        console.log({ likedPosts })
-      });
-      }
-      if(session?.accessToken) { 
-        fetchLiked() 
-        console.log({ votedPosts })
-      }
-
-    }, [ votedPosts ])
+ 
   return (
     <div>
       <PostFilters 

@@ -20,16 +20,13 @@ const posts = async () => {
 
   const accessToken = cookies().get('accessToken')?.value
 
-  const headers = accessToken ? {
-      autorization: 'Bearer ' + accessToken
-  } : undefined
+ if(!accessToken) {
+   const response = await fetch('https://www.reddit.com/.json?sort=new', { next: { revalidate: 300 }})
+   const json = await response.json()
+   return json
+ }
+ const likedPosts = await fetch()
  
-  const response = await fetch('https://www.reddit.com/.json?sort=new', {
-    headers,
-    next: { revalidate: 300 }
-  })
-  const json = await response.json()
-  return json
 }
 export default async function Home() {
 
