@@ -17,6 +17,7 @@ export default async function Search({ params }: { params: { query: [EndpointKey
     
   const redditWrapper = new RedditWrapper()
   const endpoints: IEndpoints = {
+    
       //subreddit query
         //'r': 'https://www.reddit.com/subreddits/search.json?q=' + query,
         'r': { subreddits: query },
