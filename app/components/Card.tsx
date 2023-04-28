@@ -5,7 +5,7 @@ import { IRedditPost } from '@/typings';
 import Alert from './Alert';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
-import { UpvoteIcon } from './Icons';
+import { DownvoteIcon, TrophyIcon, UpvoteIcon } from './Icons';
 import Link from 'next/link';
 
 export default function Card({ data }: { data: IRedditPost }) {
@@ -46,7 +46,7 @@ export default function Card({ data }: { data: IRedditPost }) {
     //id is fullname of a thing = ex t3_id
     let value = 0;
     if(direction === 'up') value = isLiked ? 0 : 1;
-    if(direction === 'down') value = !isLiked ? 0 : -1;
+    if(direction === 'down') value = isLiked === false ? 0 : -1;
 
     const fullName = 't3_' + id
     
@@ -79,7 +79,8 @@ export default function Card({ data }: { data: IRedditPost }) {
     <>
     <div
       style={{ height: height, borderWidth: 1 }}
-      className='w-full sm:w-96 bg-zinc-100 my-4 rounded-md overflow-hidden relative'
+      className='w-full sm:w-96 bg-zinc-100 my-4 rounded-md 
+      overflow-hidden relative transition-all hover:shadow-md'
     >
       <div className='bg-zinc-50 py-4 px-6'>
         <h1 className='text-lg'>{title}</h1>
@@ -107,23 +108,31 @@ export default function Card({ data }: { data: IRedditPost }) {
       </div>
       <div
         style={{ borderTopWidth: 1 }}
-        className='h-24 p-6 bg-zinc-50 '
+        className='h-24 p-6 bg-zinc-50'
       >
-        <Button 
-        onClick={() => handleVote('up')}
-        rounded>
-          <p className={isLiked ? 'text-red-500' : 'text-gray-500'}>upvote</p>
-        </Button>
-        <Button 
-        onClick={() => handleVote('down')}
-        rounded>
-            <p className={!isLiked && isLiked !== null ? 'text-red-500' : 'text-gray-500'}>downvote</p>
-        </Button>
-        <Button 
-        onClick={handleComments}
-        >
-            comments
-        </Button>
+        <div className='flex justify-between'>
+          <div className='flex gap-x-3'>
+            <Button
+            onClick={() => handleVote('up')}
+            variant='ghost'
+            >
+              <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'}/>
+            </Button>
+            <Button
+            onClick={() => handleVote('down')}
+            variant='ghost'
+            >
+              <DownvoteIcon fill={!isLiked && isLiked !== null ? '#3B82F6' : '#A9A9A9'}/>
+            
+            </Button>
+          </div>
+          <Button variant='ghost' rounded><TrophyIcon/></Button>
+            <Button
+            onClick={handleComments}
+            >
+              comments
+          </Button>
+        </div>
        
       </div>
     </div>

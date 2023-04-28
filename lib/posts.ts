@@ -13,31 +13,32 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
     
     const redditWrapper = new RedditWrapper()
    
-    if(session === null) {
+    if(session.accessToken) {
+
+      redditWrapper.setAccessToken(session.accessToken)
   
-      if(page.fallback === 'homepage') {
-        const unauthFrontpage = await redditWrapper.getFrontPage()
-        return unauthFrontpage
-      }
-      if(page.fallback === 'subreddit') {
+      if(page.page === 'homepage') {
     
-        const unauthFrontpage = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
-        return unauthFrontpage
+        const frontpage = await redditWrapper.getUserFrontPage()
+        return frontpage
+    
+      } if(page.page === 'subreddit') {
+        const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
+        return subreddit
       }
+  
   
   
     }
+
+    if(page.fallback === 'homepage') {
+      const unauthFrontpage = await redditWrapper.getFrontPage()
+      return unauthFrontpage
+    }
+    if(page.fallback === 'subreddit') {
   
-    redditWrapper.setAccessToken(session.accessToken)
-  
-    if(page.page === 'homepage') {
-  
-      const frontpage = await redditWrapper.getUserFrontPage()
-      return frontpage
-  
-    } if(page.page === 'subreddit') {
-      const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
-      return subreddit
+      const unauthFrontpage = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
+      return unauthFrontpage
     }
   
   }

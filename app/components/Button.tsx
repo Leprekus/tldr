@@ -8,7 +8,7 @@ export default function Button({ variant='primary', rounded=false, children, cla
  if(variant === 'secondary') style = 'text-blue-500 border-blue-500 hover:bg-blue-500 hover:bg-opacity-10 active:bg-opacity-30'
  if(variant === 'tertiary') style = 'opacity-100'
  if(variant === 'ghost') style = 'hover:bg-zinc-200 p-2 focus:outline-zinc-300'
- if(rounded) style += 'rounded-full'
+ 
 
  const [dimStyle, setDimStyle] = useState()
  const mouseEventHandler = (e: any) => {
@@ -54,7 +54,7 @@ export default function Button({ variant='primary', rounded=false, children, cla
   onMouseLeave={(e) => mouseEventHandler(e)}
   onClick={onClick}
   className={`transition-all
-  uppercase rounded-md ${style} ${className}
+  uppercase ${style} ${className} ${rounded ? 'rounded-full' : 'rounded-md'}
   `}>{ children }</button>
  )
 

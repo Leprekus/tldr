@@ -31,7 +31,11 @@ export default async function Search({ params }: { params: { query: [EndpointKey
   
 
     return (
-     <List data={posts}/>
+      <main className="flex min-h-screen flex-col items-center justify-between">
+        
+        <List data={posts}/>
+
+      </main>
 
   )
 }

@@ -7,6 +7,7 @@ import Hr from './Hr'
 import List from './ListItem'
 import ListItem from './ListItem'
 import { NavButtonMobile } from './navbar/nav-button'
+import Button from './Button'
 
 export default function NavbarProfile() {
   const { data: session } = useSession()
@@ -27,20 +28,18 @@ const handleDisplaySettings = () => {
     return setDisplaySettings('hidden')
 }
   return (
-    <div className='flex items-center justify-between px-8 pt-4 gap-x-4 hover:cursor-pointer'>
+    <div className='flex items-center justify-between px-8 pt-4 gap-x-4'>
         <NavButtonMobile href='/'>Home</NavButtonMobile>
+        <h1 className='text-5xl text-gray-500'>TL ; DR ;</h1>
         {
             session && 
             <>
             <div 
             onClick={handleDisplaySettings}
-            className='flex gap-x-4 items-center relative'>
+            className='flex gap-x-4 items-center relative hover:cursor-pointer'>
                 <div className='h-12 w-12 bg-red-500 rounded-full'/>
                {session.user?.image && <Image src={session.user.image} alt='profile-icon' width={48} height={48}/>}
-               <span>u/{session.user.name}</span>
-
-            
-              
+               <Button><span>u/{session.user.name}</span></Button>
             </div>
                 <ul className ={`
                 right-0
