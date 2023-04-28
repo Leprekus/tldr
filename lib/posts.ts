@@ -13,7 +13,7 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
     
     const redditWrapper = new RedditWrapper()
    
-    if(!session) {
+    if(session === null) {
   
       if(page.fallback === 'homepage') {
         const unauthFrontpage = await redditWrapper.getFrontPage()

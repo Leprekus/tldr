@@ -8,10 +8,10 @@ import Pill from '../Pill';
 
 export default function NavbarMain() {  
   return (
-    <nav className='flex flex-col gap-y-4 max-w-7xl'>
+    <nav className='flex flex-col gap-y-4 max-w-7xl mx-auto'>
     <NavbarProfile/>
      <SearchBar/>
-      <div className='flex justify-between'>
+      <div className='flex justify-center gap-x-4'>
         {navItems.map((item, i) => (
           <NavButtonMobile
           key={i}

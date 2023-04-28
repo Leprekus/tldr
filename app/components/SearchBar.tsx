@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react'
 import LinkWrapper from './LinkWrapper'
 import Filters from './Filters';
 import { FilterIcon, SearchIcon } from './Icons';
+import Button from './Button';
 
 export default function SearchBar() {
   const [inputText, setInputText] = useState('');
@@ -24,7 +25,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className='flex gap-x-4'>
+    <div className='flex gap-x-4 mx-auto'>
     <input
         aria-label='search-bar'
         className='text-gray-600 rounded-md w-44 h-8'
@@ -32,17 +33,21 @@ export default function SearchBar() {
         placeholder='Search Reddit'
         onChange={(e) => setInputText(e.target.value)}
       />
-      <LinkWrapper
+      <Button
+      variant='ghost'
+      className={inputText === '' ? 'hover:cursor-not-allowed' : ''}
       label='search-button'
       disabled={inputText === '' ? true : false}
       href={'/search/' + selectedOption + inputText}>
-        <SearchIcon/>
-      </LinkWrapper>
-      <button onClick={toggleFilters} aria-label='filter'
-        ><FilterIcon/></button>
+        <SearchIcon fill={inputText === '' ? '#d3d3d3' : '#7d7d7d'}/> 
+      </Button>
+
+      <Button variant='ghost' onClick={toggleFilters} aria-label='filter'>
+        <FilterIcon fill='#7d7d7d'/>
+      </Button>
 
             <select
-            className={display + ' bg-transparent'}
+            className={display + ' bg-transparent text-[#7d7d7d] focus:outline-zinc-300'}
             value={selectedOption}
             onChange={(event) => handleOptionChange(event)}>
               <option className='hover:bg-blue-200 active:bg-blue-100' value="r/">Subreddit</option>
