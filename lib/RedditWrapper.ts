@@ -39,9 +39,10 @@ class RedditWrapper {
             ...params
         }) 
         const URL = url + endpoint + searchParams 
-
+        
         const options = url === this._baseUrl ? this._GEToptions : {}
-
+        
+        console.log(this._GEToptions)
         console.log({ URL })
         const response = await fetch(URL, options)
 

@@ -2,19 +2,20 @@ import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
 
 const posts = async (page:{ page: string, fallback?: string, query?: string },) => {
-    page.fallback ? page.fallback : page.page
+    const fallback = page.fallback ||page.page
   
     // session {
     //   accessToken: xxxx,
-    //   name: john doe
+    //   name: john doe,
+    //   expires: date * 1000
     // }
     //const session = null
     const session = JSON.parse(cookies().get('session')?.value!)
     
     const redditWrapper = new RedditWrapper()
    
-    if(session.accessToken) {
-
+    if(session?.expires < Date.now()) {
+      console.log({ serverTOken: session.accessToken})
       redditWrapper.setAccessToken(session.accessToken)
   
       if(page.page === 'homepage') {
@@ -30,12 +31,13 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
   
   
     }
-
-    if(page.fallback === 'homepage') {
+    
+    if(fallback === 'homepage') {
+      console.log(' ran 2')
       const unauthFrontpage = await redditWrapper.getFrontPage()
       return unauthFrontpage
     }
-    if(page.fallback === 'subreddit') {
+    if(fallback === 'subreddit') {
   
       const unauthFrontpage = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
       return unauthFrontpage

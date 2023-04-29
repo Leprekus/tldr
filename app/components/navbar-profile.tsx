@@ -39,7 +39,7 @@ const handleDisplaySettings = () => {
             className='flex gap-x-4 items-center relative hover:cursor-pointer'>
                 <div className='h-12 w-12 bg-red-500 rounded-full'/>
                {session.user?.image && <Image src={session.user.image} alt='profile-icon' width={48} height={48}/>}
-               <Button><span>u/{session.user.name}</span></Button>
+               <Button variant='ghost'><span>u/{session.user.name}</span></Button>
             </div>
                 <ul className ={`
                 right-0

@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
 import { DownvoteIcon, TrophyIcon, UpvoteIcon } from './Icons';
 import Link from 'next/link';
+import Pill from './Pill';
 
 export default function Card({ data }: { data: IRedditPost }) {
     const { title, selftext, subreddit_name_prefixed, ups, id, likes } = data
@@ -80,7 +81,7 @@ export default function Card({ data }: { data: IRedditPost }) {
     <div
       style={{ height: height, borderWidth: 1 }}
       className='w-full sm:w-96 bg-zinc-100 my-4 rounded-md 
-      overflow-hidden relative transition-all hover:shadow-md'
+      overflow-hidden relative transition-all shadow-md'
     >
       <div className='bg-zinc-50 py-4 px-6'>
         <h1 className='text-lg'>{title}</h1>
@@ -112,19 +113,30 @@ export default function Card({ data }: { data: IRedditPost }) {
       >
         <div className='flex justify-between'>
           <div className='flex gap-x-3'>
-            <Button
-            onClick={() => handleVote('up')}
-            variant='ghost'
-            >
-              <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'}/>
-            </Button>
-            <Button
-            onClick={() => handleVote('down')}
-            variant='ghost'
-            >
-              <DownvoteIcon fill={!isLiked && isLiked !== null ? '#3B82F6' : '#A9A9A9'}/>
-            
-            </Button>
+
+
+            <div className='flex flex-col justify-center'>
+              <Button
+              onClick={() => handleVote('up')}
+              variant='ghost'
+              >
+                <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'}/>
+              </Button>
+              <Pill fontSize='sm'>{ups}</Pill>
+            </div>
+
+
+            <div>
+              <Button
+              onClick={() => handleVote('down')}
+              variant='ghost'
+              >
+                <DownvoteIcon fill={!isLiked && isLiked !== null ? '#3B82F6' : '#A9A9A9'}/>
+              </Button>
+              <Pill></Pill>
+            </div>
+
+
           </div>
           <Button variant='ghost' rounded><TrophyIcon/></Button>
             <Button

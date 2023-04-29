@@ -14,45 +14,7 @@ export const revalidate = 300;
 const preload = () => {
   posts({ page: 'homepage'})
 }
-// const posts = async (page:{ page: string, fallback?: string },) => {
-//   page.fallback ? page.fallback : page.page
 
-//   // session {
-//   //   accessToken: xxxx,
-//   //   name: john doe
-//   // }
-//   //const session = null
-//   const session = JSON.parse(cookies().get('session')?.value!)
-  
-//   const redditWrapper = new RedditWrapper()
- 
-//   if(!session) {
-
-//     if(page.fallback === 'homepage') {
-//       const unauthFrontpage = await redditWrapper.getFrontPage()
-//       return unauthFrontpage
-//     }
-//     if(page.fallback === 'subreddit') {
-//       const unauthFrontpage = await redditWrapper.getFrontPage()
-//       return unauthFrontpage
-//     }
-
-
-//   }
-
-//   redditWrapper.setAccessToken(session.accessToken)
-
-//   if(page.page === 'homepage') {
-
-//     const frontpage = await redditWrapper.getUserFrontPage(session.name)
-//     return frontpage
-
-//   } if(page.page === 'subreddit') {
-//     const subreddit = await redditWrapper.getSubreddit('reddit')
-//     return subreddit
-//   }
-
-// }
 export default async function Home() {
 
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]

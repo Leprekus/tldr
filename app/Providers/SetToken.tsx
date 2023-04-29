@@ -10,7 +10,12 @@ export default function SetToken({ children }: { children: ReactNode }) {
   const key = 'session'
   useEffect(() => {
     //set session in cookie or null if there is no session
-    setCookie(key, session ? { accessToken :session.accessToken, name: session.user.name } : null)
+    setCookie(key, session ? { 
+      accessToken :session.accessToken,
+      name: session.user.name,
+      accessTokenExpires: session.expires
+      }
+        : null)
 
     //if session exists and tokens do not match update token
     if(session?.accessToken && session.accessToken !== getCookie(key)) {
@@ -18,7 +23,7 @@ export default function SetToken({ children }: { children: ReactNode }) {
     }
 
   }, [ session ])
-  console.log({ session: session?.accessToken})
+  console.log({ clientTOken: session?.accessToken })
     return (
     <>
     { children }
