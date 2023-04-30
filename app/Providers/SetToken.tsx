@@ -8,22 +8,40 @@ export default function SetToken({ children }: { children: ReactNode }) {
   const { data: session } = useSession()
   //priorities:
   const key = 'session'
+  const cookieToken = JSON.parse(getCookie(key)) 
+
   useEffect(() => {
-    //set session in cookie or null if there is no session
-    setCookie(key, session ? { 
-      accessToken :session.accessToken,
-      name: session.user.name,
-      accessTokenExpires: session.expires
+    
+      const setServerCookie = () => {
+        //set session in cookie to null if there is no session
+      if(!session) {
+        setCookie(key, null)
       }
-        : null)
 
     //if session exists and tokens do not match update token
-    if(session?.accessToken && session.accessToken !== getCookie(key)) {
-      setCookie(key, { accessToken :session.accessToken, name: session.user.name })
+    if(session && session?.accessToken !== cookieToken?.accessToken) {
+      setCookie(key, { 
+        accessToken :session.accessToken, 
+        name: session.user.name,
+        accessTokenExpires: Date.parse(session.expires) 
+      })
+
+      //if session exists and cookie is null create session
+      if(!cookieToken && session) {
+        setCookie(key, {
+          accessToken :session.accessToken, 
+          name: session.user.name,
+          accessTokenExpires: Date.parse(session.expires)
+        })
+      }
+
+      }
+      window.addEventListener('onload', () => setServerCookie)
+      return () => window.removeEventListener('onload', setServerCookie)
     }
 
   }, [ session ])
-  console.log({ clientTOken: session?.accessToken })
+  console.log({ cookieToken })
     return (
     <>
     { children }
