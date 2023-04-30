@@ -26,9 +26,7 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
         const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
         return subreddit
       }
-      
-      
-      
+       
     }
     const fallback = page.fallback ||page.page
     

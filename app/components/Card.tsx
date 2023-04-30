@@ -115,27 +115,23 @@ export default function Card({ data }: { data: IRedditPost }) {
           <div className='flex gap-x-3'>
 
 
-            <div className='flex flex-col justify-center'>
               <Button
               onClick={() => handleVote('up')}
               variant='ghost'
               >
                 <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'}/>
               </Button>
-              <Pill fontSize='sm'>{ups}</Pill>
-            </div>
+            
 
 
-            <div>
+            
               <Button
               onClick={() => handleVote('down')}
               variant='ghost'
               >
                 <DownvoteIcon fill={!isLiked && isLiked !== null ? '#3B82F6' : '#A9A9A9'}/>
               </Button>
-              <Pill></Pill>
-            </div>
-
+    
 
           </div>
           <Button variant='ghost' rounded><TrophyIcon/></Button>
