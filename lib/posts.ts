@@ -12,7 +12,7 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
     const session = JSON.parse(cookies().get('session')?.value!)
     
     const redditWrapper = new RedditWrapper()
-2    //checks if token  is not expired
+    //checks if token  is not expired
     if(session?.accessTokenExpires > Date.now()) {
       console.log({ serverTOken: session.accessToken})
       redditWrapper.setAccessToken(session.accessToken)
@@ -24,22 +24,24 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
         
       } if(page.page === 'subreddit') {
         const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
-        return subreddit
+        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
+        return [subreddit, about]
       }
        
     }
     const fallback = page.fallback ||page.page
     
     if(fallback === 'homepage') {
-      console.log(' ran 2')
+
       const unauthFrontpage = await redditWrapper.getFrontPage()
       return unauthFrontpage
     }
     if(fallback === 'subreddit') {
   
-      const unauthFrontpage = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
-      return unauthFrontpage
-    }
+      const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
+      const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: false })
+      return [subreddit, about]
+  }
   
   }
 

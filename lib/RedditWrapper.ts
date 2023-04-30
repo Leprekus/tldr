@@ -126,6 +126,19 @@ class RedditWrapper {
         const data = await this.fetchData(url, endpoint, {})
         return data
     }
+    async getSubredditAbout (params: {subreddit: string, auth: boolean }) {
+        const { subreddit, auth } = params
+        //https://www.reddit.com/r/{subreddit_name}/about.json
+        const url = auth ? this._baseUrl : this._unauthUrl
+        const endpoint = 'r/' + subreddit + '/about.json'
+        const options = auth ? this._GEToptions : {}
+        console.log({ urlEndpoint: url + endpoint, options })
+        const res = await fetch(url + endpoint, options)
+        const json = await res.json()
+        console.log({ json })
+        return json.data
+        
+    }
 }
 
 export default RedditWrapper

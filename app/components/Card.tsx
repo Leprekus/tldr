@@ -80,7 +80,7 @@ export default function Card({ data }: { data: IRedditPost }) {
     <>
     <div
       style={{ height: height, borderWidth: 1 }}
-      className='w-full sm:w-96 bg-zinc-100 my-4 rounded-md 
+      className='w-full bg-zinc-100 my-4 rounded-md 
       overflow-hidden relative transition-all shadow-md'
     >
       <div className='bg-zinc-50 py-4 px-6'>
