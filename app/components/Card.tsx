@@ -8,9 +8,20 @@ import options from '@/lib/Options';
 import { DownvoteIcon, TrophyIcon, UpvoteIcon } from './Icons';
 import Link from 'next/link';
 import Pill from './Pill';
+import Image from 'next/image';
 
 export default function Card({ data }: { data: IRedditPost }) {
-    const { title, selftext, subreddit_name_prefixed, ups, id, likes } = data
+    const { 
+      title, 
+      selftext, 
+      subreddit_name_prefixed, 
+      ups, 
+      id, 
+      likes,
+      name,
+      url,
+      thumbnail,
+     } = data
   
     const { data: session } = useSession()
 
@@ -56,7 +67,7 @@ export default function Card({ data }: { data: IRedditPost }) {
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
         },
-        body: JSON.stringify({ fullName, dir: value })
+        body: JSON.stringify({ name, dir: value })
         
       })
     const json = await response.json()
@@ -76,54 +87,27 @@ export default function Card({ data }: { data: IRedditPost }) {
   const handleComments = () => {
 
   }
+
+  console.log({ data })
   return (
     <>
     <div
-      style={{ height: height, borderWidth: 1 }}
-      className='w-full bg-zinc-100 my-4 rounded-md 
-      overflow-hidden relative transition-all shadow-md'
+      style={{ height: height }}
+      className='w-full bg-white my-4 rounded-md 
+      overflow-hidden transition-all shadow-md shadow-zinc-100 flex flex-row'
     >
-      <div className='bg-zinc-50 py-4 px-6'>
-        <h1 className='text-lg'>{title}</h1>
-        <Link href={subreddit_name_prefixed}><Button variant='ghost'>{subreddit_name_prefixed}</Button></Link>
-      </div>
-      <div className='p-6 h-72 overflow-hidden text-sm'>
-        {showMore ? <p>tldr;</p> : <p>{selftext}</p>}
-      </div>
-
+      {/* action bar */}
       <div
-        className={`${
-          showMore ?
-            'bg-gradient-to-b from-transparent to-zinc-200'
-           :'bg-transparent'
-        } w-full h-36 absolute bottom-24 flex items-end justify-center`}
+        className='min-h-full w-20 px-10 py-8 flex justify-center'
       >
-        <Button
-          className={dimStyle}
-          onMouseLeave={handleMouseLeave}
-          onClick={handleShowMore}
-          variant='secondary'
-        >
-          {showMore ? 'show more' : 'show less'}
-        </Button>
-      </div>
-      <div
-        style={{ borderTopWidth: 1 }}
-        className='h-24 p-6 bg-zinc-50'
-      >
-        <div className='flex justify-between'>
-          <div className='flex gap-x-3'>
-
-
+        <div className='flex flex-col'>
+          <div className='flex gap-y-3 flex-col'>
               <Button
               onClick={() => handleVote('up')}
               variant='ghost'
               >
                 <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'}/>
               </Button>
-            
-
-
             
               <Button
               onClick={() => handleVote('down')}
@@ -135,14 +119,54 @@ export default function Card({ data }: { data: IRedditPost }) {
 
           </div>
           <Button variant='ghost' rounded><TrophyIcon/></Button>
-            <Button
-            onClick={handleComments}
-            >
-              comments
-          </Button>
         </div>
        
       </div>
+
+       {/* header body and footer */}
+       <div>
+      <div className='pt-8 px-6'>
+        <h1 className='text-lg'>{title}</h1>
+        <Link href={subreddit_name_prefixed}><Button variant='ghost'>{subreddit_name_prefixed}</Button></Link>
+      </div>
+        
+          <div className='h-36 min-w-full overflow-hidden text-sm relative py-4 bg-red-400'>
+            {/* text post */}
+            {selftext && (
+            <>
+            {showMore ? <p>tldr;</p> : <p>{selftext}</p>}
+            
+              <div
+              className={`w-full h-36 absolute bottom-0 flex items-end justify-center`}
+            >
+              <Button
+                className={dimStyle}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleShowMore}
+                variant='secondary'
+              >
+                {showMore ? 'show more' : 'show less'}
+              </Button>
+            </div>
+            </>
+            )}
+            {/* link */}
+            {
+              thumbnail?.includes('https') && 
+              <><Image src={thumbnail} width={64} height={64} alt='thumbnail'/></>
+            }
+        </div>
+
+        <div className='h-24 py-4 border-t-1 border-zinc-200' style={{ borderTopWidth: 1 }}>
+          <p>footer</p>
+          <Button
+            onClick={handleComments}
+            >c</Button>
+        </div>
+      </div>
+
+      <div className='min-h-full w-20 px-10 py-12 flex justify-center '/>
+
     </div>
     {displayAlert && 
     <Alert 

@@ -13,6 +13,7 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
     
     const redditWrapper = new RedditWrapper()
     //checks if token  is not expired
+    console.log({ date: session.accessTokenExpires, now: Date.now() })
     if(session?.accessTokenExpires > Date.now()) {
       console.log({ serverTOken: session.accessToken})
       redditWrapper.setAccessToken(session.accessToken)

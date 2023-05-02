@@ -46,9 +46,12 @@ class RedditWrapper {
         console.log({ URL })
         const response = await fetch(URL, options)
 
-        const json = await response.json()
-        const posts = json.data.children.map(({ data }: { data: IRedditPost}) => data)
-        return posts
+        if(response.ok) {
+            const json = await response.json()
+            const posts = json.data.children.map(({ data }: { data: IRedditPost}) => data)
+            return posts
+        } 
+        throw new Error(response.statusText)
     }
 
     getAccessToken() {

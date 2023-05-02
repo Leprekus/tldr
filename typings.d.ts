@@ -23,6 +23,7 @@ export interface IClientToken {
     subreddit_name_prefixed: string;
     id: string;
     likes: boolean;
+    name: string;
   }
   
 

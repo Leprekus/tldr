@@ -1,10 +1,10 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { fullName, dir } = JSON.parse(req.body)
+  const { name, dir } = JSON.parse(req.body)
   //token = Bearer token
   var token = req.headers.authorization 
  
-  const params = new URLSearchParams({ id: fullName, dir})
+  const params = new URLSearchParams({ id: name, dir})
   const url = 'https://oauth.reddit.com/api/vote?' + params
    
 

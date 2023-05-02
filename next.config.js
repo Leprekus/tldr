@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains : ['styles.redditmedia.com']
+    domains : ['styles.redditmedia.com', 'b.thumbs.redditmedia.com', 'a.thumbs.redditmedia.com']
   }
 }
 

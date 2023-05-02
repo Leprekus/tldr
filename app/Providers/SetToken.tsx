@@ -8,7 +8,7 @@ export default function SetToken({ children }: { children: ReactNode }) {
   const { data: session } = useSession()
   //priorities:
   const key = 'session'
-  const cookieToken = JSON.parse(getCookie(key)) 
+  const cookieToken = getCookie(key) ? JSON.parse(getCookie(key)) : null
 
   useEffect(() => {
     
@@ -36,11 +36,11 @@ export default function SetToken({ children }: { children: ReactNode }) {
       }
 
       }
-      window.addEventListener('onload', () => setServerCookie)
+      window.addEventListener('onload', setServerCookie)
       return () => window.removeEventListener('onload', setServerCookie)
     }
 
-  }, [ session ])
+  }, [ session, cookieToken ])
   console.log({ cookieToken })
     return (
     <>
