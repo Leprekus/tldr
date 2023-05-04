@@ -5,6 +5,24 @@ export interface IClientToken {
     scope: "read write"
   }
 
+  type IMediaMetadata  = {
+    status: string;
+    dashUrl: string;
+    hlsUrl: string;
+    fallbackUrl: string;
+    height: number;
+    width: number;
+    e: string;
+    gifUrl: string;
+    mp4Url: string;
+    processingStatus: string;
+    scrubberMediaUrl: string;
+    dashUrlFallback: string;
+    duration: number;
+  };
+
+  
+
   interface IRedditPost {
     title: string;
     author: string;
@@ -24,6 +42,9 @@ export interface IClientToken {
     id: string;
     likes: boolean;
     name: string;
+    is_self: boolean;
+    post_hint: 'link' | 'image' | 'video';
+    media_metadata: MediaMetadata;
   }
   
 

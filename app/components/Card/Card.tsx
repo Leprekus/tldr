@@ -1,58 +1,29 @@
 'use client';
-import React, { useState } from 'react';
-import Button from './Button';
+import React, { ReactNode, useState } from 'react';
+import Button from '../Button';
 import { IRedditPost } from '@/typings';
-import Alert from './Alert';
+import Alert from '../Alert';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
-import { DownvoteIcon, TrophyIcon, UpvoteIcon } from './Icons';
+import { DownvoteIcon, TrophyIcon, UpvoteIcon } from '../Icons';
 import Link from 'next/link';
-import Pill from './Pill';
+import Pill from '../Pill';
 import Image from 'next/image';
 
-export default function Card({ data }: { data: IRedditPost }) {
-    const { 
-      title, 
-      selftext, 
-      subreddit_name_prefixed, 
-      ups, 
-      id, 
-      likes,
-      name,
-      url,
-      thumbnail,
-     } = data
+export default function Card({ post, children }: { post: IRedditPost, children: ReactNode }) {
+  
   
     const { data: session } = useSession()
 
-  const [height, setHeight] = useState('400');
-  const [showMore, setShowMore] = useState(true);
-  const [dimStyle, setDimStyle] = useState('opacity-100');
 
   
-  const [ isLiked, setIsLiked] = useState<boolean | null>(likes)
+  const [ isLiked, setIsLiked] = useState<boolean | null>(post.likes)
   const [upvoteFill, setUpvoteFill] = useState(isLiked ? 'red' : 'gray')
   const [downvoteFill, setDownvoteFill] = useState(isLiked ? 'red' : 'gray')
 
   const [displayAlert, setDisplayAlert] = useState(false)
-  const handleShowMore = () => {
-    if (height === '400') {
-      setHeight('fit');
-      setShowMore(false);
-      return;
-    }
-    setHeight('400');
-    setShowMore(true);
-    return;
-  };
-  const handleMouseLeave = () => {
-    if (showMore) {
-      setDimStyle('opacity-100');
-    }
-    if (!showMore) {
-      setDimStyle('opacity-20 hover:opacity-100');
-    }
-  };
+ 
+  
 
   const handleVote = async (direction: string) => {
     //id is fullname of a thing = ex t3_id
@@ -60,14 +31,13 @@ export default function Card({ data }: { data: IRedditPost }) {
     if(direction === 'up') value = isLiked ? 0 : 1;
     if(direction === 'down') value = isLiked === false ? 0 : -1;
 
-    const fullName = 't3_' + id
     
     const response = await fetch(options.baseUrl + 'api/user/vote', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
         },
-        body: JSON.stringify({ name, dir: value })
+        body: JSON.stringify({ name: post.name, dir: value })
         
       })
     const json = await response.json()
@@ -88,12 +58,12 @@ export default function Card({ data }: { data: IRedditPost }) {
 
   }
 
-  console.log({ data })
+  console.log({ post })
   return (
     <>
     <div
-      style={{ height: height, maxWidth: 600 }}
-      className='w-full bg-white my-4 rounded-md 
+      style={{ maxWidth: 600 }}
+      className='w-full bg-white my-4 rounded-md h-fit
       overflow-hidden transition-all shadow-md shadow-zinc-100 flex flex-row justify-stretch'
     >
       {/* action bar */}
@@ -123,40 +93,18 @@ export default function Card({ data }: { data: IRedditPost }) {
        
       </div>
 
-       {/* header body and footer */}
-       <div className='w-full'>
-      <div className='pt-8 px-6'>
-        <h1 className='text-lg'>{title}</h1>
-        <Link href={subreddit_name_prefixed}><Button variant='ghost'>{subreddit_name_prefixed}</Button></Link>
+       {/* header */}
+       <div 
+       style={{ maxWidth: 440}}
+       className='w-full'>
+      <div className='pt-8 pb-2'>
+        <h1 className='text-lg font-bold text-gray-700'>{post.title}</h1>
+        <Link href={post.subreddit_name_prefixed}><Button variant='ghost' className='text-gray-600'>{post.subreddit_name_prefixed}</Button></Link>
       </div>
-        
-          <div className='h-36 min-w-full overflow-hidden text-sm relative py-4 bg-red-400'>
-            {/* text post */}
-            {selftext && (
-            <>
-            {showMore ? <p>tldr;</p> : <p>{selftext}</p>}
-            
-              <div
-              className={`w-full h-36 absolute bottom-0 flex items-end justify-center`}
-            >
-              <Button
-                className={dimStyle}
-                onMouseLeave={handleMouseLeave}
-                onClick={handleShowMore}
-                variant='secondary'
-              >
-                {showMore ? 'show more' : 'show less'}
-              </Button>
-            </div>
-            </>
-            )}
-            {/* link */}
-            {
-              thumbnail?.includes('https') && 
-              <img src={url} className='h-full w-auto' alt='thumbnail'/>
-            }
-        </div>
+          {/* body */}
+          { children }
 
+        {/* footer */}
         <div className='h-24 py-4 border-t-1 border-zinc-200' style={{ borderTopWidth: 1 }}>
           <p>footer</p>
           <Button

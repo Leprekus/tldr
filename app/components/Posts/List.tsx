@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import PostFilters from '../PostFilters';
 import { IRedditPost, RedditPostsResponse } from '@/typings';
-import Card from '../Card';
+import Card from '../Card/Card';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
+import TextPost from '../Card/TextPost';
+import LinkPost from '../Card/LinkPost';
+import ImagePost from '../Card/ImagePost';
+import GalleryPost from '../Card/GalleryPost';
 
 export default function List({ data }: { data: RedditPostsResponse }) {
     const { data: session } = useSession()
@@ -21,7 +25,13 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
       {posts.map((post: IRedditPost, i: number) => (
         <>
-        <Card key={'post_' + i } data={post} />
+        <Card key={'post_' + i } post={post} >
+          {post.is_self && <TextPost post ={post}/>}
+          {!post.selftext && !post.media_metadata && <LinkPost post ={post}/>}
+          {post.post_hint === 'image' && <ImagePost post ={post}/>}
+          {/* gallery */}
+          {!post.selftext && post.media_metadata && <GalleryPost post ={post}/>}
+        </Card>
         <p key={'ratio_' + i }>ratip {post.upvote_ratio}</p>
         <p key={'ups_' + i }>upvotes {post.ups}</p>
         <p key={'downs_' + i }>downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>

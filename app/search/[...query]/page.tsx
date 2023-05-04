@@ -1,4 +1,4 @@
-import Card from '@/app/components/Card';
+import Card from '@/app/components/Card/Card';
 import List from '@/app/components/Posts/List';
 import RedditWrapper from '@/lib/RedditWrapper';
 import { IRedditPost, RedditPostsResponse } from '@/typings';

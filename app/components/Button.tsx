@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, { CSSProperties, EventHandler, MouseEventHandler, ReactNode, useState } from 'react'
 
 
-export default function Button({ variant='primary', rounded=false, children, className='', href, disabled, label, onClick, onMouseOver, onMouseEnter, onMouseLeave }: { variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost', rounded?: boolean, children: string | ReactNode, className?: string, href?: string, disabled?: boolean, label?: string, onClick?: MouseEventHandler, onMouseOver?: MouseEventHandler, onMouseEnter?: MouseEventHandler, onMouseLeave?: MouseEventHandler,}) {
+export default function Button({ sx, variant='primary', rounded=false, children, className='', href, disabled, label, onClick, onMouseOver, onMouseEnter, onMouseLeave }: { sx?: CSSProperties, variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost', rounded?: boolean, children: string | ReactNode, className?: string, href?: string, disabled?: boolean, label?: string, onClick?: MouseEventHandler, onMouseOver?: MouseEventHandler, onMouseEnter?: MouseEventHandler, onMouseLeave?: MouseEventHandler,}) {
  let style = ''
  if(variant === 'primary') style = ''
  if(variant === 'secondary') style = 'py-2 px-4 text-blue-500 border-blue-500 hover:bg-blue-500 hover:bg-opacity-10 active:bg-opacity-30'
@@ -28,7 +28,8 @@ export default function Button({ variant='primary', rounded=false, children, cla
     return<button
       aria-label={label} 
       disabled 
-      className={className}
+      className={style + className}
+      style={ sx }
       >{ children }</button>;
   }
   return (
@@ -37,6 +38,8 @@ export default function Button({ variant='primary', rounded=false, children, cla
     onMouseEnter={(e) => mouseEventHandler(e)}
     onMouseLeave={(e) => mouseEventHandler(e)}
     onClick={onClick}
+    style={ sx }
+
     className={`transition-all
     uppercase rounded-md ${style} ${className}
     `}
@@ -53,6 +56,8 @@ export default function Button({ variant='primary', rounded=false, children, cla
   onMouseEnter={(e) => mouseEventHandler(e)}
   onMouseLeave={(e) => mouseEventHandler(e)}
   onClick={onClick}
+  style={ sx }
+
   className={`transition-all
   uppercase ${style} ${className} ${rounded ? 'rounded-full' : 'rounded-md'}
   `}>{ children }</button>

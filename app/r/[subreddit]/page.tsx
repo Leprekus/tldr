@@ -1,5 +1,5 @@
 import About from '@/app/components/About';
-import Card from '@/app/components/Card';
+import Card from '@/app/components/Card/Card';
 import List from '@/app/components/Posts/List';
 import RedditWrapper from '@/lib/RedditWrapper';
 import posts from '@/lib/posts';
