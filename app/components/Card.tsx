@@ -25,7 +25,7 @@ export default function Card({ data }: { data: IRedditPost }) {
   
     const { data: session } = useSession()
 
-  const [height, setHeight] = useState('500');
+  const [height, setHeight] = useState('400');
   const [showMore, setShowMore] = useState(true);
   const [dimStyle, setDimStyle] = useState('opacity-100');
 
@@ -36,12 +36,12 @@ export default function Card({ data }: { data: IRedditPost }) {
 
   const [displayAlert, setDisplayAlert] = useState(false)
   const handleShowMore = () => {
-    if (height === '500') {
+    if (height === '400') {
       setHeight('fit');
       setShowMore(false);
       return;
     }
-    setHeight('500');
+    setHeight('400');
     setShowMore(true);
     return;
   };
@@ -92,9 +92,9 @@ export default function Card({ data }: { data: IRedditPost }) {
   return (
     <>
     <div
-      style={{ height: height }}
+      style={{ height: height, maxWidth: 600 }}
       className='w-full bg-white my-4 rounded-md 
-      overflow-hidden transition-all shadow-md shadow-zinc-100 flex flex-row'
+      overflow-hidden transition-all shadow-md shadow-zinc-100 flex flex-row justify-stretch'
     >
       {/* action bar */}
       <div
@@ -124,7 +124,7 @@ export default function Card({ data }: { data: IRedditPost }) {
       </div>
 
        {/* header body and footer */}
-       <div>
+       <div className='w-full'>
       <div className='pt-8 px-6'>
         <h1 className='text-lg'>{title}</h1>
         <Link href={subreddit_name_prefixed}><Button variant='ghost'>{subreddit_name_prefixed}</Button></Link>
@@ -153,7 +153,7 @@ export default function Card({ data }: { data: IRedditPost }) {
             {/* link */}
             {
               thumbnail?.includes('https') && 
-              <><Image src={thumbnail} width={64} height={64} alt='thumbnail'/></>
+              <img src={url} className='h-full w-auto' alt='thumbnail'/>
             }
         </div>
 

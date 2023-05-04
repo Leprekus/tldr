@@ -1,22 +1,35 @@
 import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
+import { decode } from 'next-auth/jwt'
 
 const posts = async (page:{ page: string, fallback?: string, query?: string },) => {
   
-  // session {
-    //   accessToken: xxxx,
-    //   name: john doe,
-    //   accessTokenExpires: date * 1000
-    // }
+  // // session {
+  //   accessToken: '62260682-EmlqDEXCjmpUg2t_eNmQ5-VXawDmCg',
+  //   accessTokenExpires: 3365724057426,
+  //   refreshToken: '62260682-e50D5lFvDrkwKEVf_l4HTcZiajD2iQ',
+  //   user: { id: '112gne', name: 'Leprekus', image: null },
+  //   iat: 1683003789,
+  //   exp: 1685595789,
+  //   jti: 'f437bb39-e209-4728-8fa6-d2048e27f09b'
+  // }
     //const session = null
-    const session = JSON.parse(cookies().get('session')?.value!)
+    const session = await decode({
+      token: cookies().get('next-auth.session-token')?.value!,
+      secret: process.env.NEXTAUTH_SECRET!
+    })
     
+   // const session = cookies().has('session') ? JSON.parse(cookies().get('session')?.value!) : null
+
     const redditWrapper = new RedditWrapper()
     //checks if token  is not expired
-    console.log({ date: session.accessTokenExpires, now: Date.now() })
-    if(session?.accessTokenExpires > Date.now()) {
-      console.log({ serverTOken: session.accessToken})
-      redditWrapper.setAccessToken(session.accessToken)
+    
+    if((session?.accessTokenExpires as number) > Date.now()) {
+    
+      console.log({ serverTOken: session })
+      redditWrapper.setAccessToken(session?.accessToken as string)
+      
+      
       
       if(page.page === 'homepage') {
         
@@ -30,7 +43,7 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
       }
        
     }
-    const fallback = page.fallback ||page.page
+    const fallback = page.fallback || page.page
     
     if(fallback === 'homepage') {
 

@@ -50,8 +50,9 @@ class RedditWrapper {
             const json = await response.json()
             const posts = json.data.children.map(({ data }: { data: IRedditPost}) => data)
             return posts
-        } 
-        throw new Error(response.statusText)
+        }
+        
+        throw Error(response.statusText)
     }
 
     getAccessToken() {
@@ -66,7 +67,6 @@ class RedditWrapper {
                 authorization: 'Bearer ' + this._accessToken
               },
         }
-
     }
 
     async getFrontPage (params : RedditAPIParams = { sort: 'new' }) {

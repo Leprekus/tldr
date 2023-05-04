@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function About({ data }: { data: IAboutSubreddit }) {
-  console.log({ data })
+  //console.log({ data })
 
     return (
     <div className='w-96 h-96 bg-blue-700'>
