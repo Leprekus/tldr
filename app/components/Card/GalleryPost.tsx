@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Button from '../Button'
 import Pill from '../Pill'
 
-export default function GalleryPost({ post }: { post: IRedditPost }) {
+export default function GalleryPost({ post }: { post: any }) {
   
   const keys = Object.keys(post.media_metadata)
   const preview = keys.map(key => post.media_metadata[key].p[2].u.replace(/&amp;/g, "&"))
@@ -20,7 +20,7 @@ type CarouselProps = {
   post: IRedditPost;
 }
 
-export function Carousel({ post }: CarouselProps) {
+export function Carousel({ post }: any) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const keys = Object.keys(post.media_metadata)
   const preview = keys.map(key => post.media_metadata[key].p[2].u.replace(/&amp;/g, "&"))

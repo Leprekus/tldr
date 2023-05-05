@@ -6,7 +6,8 @@ export interface IClientToken {
 }
 
 interface IMediaMetadata {
-  status: string;
+  [key: string]: {
+    status: string;
   dashUrl: string;
   hlsUrl: string;
   fallbackUrl: string;
@@ -19,6 +20,8 @@ interface IMediaMetadata {
   scrubberMediaUrl: string;
   dashUrlFallback: string;
   duration: number;
+  }
+  
 }
 
 interface IRedditPost {
@@ -102,4 +105,5 @@ interface IAboutSubreddit {
   description_html: string;
   mobile_banner_image: string;
   user_is_subscriber: boolean;
+  primary_color: string;
 }
