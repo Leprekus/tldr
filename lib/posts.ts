@@ -1,7 +1,8 @@
 import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
 import { decode } from 'next-auth/jwt'
-
+import { getServerSession } from 'next-auth'
+import authOptions from '../pages/api/auth/[...nextauth]'
 const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: string, query?: string },) => {
   
   // // session {
@@ -14,20 +15,25 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
   //   jti: 'f437bb39-e209-4728-8fa6-d2048e27f09b'
   // }
     //const session = null
-    const session = await decode({
-      token: cookies().get('next-auth.session-token')?.value!,
-      secret: process.env.NEXTAUTH_SECRET!
-    })
-    
+    // const session = await decode({
+    //   token: cookies().get('next-auth.session-token')?.value!,
+    //   secret: process.env.NEXTAUTH_SECRET!
+    // })
+    const session = await getServerSession(authOptions)
+  
    // const session = cookies().has('session') ? JSON.parse(cookies().get('session')?.value!) : null
 
     const redditWrapper = new RedditWrapper()
     //checks if token  is not expired
     
-    if((session?.accessTokenExpires as number) > Date.now()) {
+    if(session) {
+      const token = await decode({
+        token: cookies().get('next-auth.session-token')?.value!,
+        secret: process.env.NEXTAUTH_SECRET!
+      })
     
       console.log({ serverTOken: session })
-      redditWrapper.setAccessToken(session?.accessToken as string)
+      redditWrapper.setAccessToken(token?.accessToken as string)
       
       
       
@@ -37,11 +43,14 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
         return frontpage
         
       } if(page.page === 'subreddit') {
+        
         const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
         const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
         return [subreddit, about]
+
       } if(page.page === 'user') {
-        const user = await redditWrapper.getUserAbout({ user: 'leprekus', auth: true })
+
+        const user = await redditWrapper.getUserAbout({ user: page.query!, auth: true })
         return user
       }
        
@@ -58,6 +67,11 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
       const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
       const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: false })
       return [subreddit, about]
+  }
+    if(fallback === 'user') {
+  
+      const user = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
+      return user
   }
   
   }

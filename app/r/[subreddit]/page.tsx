@@ -13,12 +13,13 @@ export default async function Subreddit({ params }: { params: { subreddit: strin
 
 
   return (
-    
-    <main className="flex min-h-screen items-start justify-center gap-x-4 p-4">
+    <>
+      <About data={about}/>
+    <main className="flex min-h-screen justify-center gap-x-4 p-4">
 
-        {/* <About data={about}/> */}
         <List data={subreddit}/>
         {/* <div className='w-96 h-96 bg-red-500'/> */}
     </main>
+    </>
   )
 }

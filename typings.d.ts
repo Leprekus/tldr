@@ -100,4 +100,6 @@ interface IAboutSubreddit {
   created_utc: number;
   description: string;
   description_html: string;
+  mobile_banner_image: string;
+  user_is_subscriber: boolean;
 }
