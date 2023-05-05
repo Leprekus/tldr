@@ -32,7 +32,7 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
     if(direction === 'down') value = isLiked === false ? 0 : -1;
 
     
-    const response = await fetch(options.baseUrl + 'api/user/vote', {
+    const response = await fetch('api/user/vote', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
