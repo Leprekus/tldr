@@ -11,9 +11,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const revalidate = 300;
 
-const preload = () => {
-  posts({ page: 'homepage'})
-}
 
 export default async function Home() {
 
