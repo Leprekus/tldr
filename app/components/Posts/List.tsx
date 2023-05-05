@@ -25,20 +25,20 @@ export default function List({ data }: { data: RedditPostsResponse }) {
       setData={setPosts} />
 
       {posts.map((post: IRedditPost, i: number) => (
-        <>
-        <Card key={'post_' + i } post={post} >
+      
+        <Card key={post.id} post={post} >
           {post.is_self && <TextPost post ={post}/>}
           {!post.selftext && !post.is_reddit_media_domain && <LinkPost post ={post}/>}
           {post.post_hint === 'image' && post.is_reddit_media_domain && <ImagePost post ={post}/>}
           {/* gallery */}
           {!post.selftext && post.media_metadata && <Carousel post ={post}/>}
           <CardFooter post={post}/>
+          <p >ratip {post.upvote_ratio}</p>
+          <p >upvotes {post.ups}</p>
+          <p >downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
+          <p >created at: {post.created}</p>
         </Card>
-        <p key={'ratio_' + i }>ratip {post.upvote_ratio}</p>
-        <p key={'ups_' + i }>upvotes {post.ups}</p>
-        <p key={'downs_' + i }>downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
-        <p key={'created_' + i }>created at: {post.created}</p>
-        </>
+  
       ))}
     </div>
   );
