@@ -27,13 +27,9 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
     //checks if token  is not expired
     
     if(session) {
-      const token = await decode({
-        token: cookies().get('next-auth.session-token')?.value!,
-        secret: process.env.NEXTAUTH_SECRET!
-      })
-    
+
       console.log({ serverTOken: session })
-      redditWrapper.setAccessToken(token?.accessToken as string)
+      redditWrapper.setAccessToken(session?.accessToken as string)
       
       
       

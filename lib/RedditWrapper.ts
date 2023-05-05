@@ -52,7 +52,7 @@ class RedditWrapper {
             return posts
         }
         
-        return []
+        throw response.statusText
     }
 
     getAccessToken() {
