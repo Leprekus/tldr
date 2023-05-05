@@ -15,18 +15,21 @@ export const revalidate = 300;
 export default async function Home() {
 
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
-  const frontpage = await posts({ page: 'homepage' })
+  // const frontpage = await posts({ page: 'homepage' })
 
-  if(!frontpage) {
-    return <p>something went wrong</p>
-  }
+  // if(!frontpage) {
+  //   return <p>something went wrong</p>
+  // }
 
   
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+  // return (
+  //   <main className="flex min-h-screen flex-col items-center justify-between">
   
-    <List data={frontpage}/>
+  //   <List data={frontpage}/>
    
-    </main>
+  //   </main>
+  // )
+  return (
+    <h1>Hello world</h1>
   )
 }
