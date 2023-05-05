@@ -7,8 +7,7 @@ import refreshAccessToken from '@/utils/refreshAccessToken';
 // 1. getServerSession
 // 2. if (!user) use client
 // 3. fetch posts
-
-export default NextAuth({
+export const authOptions = {
   // Configure one or more authentication providers
   providers: [
     RedditProvider({
@@ -63,5 +62,6 @@ export default NextAuth({
       return session;
     },
   },
-});
+}
+export default NextAuth(authOptions);
 

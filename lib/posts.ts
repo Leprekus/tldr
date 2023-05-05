@@ -2,7 +2,7 @@ import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
 import { decode } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
-import authOptions from '../pages/api/auth/[...nextauth]'
+import { authOptions } from '@/pages/api/auth/[...nextauth]'
 const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: string, query?: string },) => {
   
   // // session {
