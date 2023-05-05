@@ -16,7 +16,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
-    console.log({ data: data[0]})
+
   return (
     <div>
       <PostFilters 

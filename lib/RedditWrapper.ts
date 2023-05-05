@@ -32,7 +32,7 @@ class RedditWrapper {
           };
         
     }
-    private async fetchData(url: string, endpoint: string, params: object | {} = { sort: 'new'}) {
+    private async fetchData(url: string, endpoint: string, params: object | {} = { sort: 'hot'}) {
         //dom seomthing
         
         const searchParams = new URLSearchParams({
@@ -69,14 +69,14 @@ class RedditWrapper {
         }
     }
 
-    async getFrontPage (params : RedditAPIParams = { sort: 'new' }) {
+    async getFrontPage (params : RedditAPIParams = { sort: 'hot' }) {
         
         const endpoint = '.json?'
         const data = await this.fetchData(this._unauthUrl, endpoint, params)
         return data
 
     }
-    async getUserFrontPage (params : RedditAPIParams = { sort: 'new' }) {
+    async getUserFrontPage (params : RedditAPIParams = { sort: 'hot' }) {
     
         const endpoint = '.json?' 
         const data = await this.fetchData(this._baseUrl, endpoint, params)
@@ -135,11 +135,22 @@ class RedditWrapper {
         const url = auth ? this._baseUrl : this._unauthUrl
         const endpoint = 'r/' + subreddit + '/about.json'
         const options = auth ? this._GEToptions : {}
+        const res = await fetch(url + endpoint, options)
+        const json = await res.json()
+        return json.data
+        
+    }
+    async getUserAbout (params: {user: string, auth: boolean }) {
+        const { user, auth } = params
+        //https://www.reddit.com/r/{subreddit_name}/about.json
+        const url = auth ? this._baseUrl : this._unauthUrl
+        const endpoint = 'user/' + user + '/about.json'
+        const options = auth ? this._GEToptions : {}
         console.log({ urlEndpoint: url + endpoint, options })
         const res = await fetch(url + endpoint, options)
         const json = await res.json()
         console.log({ json })
-        return json.data
+        //return json.data
         
     }
 }

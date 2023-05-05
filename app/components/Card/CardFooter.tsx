@@ -12,11 +12,12 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
         <div className='w-10 h-10 rounded-full bg-blue-50'/>
           <Button
             className='text-gray-400 hover:text-gray-500'
-            href={'u/user'}
+            href={'u/' + post.author}
+            disabled={post.author === '[deleted]' ? true : false}
             variant='ghost'
             onClick={() => ''}
             >{post.author}</Button>
-            <Link href={{ pathname: 'u/' + post.author, query: 'teest'}}>test</Link>
+        
         </div>
   )
 }

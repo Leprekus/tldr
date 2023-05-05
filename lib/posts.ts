@@ -41,9 +41,8 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
         const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
         return [subreddit, about]
       } if(page.page === 'user') {
-        const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
-        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
-        return [subreddit, about]
+        const user = await redditWrapper.getUserAbout({ user: 'leprekus', auth: true })
+        return user
       }
        
     }

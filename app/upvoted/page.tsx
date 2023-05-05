@@ -37,7 +37,7 @@ return await redditWrapper.getUpvoted(session.name)
 export default async function Upvoted() {
 
   const data = await posts()
-  console.log(data[0])
+
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
