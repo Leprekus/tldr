@@ -8,14 +8,15 @@ import options from '@/lib/Options';
 import TextPost from '../Card/TextPost';
 import LinkPost from '../Card/LinkPost';
 import ImagePost from '../Card/ImagePost';
-import GalleryPost from '../Card/GalleryPost';
+import GalleryPost, { Carousel } from '../Card/GalleryPost';
+import CardFooter from '../Card/CardFooter';
 
 export default function List({ data }: { data: RedditPostsResponse }) {
     const { data: session } = useSession()
 
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
-  
+    console.log({ data: data[0]})
   return (
     <div>
       <PostFilters 
@@ -27,10 +28,11 @@ export default function List({ data }: { data: RedditPostsResponse }) {
         <>
         <Card key={'post_' + i } post={post} >
           {post.is_self && <TextPost post ={post}/>}
-          {!post.selftext && !post.media_metadata && <LinkPost post ={post}/>}
-          {post.post_hint === 'image' && <ImagePost post ={post}/>}
+          {!post.selftext && !post.is_reddit_media_domain && <LinkPost post ={post}/>}
+          {post.post_hint === 'image' && post.is_reddit_media_domain && <ImagePost post ={post}/>}
           {/* gallery */}
-          {!post.selftext && post.media_metadata && <GalleryPost post ={post}/>}
+          {!post.selftext && post.media_metadata && <Carousel post ={post}/>}
+          <CardFooter post={post}/>
         </Card>
         <p key={'ratio_' + i }>ratip {post.upvote_ratio}</p>
         <p key={'ups_' + i }>upvotes {post.ups}</p>

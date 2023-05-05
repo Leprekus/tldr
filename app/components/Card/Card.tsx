@@ -57,8 +57,6 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
   const handleComments = () => {
 
   }
-
-  console.log({ post })
   return (
     <>
     <div
@@ -96,7 +94,7 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
        {/* header */}
        <div 
        style={{ maxWidth: 440}}
-       className='w-full'>
+       className='w-full flex flex-col gap-y-2'>
       <div className='pt-8 pb-2'>
         <h1 className='text-lg font-bold text-gray-700'>{post.title}</h1>
         <Link href={post.subreddit_name_prefixed}><Button variant='ghost' className='text-gray-600'>{post.subreddit_name_prefixed}</Button></Link>
@@ -105,15 +103,10 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
           { children }
 
         {/* footer */}
-        <div className='h-24 py-4 border-t-1 border-zinc-200' style={{ borderTopWidth: 1 }}>
-          <p>footer</p>
-          <Button
-            onClick={handleComments}
-            >c</Button>
-        </div>
+  
       </div>
 
-      <div className='min-h-full w-20 px-10 py-12 flex justify-center '/>
+      <div className='min-h-full w-20'/>
 
     </div>
     {displayAlert && 

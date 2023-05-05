@@ -2,7 +2,7 @@ import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
 import { decode } from 'next-auth/jwt'
 
-const posts = async (page:{ page: string, fallback?: string, query?: string },) => {
+const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: string, query?: string },) => {
   
   // // session {
   //   accessToken: '62260682-EmlqDEXCjmpUg2t_eNmQ5-VXawDmCg',
@@ -37,6 +37,10 @@ const posts = async (page:{ page: string, fallback?: string, query?: string },) 
         return frontpage
         
       } if(page.page === 'subreddit') {
+        const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
+        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
+        return [subreddit, about]
+      } if(page.page === 'user') {
         const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
         const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
         return [subreddit, about]
