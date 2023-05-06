@@ -28,7 +28,6 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
     
     if(session) {
 
-      console.log({ serverTOken: session })
       redditWrapper.setAccessToken(session?.accessToken as string)
       
       
