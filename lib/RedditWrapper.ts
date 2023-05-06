@@ -42,11 +42,11 @@ class RedditWrapper {
         
         //const options = url === this._baseUrl ? this._GEToptions : {}
 
-        const testUrl = (this._accessToken ? this._baseUrl : this._unauthUrl) + endpoint + searchParams
-        const tesetOptions = this._accessToken ? this._GEToptions : {}
+        const URL = (this._accessToken ? this._baseUrl : this._unauthUrl) + endpoint + searchParams
+        const options = this._accessToken ? this._GEToptions : {}
         console.log(this._GEToptions)
-        console.log({ testUrl })
-        const response = await fetch(testUrl, tesetOptions)
+        console.log({ URL })
+        const response = await fetch(URL, options)
 
         if(response.ok) {
             const json = await response.json()

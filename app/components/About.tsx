@@ -3,12 +3,9 @@ import { IAboutSubreddit } from '@/typings'
 import Image from 'next/image'
 import React from 'react'
 import Pill from './Pill'
-import posts from '@/lib/posts'
 
-export default async function About({ subreddit }: { subreddit: string }) {
-  
-  const data = await posts({ page: 'subredditAbout', query: subreddit})
-
+export default function About({ data }: { data: IAboutSubreddit }) {
+  //console.log({ data })
   function formatNumber(number: number) {
     const units = ['', 'k', 'M', 'B', 'T', 'Q'];
     let unitIndex = 0;
@@ -30,25 +27,26 @@ export default async function About({ subreddit }: { subreddit: string }) {
   
     return `${formattedNumber}${units[unitIndex]}`;
   }
-  
+  console.log({ subs: data.primary_color})
+
     return (
     <div 
-    className='h-fit w-full mx-auto flex flex-col relative p-1'>
-        
-          <span 
-          className={`w-full h-36 md:visible invisible ${data.primary_color ? 'bg-[${data.primary_color}]' : 'bg-slate-400 bg-opacity-10'} bg-opacity-10 rounded-md shadow flex items-center justify-center`}>
-            <h1 className='text-xl md:text-3xl'>{data.title}</h1>
-          </span>
-        
-
-      <div className='absolute bottom-0 flex justify-center w-full gap-x-4 z-10'>
-        <label htmlFor="">Users </label>
-            <p>Subscribers: {formatNumber(data.subscribers)}</p>
+    className={`h-fit w-96 mx-auto flex flex-col relative px-1 py-2 ${data.primary_color ? `bg-[${data.primary_color}]` : 'bg-slate-400 bg-opacity-10'} rounded-md shadow flex items-center gap-y-2`}>
+          
+          {data.icon_img && <Image src={data.icon_img.replace(/&amp;/g, '&')} width={72} height={72} alt='subreddit-icon' className='rounded-full shadow'/> }
+          
+          <h1 className='text-xl md:text-3xl text-gray-700 font-bold'>r/{data.title}</h1>
+      
+      
+      <div className=' flex justify-center w-full gap-x-4 z-10'>
+            <p>subs: {formatNumber(data.subscribers)}</p>
             <Pill variant='tertiary'
             className='border-indigo-300 border-2'
             >{data.user_is_subscriber ? 'Joined' : 'Join'}</Pill>
-            <p>Active: {formatNumber(data.active_user_count)}</p>
+            <p>active: {data.active_user_count}</p>
       </div>
+        
+
     </div>
 
   )

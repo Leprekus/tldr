@@ -108,6 +108,7 @@ interface IAboutSubreddit {
   primary_color: string;
   title: string;
   subscribers: number;
+  icon_img: string;
 }
 
 interface IQuerySearch {
