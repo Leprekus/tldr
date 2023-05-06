@@ -106,4 +106,6 @@ interface IAboutSubreddit {
   mobile_banner_image: string;
   user_is_subscriber: boolean;
   primary_color: string;
+  title: string;
+  subscribers: number;
 }

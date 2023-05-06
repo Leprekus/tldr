@@ -6,26 +6,40 @@ import Pill from './Pill'
 
 export default function About({ data }: { data: IAboutSubreddit }) {
   //console.log({ data })
+  function formatNumber(number: number) {
+    const units = ['', 'k', 'M', 'B', 'T', 'Q'];
+    let unitIndex = 0;
+    let numberMagnitude = 0;
+    
+    // Calculate the magnitude of the input number
+    if (number >= 1000) {
+      numberMagnitude = Math.floor(Math.log10(number) / 3);
+    }
+  
+    // If the magnitude is greater than the number of available units, use the last available unit
+    if (numberMagnitude >= units.length) {
+      unitIndex = units.length - 1;
+    } else {
+      unitIndex = numberMagnitude;
+    }
+  
+    const formattedNumber = (number / Math.pow(1000, unitIndex)).toFixed(1);
+  
+    return `${formattedNumber}${units[unitIndex]}`;
+  }
+  
     return (
     <div 
     className='h-fit w-full mx-auto flex flex-col relative p-1'>
-         { data.banner_background_image &&
-         <img 
-          src={data.banner_background_image.replace(/&amp;/g, '&')}
-          loading='lazy'
-          alt='banner'
-          className='w-full h-36 md:visible invisible rounded-md'/>
-          ||
-          data.primary_color && 
+        
           <span 
-          className={`w-full h-36 md:visible invisible bg-[${data.primary_color}] bg-opacity-10 rounded-md`}/>
-          ||
-          <span 
-          className='w-full h-36 md:visible invisible bg-slate-400 bg-opacity-10 rounded-md'/>
+          className={`w-full h-36 md:visible invisible ${data.primary_color ? 'bg-[${data.primary_color}]' : 'bg-slate-400 bg-opacity-10'} bg-opacity-10 rounded-md shadow flex items-center justify-center`}>
+            <h1 className='text-xl md:text-3xl'>{data.title}</h1>
+          </span>
+        
 
-          }
       <div className='absolute bottom-0 flex justify-center w-full gap-x-4 z-10'>
-            <p>{data.accounts_active}</p>
+            <p>{formatNumber(data.subscribers)}</p>
             <Pill variant='tertiary'
             className='border-indigo-300 border-2'
             >{data.user_is_subscriber ? 'Joined' : 'Join'}</Pill>
