@@ -8,13 +8,13 @@ import React from 'react'
 
 export default async function Subreddit({ params }: { params: { subreddit: string } }) {
    // Set the Reddit API endpoint and subreddit name
-   const [subreddit, about] = await posts({ page: 'subreddit', query: params.subreddit})
+   const subreddit = await posts({ page: 'subreddit', query: params.subreddit})
    
 
 
   return (
     <>
-      <About data={about}/>
+      <About subreddit={params.subreddit}/>
     <main className="flex min-h-screen justify-center gap-x-4 p-4">
 
         <List data={subreddit}/>

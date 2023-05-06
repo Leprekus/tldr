@@ -3,7 +3,8 @@ import RedditWrapper from './RedditWrapper'
 import { decode } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
-const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: string, query?: string },) => {
+import { IQuerySearch } from '@/typings'
+const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search', fallback?: string, query?: string, term?: IQuerySearch },) => {
   
   // // session {
   //   accessToken: '62260682-EmlqDEXCjmpUg2t_eNmQ5-VXawDmCg',
@@ -29,8 +30,7 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
     if(session) {
 
       redditWrapper.setAccessToken(session?.accessToken as string)
-      
-      
+    
       
       if(page.page === 'homepage') {
         
@@ -40,13 +40,20 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
       } if(page.page === 'subreddit') {
         
         const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
-        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
-        return [subreddit, about]
+        return subreddit
 
-      } if(page.page === 'user') {
+      } if(page.page === 'subredditAbout') {
+        
+        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
+        return about
+
+      }if(page.page === 'user') {
 
         const user = await redditWrapper.getUserAbout({ user: page.query!, auth: true })
         return user
+      } if(page.page === 'search') {
+        const data = await redditWrapper.search(page.term!)
+        return data
       }
        
     }
@@ -65,7 +72,7 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'user', fallback?: 
   }
     if(fallback === 'user') {
   
-      const user = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
+      const user = await redditWrapper.getUserAbout({ user: page.query!, auth: false })
       return user
   }
   

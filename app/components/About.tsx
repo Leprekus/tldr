@@ -3,9 +3,12 @@ import { IAboutSubreddit } from '@/typings'
 import Image from 'next/image'
 import React from 'react'
 import Pill from './Pill'
+import posts from '@/lib/posts'
 
-export default function About({ data }: { data: IAboutSubreddit }) {
-  //console.log({ data })
+export default async function About({ subreddit }: { subreddit: string }) {
+  
+  const data = await posts({ page: 'subredditAbout', query: subreddit})
+
   function formatNumber(number: number) {
     const units = ['', 'k', 'M', 'B', 'T', 'Q'];
     let unitIndex = 0;
@@ -23,7 +26,7 @@ export default function About({ data }: { data: IAboutSubreddit }) {
       unitIndex = numberMagnitude;
     }
   
-    const formattedNumber = (number / Math.pow(1000, unitIndex)).toFixed(1);
+    const formattedNumber = Math.floor((number / Math.pow(1000, unitIndex)));
   
     return `${formattedNumber}${units[unitIndex]}`;
   }
@@ -39,11 +42,12 @@ export default function About({ data }: { data: IAboutSubreddit }) {
         
 
       <div className='absolute bottom-0 flex justify-center w-full gap-x-4 z-10'>
-            <p>{formatNumber(data.subscribers)}</p>
+        <label htmlFor="">Users </label>
+            <p>Subscribers: {formatNumber(data.subscribers)}</p>
             <Pill variant='tertiary'
             className='border-indigo-300 border-2'
             >{data.user_is_subscriber ? 'Joined' : 'Join'}</Pill>
-            <p>{data.active_user_count}</p>
+            <p>Active: {formatNumber(data.active_user_count)}</p>
       </div>
     </div>
 

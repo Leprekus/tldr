@@ -109,3 +109,10 @@ interface IAboutSubreddit {
   title: string;
   subscribers: number;
 }
+
+interface IQuerySearch {
+  [key: string]: string | undefined;
+  subreddits?: string;
+  user?: string;
+  query?: string;
+}

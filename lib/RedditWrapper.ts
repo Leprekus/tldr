@@ -1,4 +1,4 @@
-import { IRedditPost, IWrapperSearchEndpoints, RedditPostsResponse } from '@/typings';
+import { IQuerySearch, IRedditPost, IWrapperSearchEndpoints, RedditPostsResponse } from '@/typings';
 
 // Todos
 // [ ] add sorting options to getfront page
@@ -38,13 +38,15 @@ class RedditWrapper {
         const searchParams = new URLSearchParams({
             ...params
         }) 
-        const URL = url + endpoint + searchParams 
+        //const URL = url + endpoint + searchParams 
         
-        const options = url === this._baseUrl ? this._GEToptions : {}
-        
+        //const options = url === this._baseUrl ? this._GEToptions : {}
+
+        const testUrl = (this._accessToken ? this._baseUrl : this._unauthUrl) + endpoint + searchParams
+        const tesetOptions = this._accessToken ? this._GEToptions : {}
         console.log(this._GEToptions)
-        console.log({ URL })
-        const response = await fetch(URL, options)
+        console.log({ testUrl })
+        const response = await fetch(testUrl, tesetOptions)
 
         if(response.ok) {
             const json = await response.json()
@@ -100,12 +102,7 @@ class RedditWrapper {
         return data
 
     }
-    async search (search: {
-        [key: string]: string | undefined;
-        subreddits?: string;
-        user?: string;
-        query?: string;
-    }) {
+    async search (search: IQuerySearch) {
         const key = Object.keys(search)[0]
         const query: any = search[key]
 

@@ -1,7 +1,10 @@
 import Card from '@/app/components/Card/Card';
 import List from '@/app/components/Posts/List';
 import RedditWrapper from '@/lib/RedditWrapper';
+import posts from '@/lib/posts';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { IRedditPost, RedditPostsResponse } from '@/typings';
+import { getServerSession } from 'next-auth';
 import { cookies } from 'next/dist/client/components/headers';
 import React from 'react'
 
@@ -15,7 +18,6 @@ type EndpointKeys = keyof IEndpoints;
 export default async function Search({ params }: { params: { query: [EndpointKeys, string] }}) {
     const [filter, query] = params.query
     
-  const redditWrapper = new RedditWrapper()
   const endpoints: IEndpoints = {
 
       //subreddit query
@@ -26,14 +28,14 @@ export default async function Search({ params }: { params: { query: [EndpointKey
       //post / default query
         'p': { query: query },
     }
-
-    const posts = await redditWrapper.search(endpoints[filter])
-  
+    
+    //const posts = await redditWrapper.search(endpoints[filter])
+    const search = await posts({page: 'search', term: endpoints[filter]})
 
     return (
       <main className="flex min-h-screen flex-col items-center justify-between">
         
-        <List data={posts}/>
+        <List data={search}/>
 
       </main>
 
