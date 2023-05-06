@@ -5,7 +5,7 @@ import { IRedditPost } from '@/typings';
 import Alert from '../Alert';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
-import { DownvoteIcon, TrophyIcon, UpvoteIcon } from '../Icons';
+import { CommentIcon, DownvoteIcon, TrophyIcon, UpvoteIcon } from '../Icons';
 import Link from 'next/link';
 import Pill from '../Pill';
 import Image from 'next/image';
@@ -63,12 +63,14 @@ export default function Card({
     }
   };
 
-  const handleComments = () => {};
+  const handleComments = () => {
+
+  };
   return (
     <>
       <div
         style={{ maxWidth: 500 }}
-        className='w-full bg-white my-4 rounded-md h-fit
+        className='w-full bg-white rounded-md h-fit
       overflow-hidden transition-all shadow-md shadow-zinc-100 flex flex-row justify-stretch'
       >
         {/* action bar */}
@@ -86,7 +88,10 @@ export default function Card({
               </Button>
             </div>
             <Button variant='ghost' rounded>
-              <TrophyIcon />
+              <TrophyIcon fill='#A9A9A9'/>
+            </Button>
+            <Button variant='ghost' rounded onClick={handleComments}>
+              <CommentIcon fill='none'strokeWidth={2} stroke='#A9A9A9'/>
             </Button>
           </div>
         </div>

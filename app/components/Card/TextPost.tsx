@@ -2,7 +2,7 @@ import { IRedditPost } from '@/typings';
 import React, { useState } from 'react';
 import Button from '../Button';
 
-export default function Text({ post }: { post: IRedditPost }) {
+export default function TextPost({ post }: { post: IRedditPost }) {
   const [showMore, setShowMore] = useState(true);
   const [height, setHeight] = useState<number | string>('');
   const [dimStyle, setDimStyle] = useState('opacity-100');

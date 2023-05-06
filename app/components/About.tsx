@@ -31,7 +31,8 @@ export default function About({ data }: { data: IAboutSubreddit }) {
 
     return (
     <div 
-    className={`h-fit w-96 mx-auto flex flex-col relative px-1 py-2 ${data.primary_color ? `bg-[${data.primary_color}]` : 'bg-slate-400 bg-opacity-10'} rounded-md shadow flex items-center gap-y-2`}>
+    className={`h-fit w-96 mx-auto flex flex-col px-1 py-2 md:mt-12
+    ${data.primary_color ? `bg-[${data.primary_color}]` : 'bg-slate-400 bg-opacity-10'} rounded-md shadow flex items-center gap-y-2`}>
           
           {data.icon_img && <Image src={data.icon_img.replace(/&amp;/g, '&')} width={72} height={72} alt='subreddit-icon' className='rounded-full shadow'/> }
           

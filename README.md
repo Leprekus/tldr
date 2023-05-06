@@ -2,6 +2,14 @@
 
 An app to save you time
 
+## Tecnologies
+
+- Next.js
+- Typescript
+- NextAuth
+- Tailwindcss
+- Zustand
+
 ## To-Do's
 
 ### Interactivity
@@ -16,6 +24,15 @@ An app to save you time
 - [ ] list subrredit links ex: nextjs has github & website, science has life, social, applied, etc
 - [ ] allow users to subscribe to notifications
 - [ ] allow to join / leave subreddit
-- [ ] 
+
+### Settings
+
+- [ ] add 'right hand mode' (flips action bar to right side)
+
+### Handling State
+
+I may need a state management library. Because:
+1) the right hand mode setting needs to be stored in global state
+2) toggling comments is also dependent on global state
 
 I HAVE BEEN FIGHTING FOR 2 WEEKS. 2 WEEEKS WITHOUT GETTING THE AUTHENTICATION CORRECT. AND I JUST REALILZED IT'S BECAUSE I WAS PASSING THE NEXTAUTH OBJECT TO GETSERVERSESSION INSTEAD OF AUTHOPTIONS I JUST DID THAT AND MY WHOLE AUTH WORKS. OMGGGGGG I WASTED YEARS OF MY LIFE.
