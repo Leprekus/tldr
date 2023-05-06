@@ -117,3 +117,17 @@ interface IQuerySearch {
   user?: string;
   query?: string;
 }
+
+interface IIniitalState {
+  bears: number,
+  increasePopulation: Function;
+  removeAllBears: Function;
+
+  comments: {
+      currentCommentId: string | null;
+      [id: string ]: string | null | {
+      display: boolean;
+      }
+  } | {},
+  setComments: Function;
+}

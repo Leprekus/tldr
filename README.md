@@ -1,7 +1,7 @@
 ## TL;DR
 
 An app to save you time
-
+**need to refactor reddit wrapper because methods should no longer pass URL, just auth**
 ## Tecnologies
 
 - Next.js
