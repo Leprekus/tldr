@@ -5,7 +5,7 @@ import React from 'react'
 import Pill from './Pill'
 
 export default function About({ data }: { data: IAboutSubreddit }) {
-  console.log({ data })
+  //console.log({ data })
     return (
     <div 
     className='h-fit w-full mx-auto flex flex-col relative p-1'>

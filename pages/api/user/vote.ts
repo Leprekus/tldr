@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   const params = new URLSearchParams({ id: name, dir})
   const url = 'https://oauth.reddit.com/api/vote?' + params
    
-
+  console.log({ voteURl: url })
   const response = await fetch(url, {
     method: 'POST',
     headers: {

@@ -16,7 +16,7 @@ export default function Alert({ severity='informational', message, setDisplay }:
     let style = ''
     if(severity === 'informational') style ='bg-gradient-to-r from-blue-100 to-blue-50 text-blue-900'
     if(severity === 'success') style =''
-    if(severity === 'warning') style ='bg-yellow-400'
+    if(severity === 'warning') style ='bg-yellow-100 text-yellow-600'
     if(severity === 'error') style ='bg-red-500'
     return (
     <div 
@@ -25,7 +25,7 @@ export default function Alert({ severity='informational', message, setDisplay }:
     z-50 p-4 flex ${opacity} gap-x-4 text-sm transition-all`}
     >
         <div className='w-6 h-6'>
-            <InformationIcon fill='rgb(30 58 138)'/>
+            {severity === 'informational' && <InformationIcon fill='rgb(30 58 138)'/>}
         </div>
         <p>{ message }</p>
     </div>

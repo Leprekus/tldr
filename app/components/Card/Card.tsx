@@ -18,10 +18,9 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
 
   
   const [ isLiked, setIsLiked] = useState<boolean | null>(post.likes)
-  const [upvoteFill, setUpvoteFill] = useState(isLiked ? 'red' : 'gray')
-  const [downvoteFill, setDownvoteFill] = useState(isLiked ? 'red' : 'gray')
-
   const [displayAlert, setDisplayAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [severity, setSeverity] = useState<'informational' | 'warning'>('informational')
  
   
 
@@ -32,7 +31,7 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
     if(direction === 'down') value = isLiked === false ? 0 : -1;
 
     
-    const response = await fetch('api/user/vote', {
+    const response = await fetch('/api/user/vote', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
@@ -40,16 +39,29 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
         body: JSON.stringify({ name: post.name, dir: value })
         
       })
-    const json = await response.json()
-    console.log({ message: json.message })
-    if(response.status === 401) {
-      setDisplayAlert(true)
-  }
-    if(response.ok) {
-      if(value === -1) setIsLiked(false)
-      if(value === 0) setIsLiked(null)
-      if(value === 1) setIsLiked(true)
-   
+    
+    try {
+      const json = await response.json()
+      console.log({ message: json.message })
+      if(!session) {
+        setAlertMessage('You must be signed in to perform this action')
+        setDisplayAlert(true)
+      }
+
+      if(response.ok) {
+        if(value === -1) setIsLiked(false)
+        if(value === 0) setIsLiked(null)
+        if(value === 1) setIsLiked(true)
+     
+      }
+    }
+    catch(error) {
+      console.log(error)
+      if(!response.ok) {
+        setAlertMessage('Unable to complete request')
+        setSeverity('warning')
+        setDisplayAlert(true)
+      }
     }
 
   }
@@ -112,7 +124,8 @@ export default function Card({ post, children }: { post: IRedditPost, children: 
     {displayAlert && 
     <Alert 
     setDisplay={setDisplayAlert}
-    message='You must be signed in to perform this action.'/>}
+    severity={severity}
+    message={alertMessage}/>}
     </>
   );
 }
