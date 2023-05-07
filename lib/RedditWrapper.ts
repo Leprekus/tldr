@@ -57,6 +57,13 @@ class RedditWrapper {
         throw response.statusText
     }
 
+    private getUrl() {
+        return this._accessToken ? this._baseUrl : this._unauthUrl
+    }
+    private getOptions() {
+        return this._accessToken ? this._GEToptions : undefined
+    }
+
     getAccessToken() {
         if(!this._accessToken) throw Error('no token provided')
         return this._accessToken
@@ -149,6 +156,23 @@ class RedditWrapper {
         console.log({ json })
         //return json.data
         
+    }
+    async getComments(params: { subreddit: string, id: string }) {
+        const endpoint = this.getUrl() + '/r/'+ params.subreddit + '/comments/' + params.id + '.json'
+        const res = await fetch(endpoint, this.getOptions())
+        
+        if(res.ok) {
+            const data = await res.json()
+            console.log({ data: data[1].data.children })
+            return this.parseData(data[1])
+        }
+        console.log(res.statusText)
+    }
+    //will replace fetchData
+    private parseData(json:RedditPostsResponse) {
+    
+        return json.data.children.map(({ data }: { data: IRedditPost}) => data)
+  
     }
 }
 
