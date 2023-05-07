@@ -123,11 +123,10 @@ interface IInitialState {
   increasePopulation: () => void;
   removeAllBears: () => void;
   comments: {
-    [id: string]: {
-      display: boolean;
-    } | null;
+    
     currentCommentId: string | null;
   };
-  setComments: (id: string) => void;
-  toggleComments: (id: string) => void;
+  setCurrentCommentId: (id: string) => void;
+  removeCurrentCommentId: () => void
+  
 }

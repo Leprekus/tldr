@@ -10,8 +10,8 @@ import Comment from './Comment'
 import useStore from '@/app/hooks/store'
 
 export default function Post({ post }: { post: IRedditPost }) {
-  const display = useStore((state: IInitialState) => state.comments);
-  console.log({ display })
+  const currentCommentId = useStore((state: IInitialState) => state.comments.currentCommentId);
+  console.log({ currentCommentId })
   return (
     <div className='flex flex-col items-center gap-x-2 my-4 mx-2
      md:flex-row md:items-start'>
@@ -27,7 +27,8 @@ export default function Post({ post }: { post: IRedditPost }) {
           <p >downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
           <p >created at: {post.created}</p>
         </Card>
-        <Comment display={display[post.id]!.display}/>
+        {post.id === currentCommentId && <Comment id={post.id} fullname={post.name}/>}
+      
     </div>
   )
 }

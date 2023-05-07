@@ -38,21 +38,17 @@ const useStore = create<IInitialState>((set, get) => ({
     comments: {
         currentCommentId: null
     },
-    setComments: (id: string) => set((state) => ({ comments: {
+    setCurrentCommentId: (id: string) => set((state) => ({ comments: {
         ...state.comments,
-        [id]: {
-            display: false
-        }
+        currentCommentId: id
     } 
     })),
-    toggleComments: (id: string) => set((state) => ({ comments: {
-            ...state.comments,
-            [id]: { 
-                ...state.comments[id], 
-                display: !state.comments[id]?.display
-            }
-        }
-    }))
+    removeCurrentCommentId: () => set((state) => ({ comments: {
+        ...state.comments,
+        currentCommentId: null
+    } 
+    })),
+
 
   }));
 

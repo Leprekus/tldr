@@ -36,10 +36,14 @@ I may need a state management library. Because:
 2) toggling comments is also dependent on global state
 
 ### Notes
-components using store: List, Post, Card, Comment
+components using store:  Post, Card
 List Renders a Post component.
-List sets the [PostId].display key value pairs in the store
-Post contains a Card component (user content) & Comment Component
-Post indexes the comments object in the store with the postId to determine whether to render Comments
+List checks if currentCommentId === post.id
+List renders Comment if match
+
+Card Sets currentCommentId if null
+Card removes currentCommentId if it matches post.id
+
+Comment sets currentId to null (closes comment component)
 
 I HAVE BEEN FIGHTING FOR 2 WEEKS. 2 WEEEKS WITHOUT GETTING THE AUTHENTICATION CORRECT. AND I JUST REALILZED IT'S BECAUSE I WAS PASSING THE NEXTAUTH OBJECT TO GETSERVERSESSION INSTEAD OF AUTHOPTIONS I JUST DID THAT AND MY WHOLE AUTH WORKS. OMGGGGGG I WASTED YEARS OF MY LIFE.

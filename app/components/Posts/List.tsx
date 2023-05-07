@@ -13,7 +13,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
-    const setComments = useStore((state: IInitialState) => state.setComments);
+   
   return (
     <div>
       <PostFilters 
@@ -21,12 +21,9 @@ export default function List({ data }: { data: RedditPostsResponse }) {
       original={originalData} 
       setData={setPosts} />
 
-      {posts.map((post: IRedditPost) => {
-        setComments(post.id)
-        return (
+      {posts.map((post: IRedditPost) => (
         <Post post={post} key={post.id}/>
-
-      )})}
+      ))}
     </div>
   );
 }

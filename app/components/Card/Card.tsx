@@ -1,7 +1,7 @@
 'use client';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import Button from '../Button';
-import { IRedditPost } from '@/typings';
+import { IInitialState, IRedditPost } from '@/typings';
 import Alert from '../Alert';
 import { useSession } from 'next-auth/react';
 import options from '@/lib/Options';
@@ -64,9 +64,15 @@ export default function Card({
     }
   };
   
-  const toggleComments = useStore((state) => state.toggleComments)
+ 
+  const setCurrentCommentId = useStore((state: IInitialState) => state.setCurrentCommentId)
+  const removeCurrentCommentId = useStore((state:IInitialState) => state.removeCurrentCommentId)
+  const currentCommentId = useStore((state: IInitialState) => state.comments.currentCommentId)
   const handleComments = () => {
-    toggleComments(post.id)
+    if(currentCommentId === post.id) {
+      return removeCurrentCommentId()
+    }
+    return setCurrentCommentId(post.id)
   };
   return (
     <>
