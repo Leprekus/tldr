@@ -1,36 +1,6 @@
 import { IInitialState } from '@/typings'
 import { create } from 'zustand'
 
-
-/*
-fetch fullname/comments
-comments fetched
-
-currentCommentId = string | null
-
-displayComments = (id) => {
-    if(currentCommentId) {
-        comments[currentCommentId].display = false
-    }
-    comments[id].display = true
-    currentCommentId = id
-}
-toggleComments = (id) => {
-    const state = !comments[id].display
-    if(state) {
-        currentCommentId = id
-    }
-    if(!state) {
-        currentCommentId = null
-    }
-    comments[id].display = state
-}
- */
-
-
-
-
-
 const useStore = create<IInitialState>((set, get) => ({
     bears: 0,
     increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
@@ -48,6 +18,29 @@ const useStore = create<IInitialState>((set, get) => ({
         currentCommentId: null
     } 
     })),
+    alert: {
+        display : false,
+        message: '',
+        severity: 'informational',
+        setMessage: (message: string) => set((state) => ({
+            alert: { 
+                ...state.alert, 
+                message: message,
+            }
+        })),
+        setDisplay: (value: boolean) => set((state) => ({
+            alert: { 
+                ...state.alert, 
+                display: value
+            }
+        })),
+        setSeverity: (value: "informational" | "warning" | "success" | "error" | undefined) => set((state) => ({
+            alert: {
+                ...state.alert,
+                severity: value
+            }
+        }))
+    }
 
 
   }));

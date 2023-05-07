@@ -127,6 +127,14 @@ interface IInitialState {
     currentCommentId: string | null;
   };
   setCurrentCommentId: (id: string) => void;
-  removeCurrentCommentId: () => void
+  removeCurrentCommentId: () => void;
+  alert: {
+    display: boolean;
+    message: string;
+    severity: "informational" | "warning" | "success" | "error" | undefined;
+    setDisplay: (value: boolean) => void;
+    setMessage: (message: string) => void;
+    setSeverity: (value: "informational" | "warning" | "success" | "error" | undefined) => void
+  }
   
 }

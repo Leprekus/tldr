@@ -6,6 +6,7 @@ import Card from '../Card/Card';
 import { useSession } from 'next-auth/react';
 import Post from './Post';
 import useStore from '@/app/hooks/store';
+import Alert from '../Alert';
 
 
 export default function List({ data }: { data: RedditPostsResponse }) {
@@ -13,7 +14,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
-   
+   const { alert } = useStore()
   return (
     <div>
       <PostFilters 
@@ -24,6 +25,13 @@ export default function List({ data }: { data: RedditPostsResponse }) {
       {posts.map((post: IRedditPost) => (
         <Post post={post} key={post.id}/>
       ))}
+      {alert.display && (
+        <Alert
+          setDisplay={alert.setDisplay}
+          severity={alert.severity}
+          message={alert.message}
+        />
+      )}
     </div>
   );
 }

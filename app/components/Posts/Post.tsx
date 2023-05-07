@@ -11,7 +11,7 @@ import useStore from '@/app/hooks/store'
 
 export default function Post({ post }: { post: IRedditPost }) {
   const currentCommentId = useStore((state: IInitialState) => state.comments.currentCommentId);
-  console.log({ currentCommentId })
+ 
   return (
     <div className='flex flex-col items-center gap-x-2 my-4 mx-2
      md:flex-row md:items-start'>

@@ -1,16 +1,12 @@
 'use client';
-import React, { ReactNode, useCallback, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Button from '../Button';
 import { IInitialState, IRedditPost } from '@/typings';
 import Alert from '../Alert';
 import { useSession } from 'next-auth/react';
-import options from '@/lib/Options';
 import { CommentIcon, DownvoteIcon, TrophyIcon, UpvoteIcon } from '../Icons';
 import Link from 'next/link';
-import Pill from '../Pill';
-import Image from 'next/image';
 import useStore from '@/app/hooks/store';
-
 export default function Card({
   post,
   children,
@@ -27,6 +23,13 @@ export default function Card({
     'informational'
   );
 
+  const {
+    setCurrentCommentId,
+    removeCurrentCommentId,
+    comments,
+    alert,
+   } = useStore()
+ 
   const handleVote = async (direction: string) => {
     //id is fullname of a thing = ex t3_id
     let value = 0;
@@ -40,13 +43,14 @@ export default function Card({
       },
       body: JSON.stringify({ name: post.name, dir: value }),
     });
-
+    
     try {
       const json = await response.json();
       console.log({ message: json.message });
       if (!session) {
-        setAlertMessage('You must be signed in to perform this action');
-        setDisplayAlert(true);
+        alert.setMessage('You must be signed in to perform this action');
+        alert.setDisplay(true);
+        return
       }
 
       if (response.ok) {
@@ -57,19 +61,16 @@ export default function Card({
     } catch (error) {
       console.log(error);
       if (!response.ok) {
-        setAlertMessage('Unable to complete request');
-        setSeverity('warning');
-        setDisplayAlert(true);
+        alert.setMessage('Unable to complete request');
+        alert.setSeverity('warning');
+        alert.setDisplay(true);
       }
     }
+  
   };
   
- 
-  const setCurrentCommentId = useStore((state: IInitialState) => state.setCurrentCommentId)
-  const removeCurrentCommentId = useStore((state:IInitialState) => state.removeCurrentCommentId)
-  const currentCommentId = useStore((state: IInitialState) => state.comments.currentCommentId)
   const handleComments = () => {
-    if(currentCommentId === post.id) {
+    if(comments.currentCommentId === post.id) {
       return removeCurrentCommentId()
     }
     return setCurrentCommentId(post.id)
@@ -119,13 +120,6 @@ export default function Card({
         </div>
         <div className='min-h-full w-20' />
       </div>
-      {displayAlert && (
-        <Alert
-          setDisplay={setDisplayAlert}
-          severity={severity}
-          message={alertMessage}
-        />
-      )}
     </>
   );
 }

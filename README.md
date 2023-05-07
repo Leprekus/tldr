@@ -29,20 +29,18 @@ An app to save you time
 
 - [ ] add 'right hand mode' (flips action bar to right side)
 
-### Handling State
-
-I may need a state management library. Because:
-1) the right hand mode setting needs to be stored in global state
-2) toggling comments is also dependent on global state
 
 ### Notes
-components using store:  Post, Card
+components using store:  Post, Card, List
 List Renders a Post component.
 List checks if currentCommentId === post.id
 List renders Comment if match
 
 Card Sets currentCommentId if null
 Card removes currentCommentId if it matches post.id
+
+Card sets display alert to true if request fails
+List renders Alert
 
 Comment sets currentId to null (closes comment component)
 
