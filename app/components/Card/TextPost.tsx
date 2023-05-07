@@ -2,7 +2,7 @@ import { IRedditPost } from '@/typings';
 import React, { useState } from 'react';
 import Button from '../Button';
 
-export default function TextPost({ post }: { post: IRedditPost }) {
+export default function TextPost({ text }: { text: string }) {
   const [showMore, setShowMore] = useState(true);
   const [height, setHeight] = useState<number | string>('');
   const [dimStyle, setDimStyle] = useState('opacity-100');
@@ -34,7 +34,7 @@ export default function TextPost({ post }: { post: IRedditPost }) {
       className={`min-w-full text-sm relative whitespace-normal break-words ${!showMore && 'pb-12'}` }
     >
       {/* text post */}
-        {showMore ? <p>tldr;</p> : <p>{post.selftext}</p>}
+        {showMore ? <p>tldr;</p> : <p>{text}</p>}
 
         <div
       

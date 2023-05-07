@@ -14,9 +14,9 @@ export default function Post({ post }: { post: IRedditPost }) {
  
   return (
     <div className='flex flex-col items-center gap-x-2 my-4 mx-2
-     md:flex-row md:items-start'>
-        <Card post={post} >
-          {post.is_self && <TextPost post ={post}/>}
+     md:flex-row md:items-start relative'>
+        <Card post={post} header={post.title} link={post.subreddit_name_prefixed}>
+          {post.is_self && <TextPost text ={post.selftext!}/>}
           {!post.selftext && !post.is_reddit_media_domain && <LinkPost post ={post}/>}
           {post.post_hint === 'image' && post.is_reddit_media_domain && <ImagePost post ={post}/>}
           {/* gallery */}

@@ -111,6 +111,21 @@ interface IAboutSubreddit {
   icon_img: string;
 }
 
+interface IRedditComment {
+  id: string;
+  author: string;
+  body: string;
+  score: number;
+  created_utc: number;
+  permalink: string;
+  parent_id: string;
+  subreddit: string;
+  subreddit_id: string;
+  subreddit_name_prefixed: string;
+  likes: boolean | null;
+  name: string;
+}
+
 interface IQuerySearch {
   [key: string]: string | undefined;
   subreddits?: string;

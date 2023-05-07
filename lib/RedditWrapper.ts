@@ -163,7 +163,6 @@ class RedditWrapper {
         
         if(res.ok) {
             const data = await res.json()
-            console.log({ data: data[1].data.children })
             return this.parseData(data[1])
         }
         console.log(res.statusText)
