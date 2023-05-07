@@ -31,7 +31,7 @@ An app to save you time
 
 
 ### Notes
-components using store:  Post, Card, List
+components using store:  Post, Card, List, Comment
 List Renders a Post component.
 List checks if currentCommentId === post.id
 List renders Comment if match
@@ -41,6 +41,8 @@ Card removes currentCommentId if it matches post.id
 
 Card sets display alert to true if request fails
 List renders Alert
+
+Comment fetches data based on currentId value
 
 Comment sets currentId to null (closes comment component)
 

@@ -1,16 +1,18 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, dir } = JSON.parse(req.body)
-  //token = Bearer token
-  var token = req.headers.authorization 
- 
+  console.log('ranranranranranranranranranranranran')
+  const session = await getServerSession(authOptions)
+  console.log({ voteToken: session?.accessToken })
   const params = new URLSearchParams({ id: name, dir})
   const url = 'https://oauth.reddit.com/api/vote?' + params
   
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'authorization': (req.headers.authorization as string),
+      'authorization': 'Bearer ' + session?.accessToken,
       'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'  
     },
   })
