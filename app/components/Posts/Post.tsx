@@ -27,7 +27,7 @@ export default function Post({ post }: { post: IRedditPost }) {
           <p >downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
           <p >created at: {post.created}</p>
         </Card>
-        {post.id === currentCommentId && <Comment id={post.id} fullname={post.name}/>}
+        {post.id === currentCommentId && <Comment post={post}/>}
       
     </div>
   )

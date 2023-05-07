@@ -1,18 +1,19 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { name, id } = JSON.parse(req.body)
+  const { subreddit, id } = JSON.parse(req.body)
   //token = Bearer token
   var token = req.headers.authorization 
  
-  const params = new URLSearchParams({ id: name, dir})
-  const url = 'https://oauth.reddit.com/api/vote?' + params
-  
+  const url = 'https://oauth.reddit.com/r/'+ subreddit + '/comments/' + id + '.json' 
+
+  const headers = {
+    'authorization': (req.headers.authorization as string),
+  }
+ console.log({ commentURl: url })
+ console.log({ commentOPtions: headers})
   const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'authorization': (req.headers.authorization as string),
-      'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'  
-    },
+    method: 'GET',
+    headers,
   })
 
   if(!response.ok) {

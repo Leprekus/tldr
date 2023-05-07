@@ -38,6 +38,9 @@ export default function Card({
 
     const response = await fetch('/api/user/vote', {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${session?.accessToken}`,
+      },
       body: JSON.stringify({ name: post.name, dir: value }),
     });
     
