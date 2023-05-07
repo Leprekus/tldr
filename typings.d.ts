@@ -118,16 +118,16 @@ interface IQuerySearch {
   query?: string;
 }
 
-interface IIniitalState {
-  bears: number,
-  increasePopulation: Function;
-  removeAllBears: Function;
-
+interface IInitialState {
+  bears: number;
+  increasePopulation: () => void;
+  removeAllBears: () => void;
   comments: {
-      currentCommentId: string | null;
-      [id: string ]: string | null | {
+    [id: string]: {
       display: boolean;
-      }
-  } | {},
-  setComments: Function;
+    } | null;
+    currentCommentId: string | null;
+  };
+  setComments: (id: string) => void;
+  toggleComments: (id: string) => void;
 }

@@ -35,4 +35,11 @@ I may need a state management library. Because:
 1) the right hand mode setting needs to be stored in global state
 2) toggling comments is also dependent on global state
 
+### Notes
+components using store: List, Post, Card, Comment
+List Renders a Post component.
+List sets the [PostId].display key value pairs in the store
+Post contains a Card component (user content) & Comment Component
+Post indexes the comments object in the store with the postId to determine whether to render Comments
+
 I HAVE BEEN FIGHTING FOR 2 WEEKS. 2 WEEEKS WITHOUT GETTING THE AUTHENTICATION CORRECT. AND I JUST REALILZED IT'S BECAUSE I WAS PASSING THE NEXTAUTH OBJECT TO GETSERVERSESSION INSTEAD OF AUTHOPTIONS I JUST DID THAT AND MY WHOLE AUTH WORKS. OMGGGGGG I WASTED YEARS OF MY LIFE.

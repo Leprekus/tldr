@@ -9,6 +9,7 @@ import { CommentIcon, DownvoteIcon, TrophyIcon, UpvoteIcon } from '../Icons';
 import Link from 'next/link';
 import Pill from '../Pill';
 import Image from 'next/image';
+import useStore from '@/app/hooks/store';
 
 export default function Card({
   post,
@@ -62,15 +63,16 @@ export default function Card({
       }
     }
   };
-
+  
+  const toggleComments = useStore((state) => state.toggleComments)
   const handleComments = () => {
-
+    toggleComments(post.id)
   };
   return (
     <>
       <div
         style={{ maxWidth: 500 }}
-        className='w-full bg-white rounded-md h-fit
+        className='w-full bg-white my-4 rounded-md h-fit
       overflow-hidden transition-all shadow-md shadow-zinc-100 flex flex-row justify-stretch'
       >
         {/* action bar */}

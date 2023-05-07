@@ -26,8 +26,8 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
 
     const redditWrapper = new RedditWrapper()
     //checks if token  is not expired
-    
-    if(session) {
+    console.log({ expires: session})
+    if(session && session.expires) {
 
       redditWrapper.setAccessToken(session?.accessToken as string)
     

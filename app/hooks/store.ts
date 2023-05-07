@@ -1,4 +1,4 @@
-import { IIniitalState } from '@/typings'
+import { IInitialState } from '@/typings'
 import { create } from 'zustand'
 
 
@@ -31,17 +31,28 @@ toggleComments = (id) => {
 
 
 
-const useStore = create<IIniitalState>((set, get) => ({
+const useStore = create<IInitialState>((set, get) => ({
     bears: 0,
     increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
     removeAllBears: () => set({ bears: 0 }),
-    comments: {},
+    comments: {
+        currentCommentId: null
+    },
     setComments: (id: string) => set((state) => ({ comments: {
+        ...state.comments,
         [id]: {
             display: false
         }
     } 
     })),
+    toggleComments: (id: string) => set((state) => ({ comments: {
+            ...state.comments,
+            [id]: { 
+                ...state.comments[id], 
+                display: !state.comments[id]?.display
+            }
+        }
+    }))
 
   }));
 

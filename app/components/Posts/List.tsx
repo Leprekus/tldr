@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import PostFilters from '../PostFilters';
-import { IIniitalState, IRedditPost, RedditPostsResponse } from '@/typings';
+import { IInitialState, IRedditPost, RedditPostsResponse } from '@/typings';
 import Card from '../Card/Card';
 import { useSession } from 'next-auth/react';
 import Post from './Post';
@@ -13,7 +13,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
 
     const originalData = structuredClone(data)
     const [posts, setPosts] = useState(data);    
-    const setComments = useStore(state => state.setComments);
+    const setComments = useStore((state: IInitialState) => state.setComments);
   return (
     <div>
       <PostFilters 
