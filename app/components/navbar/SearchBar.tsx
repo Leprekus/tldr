@@ -28,7 +28,7 @@ export default function SearchBar() {
     <div className='flex gap-x-4 mx-auto'>
     <input
         aria-label='search-bar'
-        className='text-gray-600 rounded-md w-44 h-8'
+        className='text-gray-600 rounded-md w-44 h-8 border-gray-200 border focus:outline-gray-300 active:border-gray-300'
         value={inputText}
         placeholder='Search Reddit'
         onChange={(e) => setInputText(e.target.value)}

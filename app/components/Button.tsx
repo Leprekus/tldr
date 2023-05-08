@@ -7,7 +7,7 @@ export default function Button({ sx, variant='primary', rounded=false, children,
  if(variant === 'primary') style = ''
  if(variant === 'secondary') style = 'py-2 px-4 text-blue-500 border-blue-500 hover:bg-blue-500 hover:bg-opacity-10 active:bg-opacity-30'
  if(variant === 'tertiary') style = 'opacity-100'
- if(variant === 'ghost') style = 'hover:bg-zinc-200 p-2 focus:outline-zinc-300'
+ if(variant === 'ghost') style = 'hover:bg-zinc-200 p-2 focus:outline-zinc-300 active:border-zinc-300 '
  
  let masterStyle = `transition-all uppercase ${style} ${className} ${rounded ? 'rounded-full' : 'rounded-md'}`
 
