@@ -25,7 +25,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className='flex gap-x-4 mx-auto'>
+    <div className='flex gap-x-4 mx-auto w-fit'>
     <input
         aria-label='search-bar'
         className='text-gray-600 rounded-md w-44 h-8 border-gray-200 border focus:outline-gray-300 active:border-gray-300'

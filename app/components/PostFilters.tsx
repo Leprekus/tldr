@@ -6,7 +6,7 @@ import { IRedditPost, RedditPostsResponse } from '@/typings'
 export default function PostFilters({ data, original, setData }: { data : RedditPostsResponse ,original : RedditPostsResponse, setData: Function}) {
 
     const [active, setActive] = useState('')
-    const bg = 'border-indigo-400'
+    const bg = 'bg-red-400'
     //let bg = 'bg-opacity-20'
     const sortTrending = () => {
         setActive('trending')
