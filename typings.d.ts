@@ -25,7 +25,7 @@ interface IMediaMetadata {
 }
 
 interface IRedditPost {
-  title: string;
+  title : string;
   author: string;
   subreddit: string;
   permalink: string;
@@ -110,7 +110,6 @@ interface IAboutSubreddit {
   subscribers: number;
   icon_img: string;
 }
-
 interface IRedditComment {
   id: string;
   author: string;
@@ -123,7 +122,20 @@ interface IRedditComment {
   subreddit_id: string;
   subreddit_name_prefixed: string;
   likes: boolean | null;
+  link_id: string;
   name: string;
+  replies: {
+    data: {
+      children: [
+        { data: IRedditComment },
+        { data: {
+            children: string[]
+          }
+         }
+      ]
+    }
+  }
+  kind: 't1';
 }
 
 interface IQuerySearch {

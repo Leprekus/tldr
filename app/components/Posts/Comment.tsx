@@ -1,4 +1,4 @@
-import React, { Suspense, cache, useEffect, useState } from 'react'
+import React, { Component, ReactNode, Suspense, cache, useEffect, useState } from 'react'
 import Button from '../Button'
 import { IInitialState, IRedditComment, IRedditPost } from '@/typings'
 import useStore from '@/app/hooks/store'
@@ -8,6 +8,8 @@ import SkeletonComments from '../Skeletons/skeleton-comments'
 import Paper from '../Card/Paper'
 import Card from '../Card/Card'
 import TextPost from '../Card/TextPost'
+import Link from 'next/link'
+import ActionBar from '../Card/ActionBar'
 
 
 export default function Comment({post}: { post: IRedditPost}) {
@@ -36,7 +38,8 @@ export default function Comment({post}: { post: IRedditPost}) {
       });
       return 
     }, [])
-    console.log(data[0])
+
+    console.log({ data })
     return ( 
     <div 
     className='h-full text-xs md:absolute md:-right-72 overflow-y-scroll bg-red-500'> 
@@ -47,9 +50,10 @@ export default function Comment({post}: { post: IRedditPost}) {
 
      {data.length ? 
       data.map((comment) => (
-        <Card key={comment.id} post={comment} link={'u/' + comment.author}>
-          <TextPost text={comment.body}/>
-        </Card>
+        comment.body &&
+        <CommentWrapper 
+        key={comment.id}
+        comment={comment}/>
       )) :
       <p>Loading ....</p>
     }
@@ -61,3 +65,89 @@ export default function Comment({post}: { post: IRedditPost}) {
 }
 //find
 //likes, name, title, subreddit_name_prefixed
+function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, margin?: number, n?: number }) {
+  const { data: session } = useSession()
+
+  const next = comment?.replies?.data?.children[0]?.data?.body
+
+  //if not end of thread replies array is 1th index
+  //if end of thread replies array is 0th index
+  const children = next ? comment?.replies?.data?.children[1]?.data?.children :
+  comment?.replies?.data?.children[0]?.data?.children
+
+  const [traversedChildren, setTraversedChildren] = useState<IRedditComment[]>([])
+
+  const handleFetchReplies = () => {
+    //grab ids
+    //fetch ids in groups of 10
+    //slice array
+    //pass array to component
+    //repeat
+
+    //note slice returns the sliced array so i need to work with the original
+    //and just slice at the desired indexes
+    const sliceStart = (10 * n) - 10;
+    const sliceEnd = (10 * n)
+  
+    const slicedArray = children.slice(sliceStart, sliceEnd)
+
+    console.log(comment?.replies?.data?.children[1]?.data?.children?.length)
+    if(session) {
+
+      return
+    }
+    //const url = `https://www.reddit.com/r/${comment.subreddit}/comments/.json?comment=${slicedArray[0]}&limit=10`
+    const url = `https://www.reddit.com/api/morechildren?link_id=${comment.link_id}&children=${slicedArray}`
+
+    console.log({ url })
+    fetch(url).then(res => res.json())
+    .then(({ data }) => {
+      console.log(data)
+      const replies = data.children.map(({ data }: { data: IRedditComment }) => data)
+      //setTraversedChildren(prevState => [...prevState, ...replies])
+    })
+    // console.log(comment.permalink)
+    // fetch( 'https://www.reddit.com/' + comment.permalink + '.json?limit=10')
+    // .then(res => res.json())
+    // .then(data => {
+    //   console.log({ thread: data })
+    //   setReplies(data[1].data.children)})
+    
+  }
+  
+
+  return (
+    <>
+    <Paper 
+        sx={{ maxWidth: 320, marginLeft: margin }}
+        className='p-2'
+        key={comment.id}>
+          <div className='flex '>
+          <ActionBar post={comment} padding={'pr-1'}/>
+          <div>
+            <Button variant='ghost'href={'u/' + comment.author}
+            disabled={
+            comment.author ?
+            comment.author.includes('[deleted]') && true : false
+            }>u/{comment.author}</Button>
+            <p>{comment.body}</p>
+          {children?.length > 0 &&
+          <Button onClick={handleFetchReplies}>
+            {children.length > 0 ? 'Show More' : 'Hide'}
+          </Button>
+          }
+           {/* renders replies to comment */}
+        <p>{traversedChildren.length + '/' +  children.length}</p>
+          </div>
+          </div>
+        </Paper>
+      
+        {/* renders thread */}
+        {next  &&
+        <CommentWrapper comment={comment?.replies?.data?.children[0]?.data} margin={margin + 10}/>
+        }
+        
+        </>
+        
+  )
+}

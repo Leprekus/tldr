@@ -158,7 +158,8 @@ class RedditWrapper {
         
     }
     async getComments(params: { subreddit: string, id: string }) {
-        const endpoint = this.getUrl() + '/r/'+ params.subreddit + '/comments/' + params.id + '.json'
+        const searchParams = new URLSearchParams({ limit: '5', threaded: 'true' })
+        const endpoint = this.getUrl() + '/r/'+ params.subreddit + '/comments/' + params.id + '.json?' + searchParams
         const res = await fetch(endpoint, this.getOptions())
         
         if(res.ok) {
@@ -168,8 +169,9 @@ class RedditWrapper {
         console.log(res.statusText)
     }
     //will replace fetchData
-    private parseData(json:RedditPostsResponse) {
+    private parseData(json:RedditPostsResponse, ) {
     
+
         return json.data.children.map(({ data }: { data: IRedditPost}) => data)
   
     }

@@ -31,7 +31,7 @@ An app to save you time
 
 
 ### Notes
-components using store:  Post, Card, List, Comment
+components using store:  Post, ActionBar, List, Comment
 List Renders a Post component.
 List checks if currentCommentId === post.id
 List renders Comment if match

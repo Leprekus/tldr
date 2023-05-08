@@ -9,6 +9,7 @@ export default function Button({ sx, variant='primary', rounded=false, children,
  if(variant === 'tertiary') style = 'opacity-100'
  if(variant === 'ghost') style = 'hover:bg-zinc-200 p-2 focus:outline-zinc-300'
  
+ let masterStyle = `transition-all uppercase ${style} ${className} ${rounded ? 'rounded-full' : 'rounded-md'}`
 
  const [dimStyle, setDimStyle] = useState()
  const mouseEventHandler = (e: any) => {
@@ -28,7 +29,7 @@ export default function Button({ sx, variant='primary', rounded=false, children,
     return<button
       aria-label={label} 
       disabled 
-      className={style + className}
+      className={masterStyle}
       style={ sx }
       >{ children }</button>;
   }
@@ -40,9 +41,7 @@ export default function Button({ sx, variant='primary', rounded=false, children,
     onClick={onClick}
     style={ sx }
 
-    className={`transition-all
-    uppercase rounded-md ${style} ${className}
-    `}
+    className={masterStyle}
     >
       { children }
     </Link>
@@ -58,9 +57,7 @@ export default function Button({ sx, variant='primary', rounded=false, children,
   onClick={onClick}
   style={ sx }
 
-  className={`transition-all
-  uppercase ${style} ${className} ${rounded ? 'rounded-full' : 'rounded-md'}
-  `}>{ children }</button>
+  className={masterStyle}>{ children }</button>
  )
 
 
