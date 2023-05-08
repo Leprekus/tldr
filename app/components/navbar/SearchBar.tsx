@@ -1,9 +1,9 @@
 'use client'
 import React, { useRef, useState } from 'react'
-import LinkWrapper from './LinkWrapper'
-import Filters from './Filters';
-import { FilterIcon, SearchIcon } from './Icons';
-import Button from './Button';
+import LinkWrapper from '../LinkWrapper'
+import Filters from '../Filters';
+import { FilterIcon, SearchIcon } from '../Icons';
+import Button from '../Button';
 
 export default function SearchBar() {
   const [inputText, setInputText] = useState('');

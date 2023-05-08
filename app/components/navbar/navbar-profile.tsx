@@ -1,13 +1,12 @@
 'use client'
 import React, { useState } from 'react'
-import Pill from './Pill'
+import Pill from '../Pill'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
-import Hr from './Hr'
-import List from './ListItem'
-import ListItem from './ListItem'
-import { NavButtonMobile } from './navbar/nav-button'
-import Button from './Button'
+import Hr from '../Hr'
+import ListItem from '../ListItem'
+import Button from '../Button'
+import Link from 'next/link'
 
 export default function NavbarProfile() {
   const { data: session } = useSession()
@@ -29,8 +28,9 @@ const handleDisplaySettings = () => {
 }
   return (
     <div className='flex items-center justify-between px-8 pt-4 gap-x-4'>
-        <NavButtonMobile href='/'>Home</NavButtonMobile>
-        <h1 className='text-5xl text-gray-500'>TL ; DR ;</h1>
+        <Link href='/'>
+            <h1 className='text-5xl text-gray-500'>TL ; DR ;</h1>
+        </Link>
         {
             session && 
             <>

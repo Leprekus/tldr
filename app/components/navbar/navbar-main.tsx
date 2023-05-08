@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
-import { NavButtonMobile } from './nav-button';
 import navItems from '@/lib/navItems';
-import NavbarProfile from '../navbar-profile';
-import SearchBar from '../SearchBar';
-import Pill from '../Pill';
+import NavbarProfile from './navbar-profile';
+import SearchBar from './SearchBar';
+
+import Button from '../Button';
 
 export default function NavbarMain() {  
   return (
@@ -13,12 +13,13 @@ export default function NavbarMain() {
      <SearchBar/>
       <div className='flex justify-center gap-x-4'>
         {navItems.map((item, i) => (
-          <NavButtonMobile
+          <Button
+          variant='secondary'
           key={i}
           href={item.href}
           >
             {item.title}
-          </NavButtonMobile>
+          </Button>
         ))}
       </div>
       
