@@ -127,7 +127,7 @@ interface IRedditComment {
   replies: {
     data: {
       children: [
-        { data: IRedditComment },
+        { data: IRedditComment | children },
         { data: {
             children: string[]
           }
