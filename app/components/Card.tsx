@@ -133,7 +133,6 @@ export default function Card({ data }: { data: IRedditPost }) {
               >
                 <DownvoteIcon fill={!isLiked && isLiked !== null ? '#3B82F6' : '#A9A9A9'}/>
               </Button>
-              <Pill></Pill>
             </div>
 
 

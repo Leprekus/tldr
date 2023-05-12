@@ -1,10 +1,7 @@
 'use client';
 import React, { ReactNode, useState } from 'react';
 import Button from '../Button';
-import { IInitialState, IRedditComment, IRedditPost } from '@/typings';
-import Alert from '../Alert';
-import { useSession } from 'next-auth/react';
-import { CommentIcon, DownvoteIcon, TrophyIcon, UpvoteIcon } from '../Icons';
+import { IRedditComment, IRedditPost } from '@/typings';
 import Link from 'next/link';
 import Paper from './Paper';
 import ActionBar from './ActionBar';
