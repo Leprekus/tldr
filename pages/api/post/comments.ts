@@ -9,8 +9,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   const headers = {
     'authorization': (req.headers.authorization as string),
   }
- console.log({ commentURl: url })
- console.log({ commentOPtions: headers})
+
   const response = await fetch(url, {
     method: 'GET',
     headers,

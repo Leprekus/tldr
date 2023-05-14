@@ -5,7 +5,6 @@ import React from 'react'
 import Pill from './Pill'
 
 export default function About({ data }: { data: IAboutSubreddit }) {
-  //console.log({ data })
   function formatNumber(number: number) {
     const units = ['', 'k', 'M', 'B', 'T', 'Q'];
     let unitIndex = 0;
@@ -27,7 +26,6 @@ export default function About({ data }: { data: IAboutSubreddit }) {
   
     return `${formattedNumber}${units[unitIndex]}`;
   }
-  console.log({ subs: data.primary_color})
 
     return (
     <div 

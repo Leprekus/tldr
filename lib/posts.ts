@@ -1,6 +1,6 @@
 import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
-import { decode } from 'next-auth/jwt'
+import { decode, getToken } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { IQuerySearch } from '@/typings'
@@ -21,15 +21,12 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
     //   secret: process.env.NEXTAUTH_SECRET!
     // })
     const session = await getServerSession(authOptions)
-  
-   // const session = cookies().has('session') ? JSON.parse(cookies().get('session')?.value!) : null
-
     const redditWrapper = new RedditWrapper()
-    //checks if token  is not expired
+    
     console.log({ serverSession: session})
-    if(session && session.accessTokenExpires > Date.now()) {
-
-      redditWrapper.setAccessToken(session?.accessToken as string)
+    if(session) {
+      
+      redditWrapper.setAccessToken(session.accessToken!)
     
       
       if(page.page === 'homepage') {
@@ -64,12 +61,17 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
       const unauthFrontpage = await redditWrapper.getFrontPage()
       return unauthFrontpage
     }
-    if(fallback === 'subreddit') {
-  
+    if(page.page === 'subreddit') {
+        
       const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
+      return subreddit
+
+    } if(page.page === 'subredditAbout') {
+      
       const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: false })
-      return [subreddit, about]
-  }
+      return about
+
+    }
     if(fallback === 'user') {
   
       const user = await redditWrapper.getUserAbout({ user: page.query!, auth: false })

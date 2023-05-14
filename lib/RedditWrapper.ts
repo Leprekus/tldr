@@ -34,26 +34,22 @@ class RedditWrapper {
     }
     private async fetchData(url: string, endpoint: string, params: object | {} = { sort: 'hot'}) {
         //dom seomthing
-        
         const searchParams = new URLSearchParams({
             ...params
         }) 
-        //const URL = url + endpoint + searchParams 
         
-        //const options = url === this._baseUrl ? this._GEToptions : {}
-
         const URL = (this._accessToken ? this._baseUrl : this._unauthUrl) + endpoint + searchParams
         const options = this._accessToken ? this._GEToptions : {}
         console.log(this._GEToptions)
         console.log({ URL })
         const response = await fetch(URL, options)
+        console.log({ response })
 
         if(response.ok) {
             const json = await response.json()
             const posts = json.data.children.map(({ data }: { data: IRedditPost}) => data)
             return posts
         }
-        
         throw response.statusText
     }
 
@@ -127,9 +123,8 @@ class RedditWrapper {
     }
     async getSubreddit (params: {subreddit: string, auth: boolean }) {
         const { subreddit, auth } = params
-        
         const url = auth ? this._baseUrl : this._unauthUrl
-        const endpoint = 'r/' + subreddit
+        const endpoint = 'r/' + subreddit + '/.json'
         const data = await this.fetchData(url, endpoint, {})
         return data
     }
@@ -150,10 +145,10 @@ class RedditWrapper {
         const url = auth ? this._baseUrl : this._unauthUrl
         const endpoint = 'user/' + user + '/about.json'
         const options = auth ? this._GEToptions : {}
-        console.log({ urlEndpoint: url + endpoint, options })
+        
         const res = await fetch(url + endpoint, options)
         const json = await res.json()
-        console.log({ json })
+     
         //return json.data
         
     }

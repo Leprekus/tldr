@@ -39,7 +39,7 @@ export default function Comment({post}: { post: IRedditPost}) {
       return 
     }, [])
 
-    console.log({ data })
+   
     return ( 
     <div 
     className='h-full text-xs md:absolute md:-right-72 overflow-y-scroll bg-red-500'> 
