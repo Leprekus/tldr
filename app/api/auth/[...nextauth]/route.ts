@@ -1,4 +1,4 @@
-import NextAuth, { Account, Session, User } from 'next-auth';
+import NextAuth, { Account, NextAuthOptions, Session, User } from 'next-auth';
 import RedditProvider from 'next-auth/providers/reddit';
 import { JWT, getToken } from 'next-auth/jwt';
 import { AdapterUser } from 'next-auth/adapters';
@@ -11,7 +11,7 @@ import authenticateClient from '@/utils/authenticateClient';
 // 1. getServerSession
 // 2. if (!user) use client
 // 3. fetch posts
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     RedditProvider({
@@ -42,7 +42,7 @@ export const authOptions = {
         }
         return user 
       },
-    })
+    }),
  
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -100,5 +100,6 @@ export const authOptions = {
     },
   },
 }
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST }
 

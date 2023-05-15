@@ -1,16 +1,19 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { name, dir } = JSON.parse(req.body)
+import { NextResponse } from 'next/server';
+export async function POST (req: Request, res: NextApiResponse) {
+  
+  const body = await req.json()
+  const { name, dir } = body
+
   //token = Bearer token
-  var token = req.headers.authorization 
- 
+  const bearer = req.headers.get('authorization') 
   const params = new URLSearchParams({ id: name, dir})
   const url = 'https://oauth.reddit.com/api/vote?' + params
   
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'authorization': (req.headers.authorization as string),
+      'authorization': (bearer as string),
       'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'  
     },
   })
@@ -18,8 +21,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   if(!response.ok) {
     return res.status(response.status).json({ message: 'Reddit: ' + response.statusText })
   }
+  return NextResponse.json({ message: response.statusText})
   return res.status(200).json({ message: response.statusText })
   
   }
-
-export default handler

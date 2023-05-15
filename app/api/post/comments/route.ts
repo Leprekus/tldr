@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const POST: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { subreddit, id } = JSON.parse(req.body)
   //token = Bearer token
   var token = req.headers.authorization 
@@ -22,4 +22,4 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   
   }
 
-export default handler
+export default POST

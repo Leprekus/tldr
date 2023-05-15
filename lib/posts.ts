@@ -2,8 +2,10 @@ import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from './RedditWrapper'
 import { decode, getToken } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { IQuerySearch } from '@/typings'
+import { signIn } from 'next-auth/react'
+
 const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search', fallback?: string, query?: string, term?: IQuerySearch },) => {
   
   // // session {
@@ -20,7 +22,12 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
     //   token: cookies().get('next-auth.session-token')?.value!,
     //   secret: process.env.NEXTAUTH_SECRET!
     // })
+    const test = await fetch('http://localhost:3000/api/clientAuth');
+    const res = await test.json()
+    console.log({ res })
+    
     const session = await getServerSession(authOptions)
+  
     const redditWrapper = new RedditWrapper()
     
     console.log({ serverSession: session})
