@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
     Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'RedditClientCredentials',
+      id: 'redditclientcredentials',
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
@@ -47,8 +48,11 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // async signIn({ user, account }: { user: User, account: Account }) {
-    //   account.access_token = user.access_token
+    // async signIn({ user, account }) {
+    //   const clientToken = await authenticateClient()
+    //   console.log('rrrrrrrrrran')
+    //   account && (account.access_token = clientToken.access_token)
+    //   console.log('token seeeeeeeet')
     //  return true
     // },
     async jwt(params: {
@@ -60,7 +64,7 @@ export const authOptions: NextAuthOptions = {
       //jwt returns token
    
       // Initial sign in
-      if(user?.id === 'RedditClientCredentials') {
+      if(account?.provider === 'RedditClientCredentials') {
         return {
           accessToken: user.access_token,
           accessTokenExpires: Date.now() + (user.expires_in as number) * 1000,
