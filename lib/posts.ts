@@ -24,16 +24,6 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
 
    
     const session = await getServerSession(authOptions)
-    if(!session) {
-     const test = await fetch('http://localhost:3000/api/clientAuth', {
-      method: 'POST',
-      body: (await getCsrfToken())
-     }) 
-
-  }
-
-
-
 
     const redditWrapper = new RedditWrapper()
     
