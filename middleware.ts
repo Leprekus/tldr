@@ -2,15 +2,15 @@ import { getToken } from 'next-auth/jwt';
 import { getSession } from 'next-auth/react';
 import { NextRequest, NextResponse } from 'next/server';
 import authOptions from './pages/api/auth/[...nextauth]'
-import { getServerSession } from 'next-auth';
+import { User, getServerSession } from 'next-auth';
 export default async function requireSession(
   req: NextRequest,
   res: NextResponse,
   next: () => void
 ) {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  
-  if (!session) {
+  console.log({ middleWareSession: session})
+  if (!session || (session.user as User).id === 'RedditClientCredentials') {
     
     return new NextResponse(
       JSON.stringify({ success: false, message: 'authentication failed' }),
