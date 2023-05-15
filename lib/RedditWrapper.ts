@@ -43,7 +43,7 @@ class RedditWrapper {
         console.log(this._GEToptions)
         console.log({ URL })
         const response = await fetch(URL, options)
-        console.log({ response })
+
 
         if(response.ok) {
             const json = await response.json()
@@ -72,6 +72,7 @@ class RedditWrapper {
                 authorization: 'Bearer ' + this._accessToken
               },
         }
+        console.log({ token: this._accessToken})
     }
 
     async getFrontPage (params : RedditAPIParams = { sort: 'hot' }) {

@@ -10,6 +10,8 @@ import Card from '../Card/Card'
 import TextPost from '../Card/TextPost'
 import Link from 'next/link'
 import ActionBar from '../Card/ActionBar'
+import unauthComments from '@/utils/unauthComments'
+import authenticateClient from '@/utils/authenticateClient'
 
 
 export default function Comment({post}: { post: IRedditPost}) {
@@ -19,14 +21,25 @@ export default function Comment({post}: { post: IRedditPost}) {
     const redditWrapper = new RedditWrapper()
 
     const [data, setData] = useState<[] | IRedditComment[]>([])
+    const fetchComments = async () => {
+
+      const res = await fetch('/api/clientAuth', {
+        method: 'POST',
+        body: JSON.stringify({
+          subreddit: post.subreddit,
+          id: post.id
+        })
+      })
+
+      const { comments } = await res.json()
+      console.log(comments)
+
+      return setData(comments)
+    }
     useEffect(() => {
       if(!session) {
-        redditWrapper.getComments({ subreddit: post.subreddit, id: post.id})
-        .then(comments => {
-          cache(comments)
-          setData(comments)
-        })
-        return 
+        fetchComments()
+        return          
       }
       const headers = {
         Authorization: `Bearer ${session?.accessToken}`,
@@ -77,7 +90,7 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
 
   const [traversedChildren, setTraversedChildren] = useState<IRedditComment[]>([])
 
-  const handleFetchReplies = () => {
+  const handleFetchReplies = async () => {
     //grab ids
     //fetch ids in groups of 10
     //slice array
@@ -96,8 +109,9 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
 
       return
     }
+    const url = `https://oauth.reddit.com/api/morechildren?link_id=${comment.link_id}&children=${slicedArray}`
+    await unauthComments(url)
     //const url = `https://www.reddit.com/r/${comment.subreddit}/comments/.json?comment=${slicedArray[0]}&limit=10`
-    const url = `https://www.reddit.com/api/morechildren?link_id=${comment.link_id}&children=${slicedArray}`
 
     console.log({ url })
     fetch(url).then(res => res.json())

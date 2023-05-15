@@ -5,6 +5,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { IQuerySearch } from '@/typings'
 import { decode } from 'next-auth/jwt'
 import { getCsrfToken } from 'next-auth/react'
+import authenticateClient from '@/utils/authenticateClient'
 const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search', fallback?: string, query?: string, term?: IQuerySearch },) => {
   
   // // session {
@@ -21,7 +22,6 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
     //   token: cookies().get('next-auth.session-token')?.value!,
     //   secret: process.env.NEXTAUTH_SECRET!
     // })
-
    
     const session = await getServerSession(authOptions)
 
