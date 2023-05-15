@@ -137,7 +137,7 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
           </Button>
           }
            {/* renders replies to comment */}
-        <p>{traversedChildren.length + '/' +  children.length}</p>
+        <p>{traversedChildren?.length + '/' +  children?.length}</p>
           </div>
           </div>
         </Paper>
