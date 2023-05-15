@@ -9,4 +9,9 @@ declare module "next-auth" {
     user: User;
     error: string;
   }
+  interface User {
+    access_token?: string;
+    expires_in?: number;
+
+  }
 }

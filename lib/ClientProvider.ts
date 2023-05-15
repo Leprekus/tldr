@@ -1,14 +1,15 @@
-const ClientProvider = {
+import { AuthOptions } from "next-auth"
+import { OAuthConfig, OAuthProvider } from "next-auth/providers"
+
+
+const RedditClientProvider:OAuthConfig<any> = {
     id: "redditclient",
     name: "RedditClient",
     type: "oauth",
     version: "2.0",
-    scope: "*",
-    params: { grant_type: "authorization_code" },
-    accessTokenUrl: "https://accounts.google.com/o/oauth2/token",
-    requestTokenUrl: "https://accounts.google.com/o/oauth2/auth",
-    authorizationUrl: "https://accounts.google.com/o/oauth2/auth?response_type=code",
-    profileUrl: "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+    accessTokenUrl: "https://www.reddit.com/api/v1/access_token",
+    requestTokenUrl: "",
+    profileUrl: "",
     async profile(profile, tokens) {
       // You can use the tokens, in case you want to fetch more profile information
       // For example several OAuth providers do not return email by default.
@@ -20,8 +21,8 @@ const ClientProvider = {
         image: profile.picture
       }
     },
-    clientId: "",
-    clientSecret: ""
+    clientId: process.env.REDDIT_CLIENT_ID,
+    clientSecret: process.env.REDDIT_CLIENT_SECRET
   }
 
-export default ClientProvider
+export default RedditClientProvider
