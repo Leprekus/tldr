@@ -13,8 +13,7 @@ export default function Post({ post }: { post: IRedditPost }) {
   const currentCommentId = useStore((state: IInitialState) => state.comments.currentCommentId);
  
   return (
-    <div className='flex flex-col items-center gap-x-2 my-4 mx-2
-     md:flex-row md:items-start relative'>
+    <div className='flex flex-col md:flex-row gap-2 ' style={{ maxWidth: 600}}>
         <Card post={post} header={post.title} link={post.subreddit_name_prefixed}>
           {post.is_self && <TextPost text ={post.selftext!}/>}
           {!post.selftext && !post.is_reddit_media_domain && <LinkPost post ={post}/>}

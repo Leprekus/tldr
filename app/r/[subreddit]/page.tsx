@@ -14,8 +14,7 @@ export default async function Subreddit({ params }: { params: { subreddit: strin
 
   return (
     <>
-    <main className=" min-h-screen flex flex-col items-center 
-    md:flex-row md:items-start justify-center p-4">
+    <main className="flex min-h-screen flex-col items-center justify-between">
         <About data={subredditAbout}/>
         <List data={subreddit}/>
 

@@ -55,7 +55,7 @@ export default function Comment({post}: { post: IRedditPost}) {
    
     return ( 
     <div 
-    className='h-full text-xs md:absolute md:-right-72 overflow-y-scroll bg-red-500'> 
+    className='h-full max-h-[300px] text-xs overflow-y-scroll'> 
   
     <Button 
     className='sticky'
@@ -124,7 +124,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
       })
     }).then(res => res.json())
     .then(data => {
-      console.log({replies: data.replies.jquery[10][3]})
+      console.log({replies: data.replies.jquery[10][3][0]})
       const replies = data.replies.jquery[10][3][0]
       .map(({ data }: { data: IRedditComment}) => data)
       setTraversedChildren(prevState => [...prevState, ...replies])
@@ -145,8 +145,8 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
   return (
     <>
     <Paper 
-        sx={{ maxWidth: 320, marginLeft: margin }}
-        className='p-2'
+        sx={{ marginLeft: margin }}
+        className='p-2 w-full xl:w-96'
         key={comment.id}>
           <div className='flex '>
           <ActionBar post={comment} padding={'pr-1'}/>
