@@ -14,7 +14,7 @@ import RedditWrapper from '@/lib/RedditWrapper';
 export async function POST(req: Request) {
     const { link_id, ids } = await req.json()
 
-    const url = `https://oauth.reddit.com/api/morechildren?link_id=${link_id}&children=${ids}`
+    const url = `https://oauth.reddit.com/api/morechildren?link_id=${link_id}&children=${ids.join(',')}`
     const clientToken = await authenticateClient()
    
     const res = await(fetch(url, {
@@ -23,7 +23,8 @@ export async function POST(req: Request) {
             authorization: 'Bearer ' + clientToken.access_token    
         }
     }))
-    const replies = await await res.json()
+   
+    const replies = await res.json()
    
     return NextResponse.json({ replies })
 
