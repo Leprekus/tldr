@@ -1,7 +1,6 @@
 import { getToken } from 'next-auth/jwt';
 import { getSession } from 'next-auth/react';
 import { NextRequest, NextResponse } from 'next/server';
-import authOptions from './app/api/auth/[...nextauth]/route'
 import { User, getServerSession } from 'next-auth';
 export default async function requireSession(
   req: NextRequest,
