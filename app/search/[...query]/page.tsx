@@ -31,6 +31,7 @@ export default async function Search({ params }: { params: { query: [EndpointKey
     
     //const posts = await redditWrapper.search(endpoints[filter])
     const search = await posts({page: 'search', term: endpoints[filter]})
+    console.log({ search })
 
     return (
       <main className="flex min-h-screen flex-col items-center justify-between">

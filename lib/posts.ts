@@ -80,6 +80,9 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
   
       const user = await redditWrapper.getUserAbout({ user: page.query!, auth: false })
       return user
+  } if(page.page === 'search') {
+    const data = await redditWrapper.search(page.term!)
+    return data
   }
   
   }
