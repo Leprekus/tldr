@@ -117,7 +117,7 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
       })
     }).then(res => res.json())
     .then(data => {
-      console.log(data.replies.jquery[10])
+      console.log(data.replies.jquery[10][3])
       
     })
 
