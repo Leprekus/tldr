@@ -28,10 +28,31 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
     const redditWrapper = new RedditWrapper()
     
     //console.log({ serverSession: session})
-    if(session) {
-      
-      redditWrapper.setAccessToken(session.accessToken!)
+    if(session) redditWrapper.setAccessToken(session.accessToken!)
     
+    switch (page.page) {
+      case 'homepage':
+        const frontpage = await redditWrapper.getUserFrontPage()
+        return frontpage
+
+      case 'subreddit':
+        const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query! })
+        return subreddit
+
+      case 'subredditAbout':
+        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query! })
+        return about
+
+      case 'user':
+        const user = await redditWrapper.getUserAbout({ user: page.query! })
+        return user
+      case 'search':
+        const result = await redditWrapper.search(page.term!)
+        return result
+      default:
+        const defaultData = await redditWrapper.getUserFrontPage()
+        return defaultData
+    }
       
       if(page.page === 'homepage') {
         
@@ -57,7 +78,7 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
         return data
       }
        
-    }
+    
     const fallback = page.fallback || page.page
     
     if(fallback === 'homepage') {
