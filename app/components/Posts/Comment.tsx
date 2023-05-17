@@ -78,17 +78,22 @@ export default function Comment({post}: { post: IRedditPost}) {
 }
 //find
 //likes, name, title, subreddit_name_prefixed
-function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, margin?: number, n?: number }) {
+function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margin?: number }) {
   const { data: session } = useSession()
 
   const next = comment?.replies?.data?.children[0]?.data?.body
-
+  
   //if not end of thread replies array is 1th index
   //if end of thread replies array is 0th index
   const children = next ? comment?.replies?.data?.children[1]?.data?.children :
   comment?.replies?.data?.children[0]?.data?.children
 
   const [traversedChildren, setTraversedChildren] = useState<IRedditComment[]>([])
+  const [n, setN] = useState(1)
+
+  useEffect(() => {
+    traversedChildren.length > 0 && console.log({traversedChildren})
+  }, [traversedChildren])
 
   const handleFetchReplies = async () => {
     //grab ids
@@ -101,10 +106,12 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
     //and just slice at the desired indexes
     const sliceStart = (10 * n) - 10;
     const sliceEnd = (10 * n)
-  
+    
     const slicedArray = children.slice(sliceStart, sliceEnd)
 
-    console.log(comment?.replies?.data?.children[1]?.data?.children?.length)
+     setN(prevN => prevN + 1)
+    console.log({ n, slicedArray})
+    //console.log(comment?.replies?.data?.children[1]?.data?.children?.length)
     if(session) {
 
       return
@@ -117,10 +124,12 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
       })
     }).then(res => res.json())
     .then(data => {
-      console.log(data.replies.jquery[10][3])
-      
-    })
+      console.log({replies: data.replies.jquery[10][3]})
+      const replies = data.replies.jquery[10][3][0]
+      .map(({ data }: { data: IRedditComment}) => data)
+      setTraversedChildren(prevState => [...prevState, ...replies])
 
+    })
       //setTraversedChildren(prevState => [...prevState, ...replies])
     
     // console.log(comment.permalink)
@@ -148,15 +157,19 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
             comment.author.includes('[deleted]') && true : false
             }>u/{comment.author}</Button>
             <p>{comment.body}</p>
-          {children?.length > 0 &&
-          <Button onClick={handleFetchReplies}>
-            {children.length > 0 ? 'Show More' : 'Hide'}
-          </Button>
-          }
            {/* renders replies to comment */}
-        <p>{traversedChildren?.length + '/' +  children?.length}</p>
+            {traversedChildren?.length > 0 && 
+            traversedChildren.map(reply => <CommentWrapper key={reply.id} comment={reply} margin={0}/>)}
+            
+            {children?.length > 0 &&
+            <Button onClick={handleFetchReplies}>
+              {children.length > 0 ? 'Show More' : 'Hide'}
+            </Button>
+            }
+            <p>{traversedChildren?.length + '/' +  children?.length}</p>
           </div>
           </div>
+          
         </Paper>
       
         {/* renders thread */}
