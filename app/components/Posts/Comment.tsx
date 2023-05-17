@@ -109,17 +109,17 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
 
       return
     }
-    const url = `https://oauth.reddit.com/api/morechildren?link_id=${comment.link_id}&children=${slicedArray}`
-    await unauthComments(url)
-    //const url = `https://www.reddit.com/r/${comment.subreddit}/comments/.json?comment=${slicedArray[0]}&limit=10`
+    fetch('/api/replies', {
+      method: 'POST',
+      body: JSON.stringify({
+        link_id: comment.link_id,
+        ids: slicedArray
+      })
+    }).then(res => res.json())
+    .then(data => console.log(data))
 
-    console.log({ url })
-    fetch(url).then(res => res.json())
-    .then(({ data }) => {
-      console.log(data)
-      const replies = data.children.map(({ data }: { data: IRedditComment }) => data)
       //setTraversedChildren(prevState => [...prevState, ...replies])
-    })
+    
     // console.log(comment.permalink)
     // fetch( 'https://www.reddit.com/' + comment.permalink + '.json?limit=10')
     // .then(res => res.json())
