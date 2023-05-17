@@ -122,32 +122,33 @@ class RedditWrapper {
         return data 
 
     }
-    async getSubreddit (params: {subreddit: string, auth: boolean }) {
-        const { subreddit, auth } = params
-        const url = auth ? this._baseUrl : this._unauthUrl
+    async getSubreddit (params: {subreddit: string }) {
+        const { subreddit } = params
+        const url = this.getUrl()
         const endpoint = 'r/' + subreddit + '/.json'
         const data = await this.fetchData(url, endpoint, {})
         return data
     }
-    async getSubredditAbout (params: {subreddit: string, auth: boolean }) {
-        const { subreddit, auth } = params
+    async getSubredditAbout (params: {subreddit: string }) {
+        const { subreddit } = params
         //https://www.reddit.com/r/{subreddit_name}/about.json
-        const url = auth ? this._baseUrl : this._unauthUrl
-        const endpoint = 'r/' + subreddit + '/about.json'
-        const options = auth ? this._GEToptions : {}
-        const res = await fetch(url + endpoint, options)
+      
+        const endpoint = this.getUrl() + 'r/' + subreddit + '/about.json'
+        const options = this.getOptions()
+        
+        const res = await fetch(endpoint, options)
         const json = await res.json()
         return json.data
         
     }
-    async getUserAbout (params: {user: string, auth: boolean }) {
-        const { user, auth } = params
+    async getUserAbout (params: {user: string }) {
+        const { user } = params
         //https://www.reddit.com/r/{subreddit_name}/about.json
-        const url = auth ? this._baseUrl : this._unauthUrl
-        const endpoint = 'user/' + user + '/about.json'
-        const options = auth ? this._GEToptions : {}
+    
+        const endpoint = this.getUrl() + 'user/' + user + '/about.json'
+        const options = this.getOptions()
         
-        const res = await fetch(url + endpoint, options)
+        const res = await fetch(endpoint, options)
         const json = await res.json()
      
         //return json.data
