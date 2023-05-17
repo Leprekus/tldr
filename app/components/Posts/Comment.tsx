@@ -116,7 +116,10 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
         ids: slicedArray
       })
     }).then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data.replies.jquery[10])
+      
+    })
 
       //setTraversedChildren(prevState => [...prevState, ...replies])
     
