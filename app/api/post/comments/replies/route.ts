@@ -5,8 +5,8 @@ import authenticateClient from '@/utils/authenticateClient';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { getCsrfToken } from 'next-auth/react';
-import { init } from '../../../node_modules/next-auth/core/init'; // You have to import it like this
-import getAuthorizationUrl from '../../../node_modules/next-auth/core/lib/oauth/authorization-url'; // You have to import it like this
+import { init } from 'next-auth/core/init'; // You have to import it like this
+import getAuthorizationUrl from 'next-auth/core/lib/oauth/authorization-url'; // You have to import it like this
 
 import RedditWrapper from '@/lib/RedditWrapper';
 

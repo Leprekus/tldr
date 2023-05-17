@@ -109,7 +109,7 @@ function CommentWrapper ({ comment, margin=0, n=1 }: { comment: IRedditComment, 
 
       return
     }
-    fetch('/api/replies', {
+    fetch('/api/post/comments/replies', {
       method: 'POST',
       body: JSON.stringify({
         link_id: comment.link_id,
