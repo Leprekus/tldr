@@ -118,7 +118,7 @@ class RedditWrapper {
 
         const endpoint = endpoints[key]
 
-        const data = await this.fetchData(this._unauthUrl, endpoint!, {})
+        const data = await this.fetchData(this.getUrl(), endpoint!, {})
         return data 
 
     }
@@ -135,7 +135,7 @@ class RedditWrapper {
       
         const endpoint = this.getUrl() + 'r/' + subreddit + '/about.json'
         const options = this.getOptions()
-        
+
         const res = await fetch(endpoint, options)
         const json = await res.json()
         return json.data
