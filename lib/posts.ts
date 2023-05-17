@@ -6,7 +6,7 @@ import { IQuerySearch } from '@/typings'
 import { decode } from 'next-auth/jwt'
 import { getCsrfToken } from 'next-auth/react'
 import authenticateClient from '@/utils/authenticateClient'
-const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search', fallback?: string, query?: string, term?: IQuerySearch },) => {
+const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search', query?: string, term?: IQuerySearch },) => {
   
   // // session {
   //   accessToken: '62260682-EmlqDEXCjmpUg2t_eNmQ5-VXawDmCg',
