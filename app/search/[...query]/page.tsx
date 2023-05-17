@@ -1,11 +1,6 @@
 import Card from '@/app/components/Card/Card';
 import List from '@/app/components/Posts/List';
-import RedditWrapper from '@/lib/RedditWrapper';
 import posts from '@/lib/posts';
-import { authOptions } from '@/app/api/auth/[...next-auth]/route';
-import { IRedditPost, RedditPostsResponse } from '@/typings';
-import { getServerSession } from 'next-auth';
-import { cookies } from 'next/dist/client/components/headers';
 import React from 'react'
 
 interface IEndpoints {
@@ -31,7 +26,6 @@ export default async function Search({ params }: { params: { query: [EndpointKey
     
     //const posts = await redditWrapper.search(endpoints[filter])
     const search = await posts({page: 'search', term: endpoints[filter]})
-    console.log({ search })
 
     return (
       <main className="flex min-h-screen flex-col items-center justify-between">
