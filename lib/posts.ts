@@ -52,60 +52,7 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
       default:
         const defaultData = await redditWrapper.getUserFrontPage()
         return defaultData
-    }
-      
-      if(page.page === 'homepage') {
-        
-        const frontpage = await redditWrapper.getUserFrontPage()
-        return frontpage
-        
-      } if(page.page === 'subreddit') {
-        
-        const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: true })
-        return subreddit
-
-      } if(page.page === 'subredditAbout') {
-        
-        const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: true })
-        return about
-
-      }if(page.page === 'user') {
-
-        const user = await redditWrapper.getUserAbout({ user: page.query!, auth: true })
-        return user
-      } if(page.page === 'search') {
-        const data = await redditWrapper.search(page.term!)
-        return data
-      }
-       
-    
-    const fallback = page.fallback || page.page
-    
-    if(fallback === 'homepage') {
-
-      const unauthFrontpage = await redditWrapper.getFrontPage()
-      return unauthFrontpage
-    }
-    if(page.page === 'subreddit') {
-        
-      const subreddit = await redditWrapper.getSubreddit({ subreddit: page.query!, auth: false })
-      return subreddit
-
-    } if(page.page === 'subredditAbout') {
-      
-      const about = await redditWrapper.getSubredditAbout({ subreddit: page.query!, auth: false })
-      return about
-
-    }
-    if(fallback === 'user') {
-  
-      const user = await redditWrapper.getUserAbout({ user: page.query!, auth: false })
-      return user
-  } if(page.page === 'search') {
-    const data = await redditWrapper.search(page.term!)
-    return data
-  }
-  
+    }  
   }
 
   export default posts
