@@ -23,7 +23,7 @@ export default function Comment({post}: { post: IRedditPost}) {
     const [data, setData] = useState<[] | IRedditComment[]>([])
     const fetchComments = async () => {
 
-      const res = await fetch('/api/clientAuth', {
+      const res = await fetch('/api/post/comments', {
         method: 'POST',
         body: JSON.stringify({
           subreddit: post.subreddit,
