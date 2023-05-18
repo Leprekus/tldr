@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Post from "./Post";
 import useStore from "@/app/hooks/store";
 import Alert from "../Alert";
-
+import { ErrorBoundary } from "react-error-boundary";
 export default function List({ data }: { data: RedditPostsResponse }) {
   const { data: session } = useSession();
 
@@ -16,7 +16,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
   const { alert } = useStore();
 
   return (
-    <>
+    <ErrorBoundary>
       <PostFilters data={posts} original={originalData} setData={setPosts} />
       <div className="flex flex-col gap-12 mt-4">
         {posts.map((post: IRedditPost) => (
@@ -30,6 +30,6 @@ export default function List({ data }: { data: RedditPostsResponse }) {
           />
         )}
       </div>
-    </>
+    </ErrorBoundary>
   );
 }
