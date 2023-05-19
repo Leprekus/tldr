@@ -1,12 +1,27 @@
 import { IRedditPost } from '@/typings';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../Button';
 
 export default function TextPost({ text }: { text: string }) {
   const [showMore, setShowMore] = useState(true);
   const [height, setHeight] = useState<number | string>('');
   const [dimStyle, setDimStyle] = useState('opacity-100');
-
+  const [tldr, setTldr] = useState('')
+  useEffect(() => {
+    summarizedText().then(data =>{
+       setTldr(data.summary)
+       console.log({ data })
+      })
+  }, [])
+  const summarizedText = async () => {
+    const res = await fetch('/api/summary', { 
+      method: 'POST', 
+      body: JSON.stringify(text) })
+    const data = await res.json()
+    return data
+  
+  }
+  summarizedText()
   const handleShowMore = () => {
     if (height === '') {
       setHeight('fit');
@@ -34,7 +49,7 @@ export default function TextPost({ text }: { text: string }) {
       className={`min-w-full text-sm relative whitespace-normal break-words ${!showMore && 'pb-12'}` }
     >
       {/* text post */}
-        {showMore ? <p>tldr;</p> : <p>{text}</p>}
+        {showMore ? <p>{tldr}</p> : <p>{text}</p>}
 
         <div
       

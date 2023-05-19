@@ -5,10 +5,10 @@ const SummarizerManager = require("node-summarizer").SummarizerManager;
 
 
 export async function POST(req: Request) {
-    const text = req.json()
+    const text = await req.json()
     const summarizer = new SummarizerManager(text, 3)
-    
-    return NextResponse.json({  })
+    const summary = summarizer.getSummaryByFrequency().summary
+    return NextResponse.json({ summary })
 
 }
 
