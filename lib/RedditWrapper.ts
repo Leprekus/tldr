@@ -59,6 +59,20 @@ class RedditWrapper {
     private getOptions() {
         return this._accessToken ? this._GEToptions : undefined
     }
+    private async response (endpoint: string) {
+        const res = await fetch(endpoint, this.getOptions())
+        if(res.ok) {
+            const json = await res.json()
+            return json
+        }
+        //returns error obj if req fails
+        return { 
+            error: res.status,
+            mesage: res.statusText
+            }
+        
+
+    }
 
     getAccessToken() {
         if(!this._accessToken) throw Error('no token provided')
@@ -116,10 +130,10 @@ class RedditWrapper {
             query: 'search.json?q=' + query
         }
 
-        const endpoint = endpoints[key]
-
-        const data = await this.fetchData(this.getUrl(), endpoint!, {})
-        return data 
+        const endpoint = this.getUrl() +  endpoints[key]
+        const res = await this.response(endpoint)
+        const data = res?.error ? res : this.parseData(res)
+        return data
 
     }
     async getSubreddit (params: {subreddit: string }) {
@@ -168,7 +182,6 @@ class RedditWrapper {
     //will replace fetchData
     private parseData(json:RedditPostsResponse, ) {
     
-
         return json.data.children.map(({ data }: { data: IRedditPost}) => data)
   
     }
