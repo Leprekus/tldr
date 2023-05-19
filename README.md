@@ -2,6 +2,8 @@
 
 An app to save you time
 **need to refactor reddit wrapper because methods should no longer pass URL, just auth**
+
+[Summarizer link](https://github.com/SwapnikKatkoori/node-summarizer#usage)
 ## Tecnologies
 
 - Next.js
