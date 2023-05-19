@@ -12,6 +12,11 @@ An app to save you time
 
 ## To-Do's
 
+## High-Priority
+
+- [ ] Create component to render list of subreddits
+- [ ] Add popular Subreddit sidebar
+
 ### Interactivity
 
 - [ ] Add a four square icon to gallery view
