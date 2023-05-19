@@ -63,12 +63,16 @@ class RedditWrapper {
         const res = await fetch(endpoint, this.getOptions())
         if(res.ok) {
             const json = await res.json()
-            return json
+            return json.data.children.length > 0 ? json : 
+            {
+                error: 404,
+                message: 'No Results'
+            }
         }
         //returns error obj if req fails
         return { 
             error: res.status,
-            message: res.statusText
+            mesage: res.statusText
             }
         
 

@@ -16,7 +16,7 @@ export default function List({ data }: { data: RedditPostsResponse }) {
   const [posts, setPosts] = useState(data);
   const { alert } = useStore();
 
-
+  console.log({ data })
   return data?.error ? <Error error={data}/> : (
     <div >
       <PostFilters data={posts} original={originalData} setData={setPosts} />
