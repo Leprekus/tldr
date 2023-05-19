@@ -46,7 +46,7 @@ export default function TextPost({ text }: { text: string }) {
     <div
       // initial height  = h-36
       style={{ minHeight: 144 }}                                  //prevents text overlap with button
-      className={`min-w-full text-sm relative whitespace-normal break-words ${!showMore && 'pb-12'}` }
+      className='min-w-full text-sm relative whitespace-normal break-words pb-12'
     >
       {/* text post */}
         {showMore ? <p>{tldr}</p> : <p>{text}</p>}
