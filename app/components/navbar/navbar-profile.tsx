@@ -63,7 +63,6 @@ const handleDisplaySettings = () => {
             {!session &&
             <Button
             variant='primary'
-            className='text-white px-4 py-2 bg-indigo-400 hover:bg-white border border-transparent hover:text-indigo-400 hover:border-indigo-400'
             onClick={() =>signIn()}
             >
                 {'Sign In'}
