@@ -1,3 +1,7 @@
+interface IError {
+  error: number;
+  message: string
+}
 export interface IClientToken {
   access_token: string;
   token_type: 'bearer';

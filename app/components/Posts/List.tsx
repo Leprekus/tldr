@@ -16,7 +16,8 @@ export default function List({ data }: { data: RedditPostsResponse }) {
   const [posts, setPosts] = useState(data);
   const { alert } = useStore();
 
-  return (
+
+  return data?.error ? <Error error={data}/> : (
     <div >
       <PostFilters data={posts} original={originalData} setData={setPosts} />
       <div className="flex flex-col gap-12 mt-4">

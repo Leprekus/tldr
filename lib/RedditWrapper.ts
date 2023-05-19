@@ -68,7 +68,7 @@ class RedditWrapper {
         //returns error obj if req fails
         return { 
             error: res.status,
-            mesage: res.statusText
+            message: res.statusText
             }
         
 
