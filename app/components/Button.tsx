@@ -24,30 +24,28 @@ export default function Button({ sx, variant='primary', rounded=false, children,
   }
  }
 
- if(href) {
-  if (disabled) {
-    return<button
-      aria-label={label} 
-      disabled 
-      className={masterStyle}
-      style={ sx }
-      >{ children }</button>;
-  }
-  return (
-    <Link href={href}
-    onMouseOver={(e) => mouseEventHandler(e)}
-    onMouseEnter={(e) => mouseEventHandler(e)}
-    onMouseLeave={(e) => mouseEventHandler(e)}
-    onClick={onClick}
+ if (disabled) {
+  return<button
+    aria-label={label} 
+    disabled 
+    className={masterStyle + ' hover:cursor-not-allowed'}
     style={ sx }
+    >{ children }</button>;
+}
 
-    className={masterStyle}
-    >
-      { children }
-    </Link>
-  )
+ if(href) return (
+  <Link href={href}
+  onMouseOver={(e) => mouseEventHandler(e)}
+  onMouseEnter={(e) => mouseEventHandler(e)}
+  onMouseLeave={(e) => mouseEventHandler(e)}
+  onClick={onClick}
+  style={ sx }
 
- }
+  className={masterStyle}
+  >
+    { children }
+  </Link>
+)
  // removed from classname py-2 px-4
  return (
   <button 
