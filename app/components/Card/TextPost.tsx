@@ -8,10 +8,7 @@ export default function TextPost({ text }: { text: string }) {
   const [dimStyle, setDimStyle] = useState('opacity-100');
   const [tldr, setTldr] = useState('')
   useEffect(() => {
-    summarizedText().then(data =>{
-       setTldr(data.summary.toString())
-       console.log(data.summary)
-      })
+    summarizedText().then(data => setTldr(data.summary.toString()))
   }, [])
   const summarizedText = async () => {
     const res = await fetch('/api/summary', { 
