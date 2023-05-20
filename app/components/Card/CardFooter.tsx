@@ -2,6 +2,8 @@ import React from 'react'
 import Button from '../Button'
 import { IRedditPost } from '@/typings'
 import Link from 'next/link'
+import { UpvoteIcon } from '../Icons'
+import Tooltip from '../Tooltip'
 
 export default function CardFooter({ post,  }: { post: IRedditPost }) {
   const authorImage = fetch('https://www.reddit.com/user/' + post.author + '/about.json')
@@ -9,9 +11,8 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
   .then(data => data)
   return (
     <div  style={{ borderTopWidth: 1 }}
-    className='h-24 border-t-1 border-zinc-200 flex items-center gap-x-4'
+    className='h-fit py-4 border-t-1 border-zinc-200 flex flex-col  items-start gap-8'
     >
-        <div className='w-10 h-10 rounded-full bg-blue-50'/>
           <Button
             className='text-gray-600'
             href={'u/' + post.author}
@@ -19,7 +20,28 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
             variant='ghost'
             onClick={() => ''}
             >u/{post.author}</Button>
-        
+            <div className='flex justify-between w-full gap-4'>
+              <Tooltip title='Upvote Ratio'>
+                <UpvoteIcon fill='#A9A9A9'/>
+                <p >{post.upvote_ratio}</p>
+              </Tooltip>
+
+              <Tooltip title='Upvotes'>
+                <UpvoteIcon fill='#A9A9A9'/>
+                <p >{post.ups}</p>
+              </Tooltip>
+              
+              <Tooltip title='Downvotes' className='flex gap-4'>
+                <UpvoteIcon fill='#A9A9A9'/>
+                <p >{Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
+              </Tooltip>
+
+              <Tooltip title={`Awards (${post.all_awardings.length})`} className='flex gap-4'>
+                <UpvoteIcon fill='#A9A9A9'/>
+                <p >{post.all_awardings.length}</p>
+              </Tooltip>
+
+            </div>
         </div>
   )
 }

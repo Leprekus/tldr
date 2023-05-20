@@ -130,7 +130,7 @@ class RedditWrapper {
 
         const endpoints: IWrapperSearchEndpoints = {
             subreddits: 'subreddits/search.json?q=' + query,
-            user: 'user/' + query + '/.json',
+            user: 'user/' + query + '/.json', //'?q=user&type=' + query,
             query: 'search.json?q=' + query
         }
 

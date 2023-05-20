@@ -21,10 +21,6 @@ export default function Post({ post }: { post: IRedditPost }) {
           {/* gallery */}
           {!post.selftext && post.media_metadata && <Carousel post ={post}/>}
           <CardFooter post={post}/>
-          <p >ratip {post.upvote_ratio}</p>
-          <p >upvotes {post.ups}</p>
-          <p >downvotes {Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
-          <p >created at: {post.created}</p>
         </Card>
         {post.id === currentCommentId && <Comment post={post}/>}
       
