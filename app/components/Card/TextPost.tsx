@@ -1,5 +1,6 @@
 import { IRedditPost } from '@/typings';
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown'
 import Button from '../Button';
 
 export default function TextPost({ text }: { text: string }) {
@@ -46,7 +47,8 @@ export default function TextPost({ text }: { text: string }) {
       className='min-w-full text-sm relative whitespace-normal break-words pb-12'
     >
       {/* text post */}
-        {showMore ? <p>{tldr}</p> : <p>{text}</p>}
+        {showMore ? <p>{tldr}</p> : 
+        <ReactMarkdown>{text}</ReactMarkdown>}
 
         <div
       

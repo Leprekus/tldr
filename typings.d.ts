@@ -29,6 +29,7 @@ interface IMediaMetadata {
 }
 
 interface IRedditPost {
+  url_overridden_by_dest: string;
   title : string;
   author: string;
   subreddit: string;

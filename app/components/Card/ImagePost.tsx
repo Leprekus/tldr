@@ -2,7 +2,7 @@ import { IRedditPost } from '@/typings'
 import React from 'react'
 
 export default function ImagePost({ post }: { post: IRedditPost }) {
-  const url = post.preview.images[0].resolutions[2].url!.replace(/&amp;/g, '&')
+  const url = post?.preview?.images[0]?.resolutions[2]?.url!.replace(/&amp;/g, '&')
   
   return (
     <div className='h-fit w-auto flex justify-center'>

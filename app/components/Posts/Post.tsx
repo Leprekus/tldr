@@ -15,8 +15,9 @@ export default function Post({ post }: { post: IRedditPost }) {
   return (
     <div className='flex flex-col md:flex-row gap-2 ' style={{ maxWidth: 600}}>
         <Card post={post} header={post.title} link={post.subreddit_name_prefixed}>
-          {post.is_self && <TextPost text ={post.selftext!}/>}
-          {!post.selftext && !post.is_reddit_media_domain && <LinkPost post ={post}/>}
+          {post?.selftext && <TextPost text ={post.selftext!}/>}
+          {/* link post */}
+          {post?.url_overridden_by_dest && post?.post_hint === 'link' && <LinkPost post ={post}/>}
           {post.post_hint === 'image' && post.is_reddit_media_domain && <ImagePost post ={post}/>}
           {/* gallery */}
           {!post.selftext && post.media_metadata && <Carousel post ={post}/>}
