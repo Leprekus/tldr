@@ -6,16 +6,11 @@ export default function VideoPost({ post }: { post: IRedditPost }) {
     console.log({dash: formatRedditUrl(post.secure_media.reddit_video.dash_url)})
     console.log({fallback: formatRedditUrl(post.secure_media.reddit_video.fallback_url)})
   return (
-    <div>
-        <video 
-        controls
-        >
+    <div className='w-fit mx-auto'>
+        <video controls height={250} className='max-h-[500px]'>
             <source 
             src={formatRedditUrl(post.secure_media.reddit_video.fallback_url)} 
-            type="application/x-mpegURL"/>
-            <source 
-            src={formatRedditUrl(post.secure_media.reddit_video.dash_url)} 
-            type="application/x-mpegURL"/>
+            type="video/mp4"/>
             Your browser does not support the video tag.
         </video>
     </div>

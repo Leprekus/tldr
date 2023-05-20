@@ -28,11 +28,11 @@ export default function Card({
 
   return (
     <>
-      <Paper sx={{ maxWidth: isRedditPost(post) ? 500 : 320 }}>
+      <Paper>
         <ActionBar post={post}/>
 
         {/* header */}
-        <div style={{ maxWidth: 340 }} className='w-full flex flex-col gap-y-2'>
+        <div className='w-full flex flex-col gap-y-2'>
           <div className='pt-8 pb-2'>
            
            
