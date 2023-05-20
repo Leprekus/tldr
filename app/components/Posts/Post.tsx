@@ -8,6 +8,7 @@ import { Carousel } from '../Card/GalleryPost'
 import CardFooter from '../Card/CardFooter'
 import Comment from './Comment'
 import useStore from '@/app/hooks/store'
+import VideoPost from '../Card/VideoPost'
 
 export default function Post({ post }: { post: IRedditPost }) {
   const currentCommentId = useStore((state: IInitialState) => state.comments.currentCommentId);
@@ -21,6 +22,7 @@ export default function Post({ post }: { post: IRedditPost }) {
           {post.post_hint === 'image' && post.is_reddit_media_domain && <ImagePost post ={post}/>}
           {/* gallery */}
           {!post.selftext && post.media_metadata && <Carousel post ={post}/>}
+          {post.is_video && <VideoPost post={post}/>}
           <CardFooter post={post}/>
         </Card>
         {post.id === currentCommentId && <Comment post={post}/>}

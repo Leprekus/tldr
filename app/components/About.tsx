@@ -3,6 +3,7 @@ import { IAboutSubreddit } from '@/typings'
 import Image from 'next/image'
 import React from 'react'
 import Pill from './Pill'
+import formatRedditUrl from '@/utils/formatRedditUrl';
 
 export default function About({ data }: { data: IAboutSubreddit }) {
   function formatNumber(number: number) {
@@ -32,7 +33,7 @@ export default function About({ data }: { data: IAboutSubreddit }) {
     className={`h-fit w-96 mx-auto flex flex-col px-1 py-2 md:mt-12
     ${data.primary_color ? `bg-[${data.primary_color}]` : 'bg-slate-400 bg-opacity-10'} rounded-md shadow flex items-center gap-y-2`}>
           
-          {data.icon_img && <Image src={data.icon_img.replace(/&amp;/g, '&')} width={72} height={72} alt='subreddit-icon' className='rounded-full shadow'/> }
+          {data.icon_img && <Image src={formatRedditUrl(data.icon_img)} width={72} height={72} alt='subreddit-icon' className='rounded-full shadow'/> }
           
           <h1 className='text-xl md:text-3xl text-gray-700 font-bold'>r/{data.title}</h1>
       

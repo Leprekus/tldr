@@ -29,6 +29,7 @@ interface IMediaMetadata {
 }
 
 interface IRedditPost {
+  is_video: boolean;
   url_overridden_by_dest: string;
   title : string;
   author: string;
