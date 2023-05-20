@@ -52,7 +52,45 @@ interface IRedditPost {
   media_metadata: MediaMetadata;
   is_reddit_media_domain: boolean;
   preview: {
-    images: { resolutions: { url: string }[]}[]}
+    images: { resolutions: { url: string }[]}[]
+  }
+  all_awardings: {
+    "giver_coin_reward": null,
+    "subreddit_id": null,
+    "is_new": boolean,
+    "days_of_drip_extension": null,
+    "coin_price": number,
+    "id": "gid_1",
+    "penny_donate": null,
+    "award_sub_type": "GLOBAL",
+    "coin_reward": number,
+    "icon_url": "https://www.redditstatic.com/gold/awards/icon/silver_512.png",
+    "days_of_premium": null,
+    "tiers_by_required_awardings": null,
+    "resized_icons": 
+        {
+            "url": "https://www.redditstatic.com/gold/awards/icon/silver_16.png",
+            "width": number,
+            "height": number
+        }[],
+    "icon_width": number,
+    "static_icon_width": number,
+    "start_date": null,
+    "is_enabled": true,
+    "awardings_required_to_grant_benefits": null,
+    "description": "Shows the Silver Award... and that's it.",
+    "end_date": null,
+    "sticky_duration_seconds": null,
+    "subreddit_coin_reward": number,
+    "count": number,
+    "static_icon_height": number,
+    "name": "Silver",
+    "icon_format": null,
+    "icon_height": number,
+    "penny_price": null,
+    "award_type": "global",
+    "static_icon_url": "https://www.redditstatic.com/gold/awards/icon/silver_512.png"
+}
 }
 
 type RedditPostsResponse = RedditResponse<{
