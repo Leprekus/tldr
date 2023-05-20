@@ -14,7 +14,7 @@ export default function TextPost({ text }: { text: string }) {
     summarizedText().then(data => setTldr(data.summary.toString()))
   }, [])
   const summarizedText = async () => {
-    const res = await fetch(process.env.PUBLIC_NEXT_BASE_URL + '/api/summary', { 
+    const res = await fetch('/api/summary', { 
       method: 'POST', 
       body: JSON.stringify(text) })
     const data = await res.json()
