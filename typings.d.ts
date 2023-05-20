@@ -55,6 +55,7 @@ interface IRedditPost {
     images: { resolutions: { url: string }[]}[]
   }
   all_awardings: {
+    length: number;
     "giver_coin_reward": null,
     "subreddit_id": null,
     "is_new": boolean,
