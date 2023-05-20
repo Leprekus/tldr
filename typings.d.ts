@@ -30,6 +30,12 @@ interface IMediaMetadata {
 
 interface IRedditPost {
   is_video: boolean;
+  secure_media: {
+    reddit_video: {
+      dash_url: string;
+      fallback_url: string;
+    }
+  }
   url_overridden_by_dest: string;
   title : string;
   author: string;
