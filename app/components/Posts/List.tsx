@@ -22,9 +22,9 @@ export default function List({ data }: { data: RedditPostsResponse }) {
     <div >
       <PostFilters data={posts} original={originalData} setData={setPosts} />
       <div className="flex flex-col gap-12 mt-4">
-        {posts.map((post:IRedditPost) => (
-          post.name.substring(0, 2) === 't5' ? <Subreddit key={post.id} post={post}/> :
-          <Post post={post} key={post.id} />
+        {posts.map((post:any) => (
+          post.name.substring(0, 2) === 't5' ? <Subreddit key={post.display_name_prefixed} post={post as IAboutSubreddit}/> :
+          <Post post={post as IRedditPost} key={post.id} />
         ))}
         {alert.display && (
           <Alert
