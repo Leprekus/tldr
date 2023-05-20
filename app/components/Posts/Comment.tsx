@@ -55,9 +55,10 @@ export default function Comment({post}: { post: IRedditPost}) {
    
     return ( 
     <div 
-    className='h-full max-h-[300px] text-xs overflow-y-scroll'> 
+    className='w-full text-xs overflow-y-scroll'> 
   
     <Button 
+    variant='tertiary'
     className='sticky'
     onClick={() => removeCurrentCommentId()}>x</Button>
 
@@ -146,7 +147,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
     <>
     <Paper 
         sx={{ marginLeft: margin }}
-        className='p-2 w-full xl:w-96'
+        className='p-2 w-full'
         key={comment.id}>
           <div className='flex '>
           <ActionBar post={comment} padding={'pr-1'}/>
@@ -162,7 +163,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
             traversedChildren.map(reply => <CommentWrapper key={reply.id} comment={reply} margin={0}/>)}
             
             {children?.length > 0 &&
-            <Button onClick={handleFetchReplies}>
+            <Button variant='tertiary' onClick={handleFetchReplies}>
               {children.length > 0 ? 'Show More' : 'Hide'}
             </Button>
             }
