@@ -74,6 +74,8 @@ interface IWrapperSearchEndpoints {
 }
 
 interface IAboutSubreddit {
+  public_description: string;
+  display_name_prefixed: string;
   accept_followers: boolean;
   accounts_active: number;
   accounts_active_is_fuzzed: boolean;
