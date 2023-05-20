@@ -1,7 +1,8 @@
 import { IRedditPost } from '@/typings';
 import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown'
 import Button from '../Button';
+import ReactMarkDown from 'react-mark'
+
 
 export default function TextPost({ text }: { text: string }) {
   const [showMore, setShowMore] = useState(true);
@@ -12,7 +13,7 @@ export default function TextPost({ text }: { text: string }) {
     summarizedText().then(data => setTldr(data.summary.toString()))
   }, [])
   const summarizedText = async () => {
-    const res = await fetch('/api/summary', { 
+    const res = await fetch(process.env.PUBLIC_NEXT_BASE_URL + '/api/summary', { 
       method: 'POST', 
       body: JSON.stringify(text) })
     const data = await res.json()
