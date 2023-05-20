@@ -1,7 +1,7 @@
 import { IRedditPost } from '@/typings';
 import React, { useEffect, useState } from 'react';
 import Button from '../Button';
-import ReactMarkDown from 'react-mark'
+import ReactMarkDown from 'react-markdown'
 
 
 export default function TextPost({ text }: { text: string }) {
