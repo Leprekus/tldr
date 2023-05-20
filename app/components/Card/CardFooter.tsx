@@ -6,6 +6,10 @@ import { RatioIcon, TrophyIcon, UpvoteIcon } from '../Icons'
 import Tooltip from '../Tooltip'
 
 export default function CardFooter({ post,  }: { post: IRedditPost }) {
+
+  const displayAwards = () => {
+    
+  }
   return (
     <div  style={{ borderTopWidth: 1 }}
     className='h-fit py-4 border-t-1 border-zinc-200 flex flex-col  items-start gap-8'
@@ -34,7 +38,9 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
               </Tooltip> */}
 
               <Tooltip title={`Awards (${post.all_awardings.length})`} className='flex gap-4'>
-                <Button variant='ghost' disabled={true }>
+                <Button 
+                onClick={displayAwards}
+                variant='ghost' disabled={ post.all_awardings.length < 1 && true }>
                   {post.all_awardings.length > 0 && <div style={{ fontSize: 10 }} className='w-4 h-4 rounded-full bg-gray-100 absolute left-6 -top-1 text-blue-500 flex justify-center items-center p-2 shadow'>{post.all_awardings.length}</div>}
                   <TrophyIcon fill='#A9A9A9'/>
                 </Button>
