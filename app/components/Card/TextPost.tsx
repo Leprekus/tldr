@@ -1,7 +1,8 @@
 import { IRedditPost } from '@/typings';
 import React, { useEffect, useState } from 'react';
 import Button from '../Button';
-import ReactMarkDown from 'react-markdown'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 
 export default function TextPost({ text }: { text: string }) {
@@ -49,7 +50,7 @@ export default function TextPost({ text }: { text: string }) {
     >
       {/* text post */}
         {showMore ? <p>{tldr}</p> : 
-        <ReactMarkdown>{text}</ReactMarkdown>}
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}
 
         <div
       
