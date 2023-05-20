@@ -9,8 +9,8 @@ export default function TextPost({ text }: { text: string }) {
   const [tldr, setTldr] = useState('')
   useEffect(() => {
     summarizedText().then(data =>{
-       setTldr(data.summary)
-       console.log({ data })
+       setTldr(data.summary.toString())
+       console.log(data.summary)
       })
   }, [])
   const summarizedText = async () => {
