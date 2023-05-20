@@ -21,7 +21,6 @@ export default function TextPost({ text }: { text: string }) {
     return data
   
   }
-  summarizedText()
   const handleShowMore = () => {
     if (height === '') {
       setHeight('fit');
