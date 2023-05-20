@@ -35,7 +35,6 @@ export default function SearchBar() {
       />
       <Button
       variant='ghost'
-      className={inputText === '' ? 'hover:cursor-not-allowed' : ''}
       label='search-button'
       disabled={inputText === '' ? true : false}
       href={'/search/' + selectedOption + inputText}>
