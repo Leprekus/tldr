@@ -48,7 +48,7 @@ export default function Card({
           {/* body */}
           {children}
         </div>
-        {isRedditPost(post) && <div className='min-h-full w-20' />}
+        {isRedditPost(post) && <div className='min-h-full min-w-[80px]' />}
       </Paper>
     </>
   );

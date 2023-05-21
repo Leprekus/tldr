@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '../Button';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { CloseIcon } from '../Icons';
 
 
 export default function TextPost({ post }: { post: IRedditPost }) {
@@ -22,7 +23,8 @@ export default function TextPost({ post }: { post: IRedditPost }) {
     return data
   
   }
-  const handleShowMore = () => {
+  const handleShowMore = (md?: 'md') => {
+    if(md) document.body.style.overflow === '' ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''
     if (height === '') {
       setHeight('fit');
       setShowMore(false);
@@ -41,9 +43,35 @@ export default function TextPost({ post }: { post: IRedditPost }) {
       setDimStyle('opacity-20 hover:opacity-100');
     }
   };
-  //handlds md posts
+  //handles md posts
   if(post.author_flair_type === 'richtext') 
-  return <ReactMarkdown remarkPlugins={[remarkGfm]}>{(post.selftext as string)}</ReactMarkdown>
+  return (
+    <div 
+    style={{ maxWidth: 440 }}
+    className={`min-w-full  ${showMore ? 'overflow-hidden' : 'overflow-y-scroll'}`}>
+      <div className={`h-72 ${showMore ? '' : 'bg-gray-50 fixed top-0 left-1/2 transform -translate-x-1/2 -translate-y-1 z-10 overflow-y-scroll h-screen w-screen'}`}>
+        <div className=' bg-white shadow w-full p-4  md:w-fit md:p-4 h-fit mx-auto '>
+          <Button    
+           className={ ` ${showMore ? ' hidden' : ' block'}`}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleShowMore('md')}
+            variant='secondary'><CloseIcon fill='#3b83f6'/></Button>
+          <ReactMarkdown className='text-xs md:text-base' remarkPlugins={[remarkGfm]}>{(post.selftext as string)}</ReactMarkdown>
+        
+        </div>
+      </div>
+      <div className='w-full h-20 bg-gradient-to-b from-transparent to-gray-50 relative flex justify-center items-end'>
+        <Button
+              className={dimStyle}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleShowMore('md')}
+              variant='secondary'
+            >
+            Expand View
+            </Button>
+      </div>
+    </div>
+  )
 
 
   return (
