@@ -12,7 +12,7 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
   }
   return (
     <div  style={{ borderTopWidth: 1 }}
-    className='h-fit py-4 border-t-1 border-zinc-200 flex flex-col  items-start gap-8'
+    className='h-fit py-4 border-t-1 border-zinc-200 flex items-start gap-8'
     >
           <Button
             className='text-gray-600'
