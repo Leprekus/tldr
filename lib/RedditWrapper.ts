@@ -168,8 +168,7 @@ class RedditWrapper {
         
         const res = await fetch(endpoint, options)
         const json = await res.json()
-     
-        //return json.data
+        return json.data
         
     }
     async getComments(params: { subreddit: string, id: string }) {
@@ -185,7 +184,7 @@ class RedditWrapper {
     }
     //will replace fetchData
     private parseData(json:RedditPostsResponse, ) {
-    
+        
         return json.data.children.map(({ data }: { data: IRedditPost}) => data)
   
     }

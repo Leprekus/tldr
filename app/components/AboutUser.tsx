@@ -1,8 +1,10 @@
+'use client'
 import React from 'react'
 
 export default function AboutUser({ data }: { data: any}) {
-    console.log(data)
+    console.log(data || 'null')
+    console.log('ranr')
   return (
-    <div>AboutUser</div>
+    <div>AboutUser jjij</div>
   )
 }
