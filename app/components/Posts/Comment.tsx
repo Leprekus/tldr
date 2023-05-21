@@ -62,14 +62,14 @@ export default function Comment({post}: { post: IRedditPost}) {
     className='sticky'
     onClick={() => removeCurrentCommentId()}>x</Button>
 
-     {data.length ? 
+     {false ? 
       data.map((comment) => (
         comment.body &&
         <CommentWrapper 
         key={comment.id}
         comment={comment}/>
       )) :
-      <p>Loading ....</p>
+      <SkeletonComments/>
     }
     {/* <SkeletonComments/> */}
     

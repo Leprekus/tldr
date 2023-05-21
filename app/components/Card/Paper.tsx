@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react'
 
-export default function Paper({ children, sx={}, flex='row', className }: { children: ReactNode | string, sx?: CSSProperties, flex?: 'row' | 'col', className?: string}) {
+export default function Paper({ children, sx={}, flex='row', className }: { children: ReactNode | string, sx?: CSSProperties, flex?: 'row' | 'col' | 'wrap', className?: string}) {
   return (
     <div
     style={ sx }
