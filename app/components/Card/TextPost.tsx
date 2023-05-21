@@ -23,8 +23,9 @@ export default function TextPost({ post }: { post: IRedditPost }) {
     return data
   
   }
-  const handleShowMore = (md?: 'md') => {
-    if(md) document.body.style.overflow === '' ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''
+  const handleBodyOverflow = () => document.body.style.overflow === '' ? document.body.style.overflow = 'hidden' : document.body.style.overflow = '' 
+  const handleShowMore = () => {
+    
     if (height === '') {
       setHeight('fit');
       setShowMore(false);
@@ -54,7 +55,7 @@ export default function TextPost({ post }: { post: IRedditPost }) {
           <Button    
            className={ ` ${showMore ? ' hidden' : ' block'}`}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleShowMore('md')}
+            onClick={() => {handleShowMore(), handleBodyOverflow()}}
             variant='secondary'><CloseIcon fill='#3b83f6'/></Button>
           <ReactMarkdown className='text-xs md:text-base' remarkPlugins={[remarkGfm]}>{(post.selftext as string)}</ReactMarkdown>
         
@@ -64,7 +65,7 @@ export default function TextPost({ post }: { post: IRedditPost }) {
         <Button
               className={dimStyle}
               onMouseLeave={handleMouseLeave}
-              onClick={() => handleShowMore('md')}
+              onClick={() => {handleShowMore(), handleBodyOverflow()}}
               variant='secondary'
             >
             Expand View
