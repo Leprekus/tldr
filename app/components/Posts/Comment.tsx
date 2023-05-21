@@ -62,7 +62,7 @@ export default function Comment({post}: { post: IRedditPost}) {
     className='sticky'
     onClick={() => removeCurrentCommentId()}>x</Button>
 
-     {false ? 
+     {data.length ? 
       data.map((comment) => (
         comment.body &&
         <CommentWrapper 
