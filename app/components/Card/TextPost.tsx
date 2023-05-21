@@ -5,7 +5,8 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 
-export default function TextPost({ text }: { text: string }) {
+export default function TextPost({ post }: { post: IRedditPost }) {
+  const { selftext } = post
   const [showMore, setShowMore] = useState(true);
   const [height, setHeight] = useState<number | string>('');
   const [dimStyle, setDimStyle] = useState('opacity-100');
@@ -16,7 +17,7 @@ export default function TextPost({ text }: { text: string }) {
   const summarizedText = async () => {
     const res = await fetch('/api/summary', { 
       method: 'POST', 
-      body: JSON.stringify(text) })
+      body: JSON.stringify(post.selftext) })
     const data = await res.json()
     return data
   
@@ -40,6 +41,10 @@ export default function TextPost({ text }: { text: string }) {
       setDimStyle('opacity-20 hover:opacity-100');
     }
   };
+  //handlds md posts
+  if(post.author_flair_type === 'richtext') 
+  return <ReactMarkdown remarkPlugins={[remarkGfm]}>{(post.selftext as string)}</ReactMarkdown>
+
 
   return (
     <div
@@ -49,7 +54,7 @@ export default function TextPost({ text }: { text: string }) {
     >
       {/* text post */}
         {showMore ? <p>{tldr}</p> : 
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>}
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{(post.selftext as string)}</ReactMarkdown>}
 
         <div
       

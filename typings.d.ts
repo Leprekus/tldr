@@ -30,6 +30,7 @@ interface IMediaMetadata {
 
 interface IRedditPost {
   is_video: boolean;
+  author_flair_type: string;
   secure_media: {
     reddit_video: {
       dash_url: string;
