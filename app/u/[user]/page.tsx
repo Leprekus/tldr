@@ -1,5 +1,5 @@
 
-import About from '@/app/components/About';
+import About from '@/app/components/Subreddit/AboutSubreddit';
 import Card from '@/app/components/Card/Card';
 import List from '@/app/components/Posts/List';
 import RedditWrapper from '@/lib/RedditWrapper';
@@ -50,7 +50,7 @@ export default async function User({ params }: { params: { user: string } }) {
     
     <main className="flex min-h-screen items-start justify-center gap-x-4 p-4">
 
-        {/* <About data={about}/> */}
+        <About data={user}/>
         {/* <List data={user}/> */}
         {/* <div className='w-96 h-96 bg-red-500'/> */}
     </main>

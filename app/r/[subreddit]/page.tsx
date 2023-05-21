@@ -1,4 +1,4 @@
-import About from '@/app/components/About';
+import About from '@/app/components/Subreddit/AboutSubreddit';
 import Card from '@/app/components/Card/Card';
 import List from '@/app/components/Posts/List';
 import RedditWrapper from '@/lib/RedditWrapper';

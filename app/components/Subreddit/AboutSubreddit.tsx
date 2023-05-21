@@ -2,10 +2,10 @@
 import { IAboutSubreddit } from '@/typings'
 import Image from 'next/image'
 import React from 'react'
-import Pill from './Pill'
+import Pill from '../Pill'
 import formatRedditUrl from '@/utils/formatRedditUrl';
 
-export default function About({ data }: { data: IAboutSubreddit }) {
+export default function AboutSubreddit({ data }: { data: IAboutSubreddit }) {
   function formatNumber(number: number) {
     const units = ['', 'k', 'M', 'B', 'T', 'Q'];
     let unitIndex = 0;
