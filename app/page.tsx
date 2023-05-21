@@ -21,7 +21,6 @@ export default async function Home() {
   if(!frontpage) {
     return <p>something went wrong</p>
   } 
-  console.log({ trendingSubreddits})
   //flex min-h-screen flex-row items-start justify-between
   return (
     <main className="min-h-screen grid grid-flow-col auto-cols-min gap-4 justify-center">

@@ -54,6 +54,7 @@ class RedditWrapper {
     }
 
     private getUrl() {
+        //includes trailing slash
         return this._accessToken ? this._baseUrl : this._unauthUrl
     }
     private getOptions() {
@@ -180,7 +181,7 @@ class RedditWrapper {
     }
     async getComments(params: { subreddit: string, id: string }) {
         const searchParams = new URLSearchParams({ limit: '5', threaded: 'true' })
-        const endpoint = this.getUrl() + '/r/'+ params.subreddit + '/comments/' + params.id + '.json?' + searchParams
+        const endpoint = this.getUrl() + 'r/'+ params.subreddit + '/comments/' + params.id + '.json?' + searchParams
         const res = await fetch(endpoint, this.getOptions())
         
         if(res.ok) {

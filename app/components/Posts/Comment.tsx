@@ -33,24 +33,10 @@ export default function Comment({post}: { post: IRedditPost}) {
       })
 
       const { comments } = await res.json()
-      console.log(comments)
-
       return setData(comments)
     }
     useEffect(() => {
-      if(!session) {
-        fetchComments()
-        return          
-      }
-      const headers = {
-        Authorization: `Bearer ${session?.accessToken}`,
-      } 
-      fetch('/api/user/vote', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ subreddit: post.subreddit, id: post.id }),
-      });
-      return 
+      fetchComments() 
     }, [])
 
    
