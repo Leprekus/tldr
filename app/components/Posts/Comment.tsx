@@ -12,6 +12,7 @@ import Link from 'next/link'
 import ActionBar from '../Card/ActionBar'
 import unauthComments from '@/utils/unauthComments'
 import authenticateClient from '@/utils/authenticateClient'
+import { CloseIcon } from '../Icons'
 
 
 export default function Comment({post}: { post: IRedditPost}) {
@@ -58,9 +59,9 @@ export default function Comment({post}: { post: IRedditPost}) {
     className='w-full text-xs overflow-y-scroll'> 
   
     <Button 
-    variant='tertiary'
-    className='sticky'
-    onClick={() => removeCurrentCommentId()}>x</Button>
+    variant='ghost'
+    className='sticky mb-2'
+    onClick={() => removeCurrentCommentId()}><CloseIcon fill='#A9A9A9'/></Button>
 
      {data.length ? 
       data.map((comment) => (
