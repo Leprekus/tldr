@@ -1,4 +1,3 @@
-'use client'
 import { IRedditUser } from '@/typings'
 import cakeDay from '@/utils/cakeDay'
 import formatRedditUrl from '@/utils/formatRedditUrl'
