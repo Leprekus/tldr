@@ -9,7 +9,7 @@ export default function AboutUser({ data }: { data: IRedditUser}) {
 
   return (
     <div>
-        <Image className='bg-gray-200 rounded-md' src={formatRedditUrl(data.icon_img)} width={48} height={48} alt='user-avatar'/>
+        <img className='bg-gray-200 rounded-md' loading='lazy' src={formatRedditUrl(data.icon_img)} width={48} height={48} alt='user-avatar'/>
         <p>{data.name}</p>
         <p>{data.description}</p>
         <p>Cake Day: {cakeDay(data.created_utc)}</p>

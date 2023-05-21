@@ -62,6 +62,7 @@ class RedditWrapper {
     }
     private async response (endpoint: string) {
         const res = await fetch(endpoint, this.getOptions())
+        console.log({ wrapperRes: res})
         if(res.ok) {
             const json = await res.json()
             return json.data.children.length > 0 ? json : 
@@ -91,7 +92,6 @@ class RedditWrapper {
                 authorization: 'Bearer ' + this._accessToken
               },
         }
-        console.log({ token: this._accessToken})
     }
 
     async getFrontPage (params : RedditAPIParams = { sort: 'hot' }) {
@@ -137,15 +137,16 @@ class RedditWrapper {
 
         const endpoint = this.getUrl() +  endpoints[key]
         const res = await this.response(endpoint)
-        const data = res?.error ? res : this.parseData(res)
+        const data = res?.error ? res.error : this.parseData(res)
         return data
 
     }
     async getSubreddit (params: {subreddit: string }) {
         const { subreddit } = params
         const url = this.getUrl()
-        const endpoint = 'r/' + subreddit + '/.json'
-        const data = await this.fetchData(url, endpoint, {})
+        const endpoint = url + 'r/' + subreddit + '/.json'
+        const res = await this.response(endpoint)
+        const data = res?.error ? res.error : this.parseData(res)
         return data
     }
     async getTrendingSubreddits () {
