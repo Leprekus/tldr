@@ -16,7 +16,7 @@ export default async function Home() {
 
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
   const frontpage = await posts({ page: 'homepage' })
-
+  const trendingSubreddits = await posts({ page: 'trendingSubreddits' })
   if(!frontpage) {
     return <p>something went wrong</p>
   }
@@ -24,7 +24,7 @@ export default async function Home() {
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-  
+    asfsdf
     <List data={frontpage}/>
    
     </main>
