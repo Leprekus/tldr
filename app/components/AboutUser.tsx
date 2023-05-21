@@ -1,10 +1,20 @@
 'use client'
+import { IRedditUser } from '@/typings'
+import cakeDay from '@/utils/cakeDay'
+import formatRedditUrl from '@/utils/formatRedditUrl'
+import Image from 'next/image'
 import React from 'react'
 
-export default function AboutUser({ data }: { data: any}) {
+export default function AboutUser({ data }: { data: IRedditUser}) {
     console.log(data || 'null')
-    console.log('ranr')
+
   return (
-    <div>AboutUser jjij</div>
+    <div>
+        <Image className='bg-gray-200 rounded-md' src={formatRedditUrl(data.icon_img)} width={48} height={48} alt='user-avatar'/>
+        <p>{data.name}</p>
+        <p>{data.description}</p>
+        <p>Cake Day: {cakeDay(data.created_utc)}</p>
+        <p>Karma: {data.total_karma}</p>
+    </div>
   )
 }

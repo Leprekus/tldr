@@ -198,6 +198,26 @@ interface IQuerySearch {
   query?: string;
 }
 
+interface IRedditUser {
+  id: string;
+  name: string;
+  icon_img: string;
+  created_utc: number;
+  link_karma: number;
+  comment_karma: number;
+  is_gold: boolean;
+  is_mod: boolean;
+  verified: boolean;
+  total_karma: number;
+  description: string;
+  subreddit: {
+    id: string;
+    name: string;
+    display_name: string;
+  };
+}
+
+
 interface IInitialState {
   bears: number;
   increasePopulation: () => void;
