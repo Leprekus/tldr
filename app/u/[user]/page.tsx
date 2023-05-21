@@ -6,6 +6,7 @@ import RedditWrapper from '@/lib/RedditWrapper';
 import posts from '@/lib/posts';
 import { IRedditPost, RedditPostsResponse } from '@/typings';
 import React from 'react'
+import AboutUser from '@/app/components/AboutUser';
 
 export default async function User({ params }: { params: { user: string } }) {
    // Set the Reddit API endpoint and subreddit name
@@ -50,7 +51,7 @@ export default async function User({ params }: { params: { user: string } }) {
     
     <main className="flex min-h-screen items-start justify-center gap-x-4 p-4">
 
-        <About data={user}/>
+        <AboutUser data={user}/>
         {/* <List data={user}/> */}
         {/* <div className='w-96 h-96 bg-red-500'/> */}
     </main>
