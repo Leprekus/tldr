@@ -4,13 +4,12 @@ import RedditWrapper from '@/lib/RedditWrapper';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]/route';
 import { getToken } from 'next-auth/jwt';
+import returnAccessToken from '@/utils/returnAccessToken';
 
 export async function POST(req: Request) {
     const { subreddit, id } = await req.json()
     
-    const session = await getServerSession(authOptions)
-    
-    const token = session?.accessToken ? session.accessToken : (await authenticateClient()).access_token
+    const token = await returnAccessToken()
     
     const redditWrapper = new RedditWrapper(token)
     

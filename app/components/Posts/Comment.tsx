@@ -84,26 +84,14 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
   }, [traversedChildren])
 
   const handleFetchReplies = async () => {
-    //grab ids
-    //fetch ids in groups of 10
-    //slice array
-    //pass array to component
-    //repeat
-
-    //note slice returns the sliced array so i need to work with the original
-    //and just slice at the desired indexes
     const sliceStart = (10 * n) - 10;
-    const sliceEnd = (10 * n)
+    const sliceEnd = (10 * n) > children.length ? children.length : (10 * n);
     
     const slicedArray = children.slice(sliceStart, sliceEnd)
 
      setN(prevN => prevN + 1)
     console.log({ n, slicedArray})
     //console.log(comment?.replies?.data?.children[1]?.data?.children?.length)
-    if(session) {
-
-      return
-    }
     fetch('/api/post/comments/replies', {
       method: 'POST',
       body: JSON.stringify({
