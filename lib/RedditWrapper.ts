@@ -147,6 +147,13 @@ class RedditWrapper {
         const data = await this.fetchData(url, endpoint, {})
         return data
     }
+    async getTrendingSubreddits () {
+        const url = this.getUrl()
+        const endpoint = url + 'subreddits/popular.json'
+        const res = await this.response(endpoint)
+        const data = res?.error ? res : this.parseData(res)
+        return data
+    }
     async getSubredditAbout (params: {subreddit: string }) {
         const { subreddit } = params
         //https://www.reddit.com/r/{subreddit_name}/about.json

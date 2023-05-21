@@ -44,7 +44,7 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
         return about
         
       case 'trendingSubreddits':
-        const trendingSubreddits = await redditWrapper.getSubredditAbout({ subreddit: page.query! })
+        const trendingSubreddits = await redditWrapper.getTrendingSubreddits()
         return trendingSubreddits
 
       case 'user':

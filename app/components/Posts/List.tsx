@@ -10,20 +10,19 @@ import Alert from "../Alert";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../Error";
 import Subreddit from "../Subreddit/Subreddit";
-export default function List({ data }: { data: RedditPostsResponse }) {
+export default function List({ data, className, mini=false }: { data: RedditPostsResponse, className?:string, mini?: boolean }) {
   const { data: session } = useSession();
 
   const originalData = structuredClone(data);
   const [posts, setPosts] = useState(data);
   const { alert } = useStore();
 
-  console.log({ data })
   return data?.error ? <Error error={data}/> : (
-    <div >
-      <PostFilters data={posts} original={originalData} setData={setPosts} />
-      <div className="flex flex-col gap-12 mt-4">
+    <div className={className}>
+      {!mini && <PostFilters data={posts} original={originalData} setData={setPosts} />}
+      <div className={mini ? 'flex flex-col' : "flex flex-col gap-12 mt-4"}>
         {posts.map((post:any) => (
-          post.name.substring(0, 2) === 't5' ? <Subreddit key={post.display_name_prefixed} post={post as IAboutSubreddit}/> :
+          post.name.substring(0, 2) === 't5' ? <Subreddit mini={mini} key={post.display_name_prefixed} post={post as IAboutSubreddit}/> :
           <Post post={post as IRedditPost} key={post.id} />
         ))}
         {alert.display && (

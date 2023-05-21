@@ -32,7 +32,7 @@ export default function Card({
         <ActionBar post={post}/>
 
         {/* header */}
-        <div className='w-80 md:w-full flex flex-col gap-y-2'>
+        <div className='w-80 lg:w-full flex flex-col gap-y-2'>
           <div className='pt-8 pb-2'>
            
            
