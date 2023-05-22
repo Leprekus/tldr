@@ -19,6 +19,7 @@ export default async function Home() {
   const frontpage = await posts({ page: 'homepage' })
   const trendingSubreddits = await posts({ page: 'trendingSubreddits' })
   const notifications = await posts({ page: 'notifications' })
+  
   if(!frontpage) {
     return <p>something went wrong</p>
   } 
