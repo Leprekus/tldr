@@ -145,7 +145,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
             
             {children?.length > 0 &&
             <Button variant='tertiary' onClick={areChildrenTraversed ? handleFetchReplies : handleHideReplies}>
-              {areChildrenTraversed ? `Show More ${traversedChildren?.length} | ${children?.length}` : `Hide ${children?.length > 10 ? 10 : children?.length} replies`}
+              {areChildrenTraversed ? `Show More ${traversedChildren.length} of ${children?.length}` : `Hide ${children?.length > 10 ? 10 : children?.length} replies`}
             </Button>
             }
           </div>
