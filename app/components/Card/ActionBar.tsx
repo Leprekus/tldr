@@ -69,9 +69,9 @@ export default function ActionBar({ post, padding='px-10 py-8' }: { post: IReddi
       };
   return (
     <div
-    className={'min-h-full w-20 flex justify-center ' + padding}>
-     <div className='flex flex-col'>
-       <div className='flex gap-y-3 flex-col'>
+    className={'h-fit w-full md:min-h-full md:w-20 flex justify-center ' + padding}>
+     <div className='flex gap-x-16 md:flex-col'>
+       <div className='flex gap-3 flex-row md:flex-col'>
          <Button onClick={() => handleVote('up')} variant='ghost'>
            <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'} />
          </Button>

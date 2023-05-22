@@ -28,14 +28,12 @@ export default function Card({
 
   return (
     <>
-      <Paper>
+      <Paper className='flex-col-reverse md:flex-row'>
         <ActionBar post={post}/>
-
+        {/* wrapper */}
+        <div className='mx-auto w-80 lg:w-full flex flex-col gap-y-2'>
         {/* header */}
-        <div className='w-80 lg:w-full flex flex-col gap-y-2'>
           <div className='pt-8 pb-2'>
-           
-           
             {header && <h1 className='text-lg font-bold text-gray-700'>{header}</h1>}
             {link && !link.includes('[deleted]') &&
               <Link href={link}>
@@ -46,7 +44,7 @@ export default function Card({
             
           </div>
           {/* body */}
-          {children}
+          <div className='w-full'>{children}</div>
         </div>
         {isRedditPost(post) && <div className='min-h-full min-w-[80px]' />}
       </Paper>
