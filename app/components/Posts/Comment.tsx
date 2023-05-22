@@ -38,7 +38,7 @@ export default function Comment({post}: { post: IRedditPost}) {
 
    
     return ( 
-    <Paper flex='col' className='w-full text-xs overflow-y-scroll p-2'> 
+    <Paper flex='col' className=' text-xs overflow-y-scroll p-2'> 
   
     <div>
       <Button
@@ -122,10 +122,10 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
         sx={{ marginLeft: margin }}
         className='p-2 w-full'
         key={comment.id}>
-          <div className='flex '>
+          <div className='flex tracking-wider text-justify'>
           <ActionBar flex='col' post={comment} padding={'pr-1'}/>
           <div>
-            <Button variant='ghost'href={'u/' + comment.author}
+            <Button variant='tertiary'href={'u/' + comment.author}
             disabled={
             comment.author ?
             comment.author.includes('[deleted]') && true : false
