@@ -64,8 +64,7 @@ class RedditWrapper {
         const res = await fetch(endpoint, this.getOptions())
         if(res.ok) {
             const json = await res.json()
-            console.log({ json })
-            return json?.data?.children > 0 ? json : 
+            return json.data.children.length > 0 ? json : 
             {
                 error: 404,
                 message: 'No Results'
@@ -111,16 +110,9 @@ class RedditWrapper {
     }
     async getUserNotifications () {
     
-        const endpoint = this.getUrl() + "api/v1/me/prefs"
-        const res = await fetch(endpoint, this.getOptions())
-        if (res.ok) {
-            const json = await res.json()
-            return json
-        }
-        return {
-            error: res.status,
-            message: res.statusText
-        }
+        const endpoint = this.getUrl() + "message/inbox.json?raw_json=1"
+        const res = await this.response(endpoint)
+        return res?.error ? res : this.parseData(res)
     }
 
     //getMyProperty returns a value

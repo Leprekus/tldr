@@ -6,6 +6,7 @@ import { cookies } from 'next/dist/client/components/headers'
 import RedditWrapper from '@/lib/RedditWrapper'
 import posts from '@/lib/posts'
 import Subreddit from './components/Subreddit/Subreddit'
+import Inbox from './components/Inbox'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -29,7 +30,7 @@ export default async function Home() {
 
     <div className='hidden md:block text-gray-700 mb-2 justify-self-center col-span-1'>
     <h1 className='text-xl font-semibold'>Popular Subreddits</h1>
-    <List className='w-48 h-96 overflow-y-scroll scroll-smooth shadow' 
+    <List className='w-48 h-96 overflow-y-scroll scroll-smooth' 
     mini
     data={trendingSubreddits}/>
     </div>
@@ -41,10 +42,10 @@ export default async function Home() {
 
 
     <div className='hidden lg:block justify-self-center col-span-1'>
-    <h1>Popular Subreddits</h1>
-    <List className='w-48 h-96 overflow-y-scroll scroll-smooth shadow ' 
-    mini
-    data={trendingSubreddits}/>
+    <h1 className='text-xl font-semibold'>Your Recent Activity</h1>
+    <Inbox 
+    className='w-full h-96 overflow-y-scroll scroll-smooth'
+    data={notifications}/>
     </div>
 
     </main>

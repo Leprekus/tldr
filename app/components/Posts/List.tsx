@@ -16,9 +16,7 @@ export default function List({ data, className, mini=false }: { data: RedditPost
   const originalData = structuredClone(data);
   const [posts, setPosts] = useState(data);
   const { alert } = useStore();
-
-  
-
+ 
   return data?.error ? <Error error={data}/> : (
     <div className={className}>
       {!mini && <PostFilters data={posts} original={originalData} setData={setPosts} />}
