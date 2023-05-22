@@ -38,26 +38,26 @@ export default function Comment({post}: { post: IRedditPost}) {
 
    
     return ( 
-    <div 
-    className='w-full text-xs overflow-y-scroll'> 
+    <Paper flex='col' className='w-full text-xs overflow-y-scroll p-2'> 
   
-    <Button 
-    variant='ghost'
-    className='sticky mb-2'
-    onClick={() => removeCurrentCommentId()}><CloseIcon fill='#A9A9A9'/></Button>
-
-     {data.length ? 
-      data.map((comment) => (
-        comment.body &&
-        <CommentWrapper 
-        key={comment.id}
-        comment={comment}/>
-      )) :
-      <SkeletonComments/>
-    }
-    {/* <SkeletonComments/> */}
-    
+    <div>
+      <Button
+      variant='ghost'
+      className='sticky mb-2'
+      onClick={() => removeCurrentCommentId()}><CloseIcon fill='#A9A9A9'/></Button>
+       {data.length ?
+        data.map((comment) => (
+          comment.body &&
+          <CommentWrapper
+          key={comment.id}
+          comment={comment}/>
+        )) :
+        <SkeletonComments/>
+      }
+      {/* <SkeletonComments/> */}
+      
     </div>
+    </Paper>
 
   )
 }
@@ -148,7 +148,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
       
         {/* renders thread */}
         {next  &&
-        <CommentWrapper comment={comment?.replies?.data?.children[0]?.data} margin={margin + 10}/>
+        <CommentWrapper comment={comment?.replies?.data?.children[0]?.data} margin={margin + 1}/>
         }
         
         </>
