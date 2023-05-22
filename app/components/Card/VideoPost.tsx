@@ -1,18 +1,25 @@
+'use client'
 import { IRedditPost } from '@/typings'
 import formatRedditUrl from '@/utils/formatRedditUrl'
-import React from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
+import ReactPlayer from 'react-player'
+import dynamic from 'next/dynamic'
 
 export default function VideoPost({ post }: { post: IRedditPost }) {
-    // console.log({dash: formatRedditUrl(post.secure_media.reddit_video.dash_url)})
-    // console.log({fallback: formatRedditUrl(post.secure_media.reddit_video.fallback_url)})
-  return (
+  const [hasWindow, setHasWindow] = useState(false)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+  }, []);
+  
+   return (
     <div className='w-fit mx-auto'>
-        <video controls height={250} className='max-h-[500px]'>
-            <source 
-            src={formatRedditUrl(post.secure_media.reddit_video.fallback_url)} 
-            type="video/mp4"/>
-            Your browser does not support the video tag.
-        </video>
+    
+       
+        {hasWindow && <ReactPlayer controls width={380} height={400}
+          url={formatRedditUrl(post.secure_media.reddit_video.dash_url)}/>}
+        
     </div>
   )
 }
