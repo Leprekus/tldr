@@ -11,7 +11,6 @@ export default async function unauthComments (url: string) {
         }
     }).then(res => res.json())
     .then(({ data }) => {
-      console.log(data)
       const replies = data.children.map(({ data }: { data: IRedditComment }) => data)
       replies
     })

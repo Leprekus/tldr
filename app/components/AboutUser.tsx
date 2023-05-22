@@ -5,7 +5,6 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function AboutUser({ data }: { data: IRedditUser}) {
-    console.log(data || 'null')
 
   return (
     <div>

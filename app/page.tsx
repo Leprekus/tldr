@@ -18,6 +18,7 @@ export default async function Home() {
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
   const frontpage = await posts({ page: 'homepage' })
   const trendingSubreddits = await posts({ page: 'trendingSubreddits' })
+  const notifications = await posts({ page: 'notifications' })
   if(!frontpage) {
     return <p>something went wrong</p>
   } 
@@ -25,8 +26,8 @@ export default async function Home() {
   return (
     <main className="min-h-screen grid grid-flow-col auto-cols-min gap-4 justify-center">
 
-    <div className='hidden md:block justify-self-center col-span-1'>
-    <h1>Popular Subreddits</h1>
+    <div className='hidden md:block text-gray-700 mb-2 justify-self-center col-span-1'>
+    <h1 className='text-xl font-semibold'>Popular Subreddits</h1>
     <List className='w-48 h-96 overflow-y-scroll scroll-smooth shadow' 
     mini
     data={trendingSubreddits}/>

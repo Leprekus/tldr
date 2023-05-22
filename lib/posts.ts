@@ -6,7 +6,7 @@ import { IQuerySearch } from '@/typings'
 import { decode } from 'next-auth/jwt'
 import { getCsrfToken } from 'next-auth/react'
 import authenticateClient from '@/utils/authenticateClient'
-const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search' | 'trendingSubreddits', query?: string, term?: IQuerySearch },) => {
+const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 'user' | 'search' | 'trendingSubreddits' | 'notifications', query?: string, term?: IQuerySearch },) => {
   
   // // session {
   //   accessToken: '62260682-EmlqDEXCjmpUg2t_eNmQ5-VXawDmCg',
@@ -46,6 +46,10 @@ const posts = async (page:{ page: 'homepage' | 'subreddit' | 'subredditAbout' | 
       case 'trendingSubreddits':
         const trendingSubreddits = await redditWrapper.getTrendingSubreddits()
         return trendingSubreddits
+
+      case 'notifications':
+        const notifications = await redditWrapper.getUserNotifications()
+        return notifications
 
       case 'user':
         const user = await redditWrapper.getUserAbout({ user: page.query! })

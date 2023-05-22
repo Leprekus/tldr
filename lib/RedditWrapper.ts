@@ -62,7 +62,6 @@ class RedditWrapper {
     }
     private async response (endpoint: string) {
         const res = await fetch(endpoint, this.getOptions())
-        console.log({ wrapperRes: res})
         if(res.ok) {
             const json = await res.json()
             return json.data.children.length > 0 ? json : 
@@ -105,6 +104,16 @@ class RedditWrapper {
     
         const endpoint = '.json?' 
         const data = await this.fetchData(this._baseUrl, endpoint, params)
+        return data
+
+
+    }
+    async getUserNotifications () {
+    
+        const endpoint = this.getUrl() + "api/v1/me/messages"
+        const res = await this.response(endpoint)
+        const data = res?.error ? res : this.parseData(res)
+        console.log({ data })
         return data
 
 

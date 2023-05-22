@@ -8,7 +8,6 @@ export default async function requireSession(
   next: () => void
 ) {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  console.log({ middleWareSession: session})
   if (!session || (session.user as User).id === 'RedditClientCredentials') {
     
     return new NextResponse(

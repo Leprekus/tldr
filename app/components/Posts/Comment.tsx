@@ -87,7 +87,6 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
     const slicedArray = children.slice(sliceStart, sliceEnd)
 
      setN(prevN => (10 * n) > children.length ? prevN : prevN + 1)
-    console.log({ n, slicedArray})
     //console.log(comment?.replies?.data?.children[1]?.data?.children?.length)  
     fetch('/api/post/comments/replies', {
       method: 'POST',

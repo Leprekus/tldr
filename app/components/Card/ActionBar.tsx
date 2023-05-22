@@ -38,7 +38,7 @@ export default function ActionBar({ post, padding='px-10 py-8', flex='row' }: { 
         
         try {
           const json = await response.json();
-          console.log({ message: json.message });
+  
           if (!session || session.user.id === 'RedditClientCredentials') {
             alert.setMessage('You must be signed in to perform this action');
             alert.setDisplay(true);
