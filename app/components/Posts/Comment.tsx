@@ -136,7 +136,9 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
             comment.author ?
             comment.author.includes('[deleted]') && true : false
             }>u/{comment.author}</Button>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{comment.body}</ReactMarkdown>
+            <ReactMarkdown
+            className='w-96 break-words'
+            remarkPlugins={[remarkGfm]}>{comment.body}</ReactMarkdown>
            {/* renders replies to comment */}
             {traversedChildren?.length > 0 && 
             traversedChildren.map(reply => <CommentWrapper key={reply.id} comment={reply} margin={0}/>)}
