@@ -137,7 +137,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
             <ReactMarkdown
             className='w-96 break-words'
             remarkPlugins={[remarkGfm]}>{comment.body}</ReactMarkdown>
-            <ActionBar post={comment} padding={'pr-1'}/>
+            <ActionBar split={false} post={comment} padding={'pr-1'}/>
            {/* renders replies to comment */}
             {traversedChildren?.length > 0 && 
             traversedChildren.map(reply => <CommentWrapper key={reply.id} comment={reply} margin={0}/>)}
