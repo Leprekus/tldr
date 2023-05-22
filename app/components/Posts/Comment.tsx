@@ -128,8 +128,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
         className='p-2'
         key={comment.id}>
           <div className='flex tracking-wider text-justify'>
-          <ActionBar flex='col' post={comment} padding={'pr-1'}/>
-          <div className='flex flex-col gap-1'>
+          <div className='flex flex-col gap-1'>    
             <Button variant='tertiary'href={'u/' + comment.author}
             disabled={
             comment.author ?
@@ -138,6 +137,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
             <ReactMarkdown
             className='w-96 break-words'
             remarkPlugins={[remarkGfm]}>{comment.body}</ReactMarkdown>
+            <ActionBar post={comment} padding={'pr-1'}/>
            {/* renders replies to comment */}
             {traversedChildren?.length > 0 && 
             traversedChildren.map(reply => <CommentWrapper key={reply.id} comment={reply} margin={0}/>)}

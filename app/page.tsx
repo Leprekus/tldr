@@ -19,6 +19,7 @@ export default async function Home() {
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
   const frontpage = await posts({ page: 'homepage' })
   const trendingSubreddits = await posts({ page: 'trendingSubreddits' })
+  //handle when user is not logged in, app fails to load if this request fails.
   //const notifications = await posts({ page: 'notifications' })
   
   if(!frontpage) {
