@@ -110,6 +110,15 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
 
   const handleHideReplies = () => {
 
+    const sliceEnd = (10 * n) - 10 > children.length ? (10 * n) - 10 : children.length
+    
+    const slicedArray = children.slice(0, children.length - sliceEnd)
+
+    setTraversedChildren(slicedArray)
+    console.log({ slicedArray, sliceEnd })
+
+    setN(prevN => (10 * n) - 10 > children.length ? prevN - 1 : prevN)
+
   }
   
   const areChildrenTraversed = children?.length > 0 && traversedChildren?.length < children?.length
@@ -134,7 +143,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
             
             {children?.length > 0 &&
             <Button variant='tertiary' onClick={areChildrenTraversed ? handleFetchReplies : handleHideReplies}>
-              {areChildrenTraversed ? `Show More ${traversedChildren?.length} | ${children?.length}` : 'Hide'}
+              {areChildrenTraversed ? `Show More ${traversedChildren?.length} | ${children?.length}` : `Hide ${children?.length > 10 ? 10 : children?.length} replies`}
             </Button>
             }
           </div>
