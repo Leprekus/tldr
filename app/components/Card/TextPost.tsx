@@ -79,7 +79,7 @@ export default function TextPost({ post }: { post: IRedditPost }) {
     <div
       // initial height  = h-36
       style={{ minHeight: 144 }}                                  //prevents text overlap with button
-      className='min-w-full text-sm relative whitespace-normal break-words pb-12'
+      className='min-w-full text-sm relative whitespace-normal break-words pb-12 text-justify leading-loose'
     >
       {/* text post */}
         {showMore ? <p>{tldr}</p> : 
