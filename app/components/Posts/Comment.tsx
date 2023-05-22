@@ -13,6 +13,8 @@ import ActionBar from '../Card/ActionBar'
 import unauthComments from '@/utils/unauthComments'
 import authenticateClient from '@/utils/authenticateClient'
 import { CloseIcon } from '../Icons'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import remarkGfm from 'remark-gfm'
 
 
 export default function Comment({post}: { post: IRedditPost}) {
@@ -104,43 +106,37 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
       setTraversedChildren(newChildren)
 
     })
-      //setTraversedChildren(prevState => [...prevState, ...replies])
-    
-    // console.log(comment.permalink)
-    // fetch( 'https://www.reddit.com/' + comment.permalink + '.json?limit=10')
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log({ thread: data })
-    //   setReplies(data[1].data.children)})
-    
+  }
+
+  const handleHideReplies = () => {
+
   }
   
-
+  const areChildrenTraversed = children?.length > 0 && traversedChildren?.length < children?.length
   return (
     <>
     <Paper 
         sx={{ marginLeft: margin }}
-        className='p-2 w-full'
+        className='p-2'
         key={comment.id}>
           <div className='flex tracking-wider text-justify'>
           <ActionBar flex='col' post={comment} padding={'pr-1'}/>
-          <div>
+          <div className='flex flex-col gap-1'>
             <Button variant='tertiary'href={'u/' + comment.author}
             disabled={
             comment.author ?
             comment.author.includes('[deleted]') && true : false
             }>u/{comment.author}</Button>
-            <p>{comment.body}</p>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{comment.body}</ReactMarkdown>
            {/* renders replies to comment */}
             {traversedChildren?.length > 0 && 
             traversedChildren.map(reply => <CommentWrapper key={reply.id} comment={reply} margin={0}/>)}
             
             {children?.length > 0 &&
-            <Button variant='tertiary' onClick={handleFetchReplies}>
-              {children.length > 0 ? 'Show More' : 'Hide'}
+            <Button variant='tertiary' onClick={areChildrenTraversed ? handleFetchReplies : handleHideReplies}>
+              {areChildrenTraversed ? `Show More ${traversedChildren?.length} | ${children?.length}` : 'Hide'}
             </Button>
             }
-            <p>{traversedChildren?.length + '/' +  children?.length}</p>
           </div>
           </div>
           
