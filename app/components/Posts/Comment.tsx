@@ -17,9 +17,6 @@ import { CloseIcon } from '../Icons'
 
 export default function Comment({post}: { post: IRedditPost}) {
     const removeCurrentCommentId = useStore((state:IInitialState) => state.removeCurrentCommentId)
-    const { comments } = useStore()
-    const { data: session } = useSession()
-    const redditWrapper = new RedditWrapper()
 
     const [data, setData] = useState<[] | IRedditComment[]>([])
     const fetchComments = async () => {
@@ -67,8 +64,6 @@ export default function Comment({post}: { post: IRedditPost}) {
 //find
 //likes, name, title, subreddit_name_prefixed
 function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margin?: number }) {
-  const { data: session } = useSession()
-
   const next = comment?.replies?.data?.children[0]?.data?.body
   
   //if not end of thread replies array is 1th index
@@ -89,21 +84,24 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
     
     const slicedArray = children.slice(sliceStart, sliceEnd)
 
-     setN(prevN => prevN + 1)
+     setN(prevN => (10 * n) > children.length ? prevN : prevN + 1)
     console.log({ n, slicedArray})
-    //console.log(comment?.replies?.data?.children[1]?.data?.children?.length)
+    //console.log(comment?.replies?.data?.children[1]?.data?.children?.length)  
     fetch('/api/post/comments/replies', {
       method: 'POST',
       body: JSON.stringify({
         link_id: comment.link_id,
         ids: slicedArray
       })
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
     .then(data => {
       console.log({replies: data.replies.jquery[10][3][0]})
       const replies = data.replies.jquery[10][3][0]
       .map(({ data }: { data: IRedditComment}) => data)
-      setTraversedChildren(prevState => [...prevState, ...replies])
+      const children = [...traversedChildren, ...replies]
+      const newChildren = [...new Set(children)]
+      setTraversedChildren(newChildren)
 
     })
       //setTraversedChildren(prevState => [...prevState, ...replies])
