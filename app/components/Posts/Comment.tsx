@@ -123,7 +123,7 @@ function CommentWrapper ({ comment, margin=0 }: { comment: IRedditComment, margi
         className='p-2 w-full'
         key={comment.id}>
           <div className='flex '>
-          <ActionBar post={comment} padding={'pr-1'}/>
+          <ActionBar flex='col' post={comment} padding={'pr-1'}/>
           <div>
             <Button variant='ghost'href={'u/' + comment.author}
             disabled={

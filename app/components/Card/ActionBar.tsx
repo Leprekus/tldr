@@ -11,7 +11,7 @@ function isRedditPost(post: any): post is IRedditPost {
     return false
   }
 
-export default function ActionBar({ post, padding='px-10 py-8' }: { post: IRedditComment | IRedditPost, padding?: 'px-10 py-8' | 'pr-1'}) {
+export default function ActionBar({ post, padding='px-10 py-8', flex='row' }: { post: IRedditComment | IRedditPost, padding?: 'px-10 py-8' | 'pr-1', flex?: 'row' | 'col'}) {
     const { data: session } = useSession()
     const [isLiked, setIsLiked] = useState<boolean | null>(post.likes);
 
@@ -71,7 +71,7 @@ export default function ActionBar({ post, padding='px-10 py-8' }: { post: IReddi
     <div
     className={'h-fit w-full md:min-h-full md:w-20 flex justify-center ' + padding}>
      <div className='flex gap-x-16 md:flex-col'>
-       <div className='flex gap-3 flex-row md:flex-col'>
+       <div className={`flex gap-3 flex-${ flex } md:flex-col`}>
          <Button onClick={() => handleVote('up')} variant='ghost'>
            <UpvoteIcon fill={isLiked ? '#3B82F6' : '#A9A9A9'} />
          </Button>
