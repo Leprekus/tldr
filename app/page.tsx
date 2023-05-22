@@ -19,7 +19,7 @@ export default async function Home() {
   //posts can return [ unauthFrontpage ] or [frontpage, upvoted, downvoted]
   const frontpage = await posts({ page: 'homepage' })
   const trendingSubreddits = await posts({ page: 'trendingSubreddits' })
-  const notifications = await posts({ page: 'notifications' })
+  //const notifications = await posts({ page: 'notifications' })
   
   if(!frontpage) {
     return <p>something went wrong</p>
@@ -41,12 +41,12 @@ export default async function Home() {
     data={frontpage}/>
 
 
-    <div className='hidden lg:block justify-self-center col-span-1'>
+    {/* <div className='hidden lg:block justify-self-center col-span-1'>
     <h1 className='text-xl font-semibold'>Your Recent Activity</h1>
     <Inbox 
     className='w-full h-96 overflow-y-scroll scroll-smooth'
     data={notifications}/>
-    </div>
+    </div> */}
 
     </main>
   )

@@ -112,6 +112,7 @@ class RedditWrapper {
     
         const endpoint = this.getUrl() + "message/inbox.json?raw_json=1"
         const res = await this.response(endpoint)
+        console.log({ res })
         return res?.error ? res : this.parseData(res)
     }
 
