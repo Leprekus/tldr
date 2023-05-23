@@ -12,7 +12,7 @@ export default function VideoPost({ post }: { post: IRedditPost }) {
       setHasWindow(true);
     }
   }, []);
-  
+ 
    return (
     <div className='w-fit mx-auto'>
     

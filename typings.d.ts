@@ -34,6 +34,7 @@ interface IRedditPost {
   secure_media: {
     reddit_video: {
       dash_url: string;
+      hls_url: string;
       fallback_url: string;
     }
   }
