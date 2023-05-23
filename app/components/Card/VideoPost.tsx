@@ -18,7 +18,7 @@ export default function VideoPost({ post }: { post: IRedditPost }) {
     
        
         {hasWindow && <ReactPlayer controls width={380} height={400}
-          url={formatRedditUrl(post.secure_media.reddit_video.dash_url)}/>}
+          url={formatRedditUrl(post.secure_media.reddit_video.hls_url)}/>}
         
     </div>
   )
