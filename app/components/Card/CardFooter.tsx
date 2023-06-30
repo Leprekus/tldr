@@ -3,8 +3,7 @@ import Button from '../Button'
 import { IRedditPost } from '@/typings'
 import Link from 'next/link'
 import { RatioIcon, TrophyIcon, UpvoteIcon } from '../Icons'
-import Tooltip from '../Tooltip'
-
+import { Tooltip } from 'react-tooltip'
 export default function CardFooter({ post,  }: { post: IRedditPost }) {
 
   const displayAwards = () => {
@@ -22,10 +21,12 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
             onClick={() => ''}
             >u/{post.author}</Button>
             <div className='flex items-center w-full gap-4'>
-              <Tooltip title='Upvote Ratio'>
+              <span id={post.id + 'ratio-tooltip'} className='relative'>
               <div style={{ fontSize: 8 }} className='w-4 h-4 rounded-full bg-gray-100 absolute left-4 -top-2 text-blue-500 flex justify-center items-center p-2 shadow'>{post.upvote_ratio * 100}</div>
-                <RatioIcon fill='#A9A9A9'/>
-              </Tooltip>
+                  <RatioIcon fill='#A9A9A9'/>
+                  <Tooltip anchorId={post.id + 'ratio-tooltip'} content='Upvote Ratio' place='top' className='transition-all rounded-md'/>
+              </span>
+            
 
               {/* <Tooltip title='Upvotes'>
                 <UpvoteIcon fill='#A9A9A9'/>
@@ -37,14 +38,16 @@ export default function CardFooter({ post,  }: { post: IRedditPost }) {
                 <p >{Math.floor(post.ups * post.upvote_ratio - post.ups)}</p>
               </Tooltip> */}
 
-              <Tooltip title={`Awards (${post.all_awardings.length})`} className='flex gap-4'>
-                <Button 
-                onClick={displayAwards}
-                variant='ghost' disabled={ post.all_awardings.length < 1 && true }>
+              <span className='relative' id={post.id + 'trophies-tooltip'}>
+              <Button 
+              onClick={displayAwards}
+              variant='ghost' disabled={ post.all_awardings.length < 1 && true }>
                   {post.all_awardings.length > 0 && <div style={{ fontSize: 10 }} className='w-4 h-4 rounded-full bg-gray-100 absolute left-6 -top-1 text-blue-500 flex justify-center items-center p-2 shadow'>{post.all_awardings.length}</div>}
                   <TrophyIcon fill='#A9A9A9'/>
-                </Button>
-              </Tooltip>
+              </Button>
+              <Tooltip content={`Awards (${post.all_awardings.length})`} id={post.id + 'trophies-tooltip'}/>
+                </span>
+              
 
             </div>
         </div>

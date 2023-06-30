@@ -17,7 +17,7 @@ export default function VideoPost({ post }: { post: IRedditPost }) {
     <div className='w-fit mx-auto'>
     
        
-        {hasWindow && <ReactPlayer controls width={380} height={400}
+        {hasWindow && <ReactPlayer controls width={320} height={400} className='h-fit w-auto mx-auto'
           url={formatRedditUrl(post.secure_media.reddit_video.hls_url)}/>}
         
     </div>
