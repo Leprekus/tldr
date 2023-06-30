@@ -1,7 +1,7 @@
 import { IRedditPost } from '@/typings'
 import React, { useState } from 'react'
 import Button from '../Button'
-import Pill from '../Pill'
+import Pill from '../ui/Pill'
 
 export default function GalleryPost({ post }: { post: any }) {
   

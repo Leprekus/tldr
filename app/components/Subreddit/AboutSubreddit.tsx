@@ -2,7 +2,7 @@
 import { IAboutSubreddit } from '@/typings'
 import Image from 'next/image'
 import React from 'react'
-import Pill from '../Pill'
+import Pill from '../ui/Pill'
 import formatRedditUrl from '@/utils/formatRedditUrl';
 
 export default function AboutSubreddit({ data }: { data: IAboutSubreddit }) {
@@ -28,6 +28,9 @@ export default function AboutSubreddit({ data }: { data: IAboutSubreddit }) {
     return `${formattedNumber}${units[unitIndex]}`;
   }
 
+  const handleJoin = () => {
+
+  }
     return (
     <div 
     className={`h-fit w-96 mx-auto flex flex-col px-1 py-2 md:mt-12
@@ -41,6 +44,7 @@ export default function AboutSubreddit({ data }: { data: IAboutSubreddit }) {
       <div className=' flex justify-center w-full gap-x-4 z-10'>
             <p>subs: {formatNumber(data.subscribers)}</p>
             <Pill variant='tertiary'
+            onClick={!data.user_is_subscriber && handleJoin}
             className='border-indigo-300 border-2'
             >{data.user_is_subscriber ? 'Joined' : 'Join'}</Pill>
             <p>active: {data.active_user_count}</p>

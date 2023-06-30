@@ -12,7 +12,7 @@ import Link from 'next/link'
 import ActionBar from '../Card/ActionBar'
 import unauthComments from '@/utils/unauthComments'
 import authenticateClient from '@/utils/authenticateClient'
-import { CloseIcon } from '../Icons'
+import { CloseIcon } from '../ui/Icons'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import remarkGfm from 'remark-gfm'
 

@@ -6,7 +6,7 @@ import Card from "../Card/Card";
 import { useSession } from "next-auth/react";
 import Post from "./Post";
 import useStore from "@/app/hooks/store";
-import Alert from "../Alert";
+import Alert from "../ui/Alert";
 import { ErrorBoundary } from "react-error-boundary";
 import Error from "../Error";
 import Subreddit from "../Subreddit/Subreddit";

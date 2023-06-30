@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '../Button';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { CloseIcon } from '../Icons';
+import { CloseIcon } from '../ui/Icons';
 
 
 export default function TextPost({ post }: { post: IRedditPost }) {

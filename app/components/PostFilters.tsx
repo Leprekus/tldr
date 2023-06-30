@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import Pill from './Pill'
+import Pill from './ui/Pill'
 import { IRedditPost, RedditPostsResponse } from '@/typings'
 
 export default function PostFilters({ data, original, setData }: { data : RedditPostsResponse ,original : RedditPostsResponse, setData: Function}) {

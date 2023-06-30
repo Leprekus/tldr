@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Button'
 import { IRedditPost } from '@/typings'
 import Link from 'next/link'
-import { RatioIcon, TrophyIcon, UpvoteIcon } from '../Icons'
+import { RatioIcon, TrophyIcon, UpvoteIcon } from '../ui/Icons'
 import { Tooltip } from 'react-tooltip'
 export default function CardFooter({ post,  }: { post: IRedditPost }) {
 

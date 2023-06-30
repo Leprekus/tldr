@@ -1,8 +1,8 @@
 'use client'
 import React, { useRef, useState } from 'react'
-import LinkWrapper from '../LinkWrapper'
+import LinkWrapper from '../ui/LinkWrapper'
 import Filters from '../Filters';
-import { FilterIcon, SearchIcon } from '../Icons';
+import { FilterIcon, SearchIcon } from '../ui/Icons';
 import Button from '../Button';
 
 export default function SearchBar() {
