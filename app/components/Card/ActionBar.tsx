@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import Button from '../Button'
+
 import { CommentIcon, DownvoteIcon, TrophyIcon, UpvoteIcon } from '../ui/Icons'
 import { useSession } from 'next-auth/react';
 import { IRedditComment, IRedditPost } from '@/typings';
 import useStore from '@/app/hooks/store';
+import Button from '../ui/Button';
 
 
 function isRedditPost(post: any): post is IRedditPost {

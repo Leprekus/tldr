@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import LinkWrapper from '../ui/LinkWrapper'
 import Filters from '../Filters';
 import { FilterIcon, SearchIcon } from '../ui/Icons';
-import Button from '../Button';
+import Button from '../ui/Button';
 
 export default function SearchBar() {
   const [inputText, setInputText] = useState('');

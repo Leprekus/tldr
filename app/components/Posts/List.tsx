@@ -8,8 +8,9 @@ import Post from "./Post";
 import useStore from "@/app/hooks/store";
 import Alert from "../ui/Alert";
 import { ErrorBoundary } from "react-error-boundary";
-import Error from "../Error";
+
 import Subreddit from "../Subreddit/Subreddit";
+import Error from "../ui/Error";
 export default function List({ data, className, mini=false }: { data: RedditPostsResponse, className?:string, mini?: boolean }) {
   const { data: session } = useSession();
 

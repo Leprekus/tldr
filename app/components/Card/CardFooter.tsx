@@ -1,9 +1,9 @@
 import React from 'react'
-import Button from '../Button'
 import { IRedditPost } from '@/typings'
 import Link from 'next/link'
 import { RatioIcon, TrophyIcon, UpvoteIcon } from '../ui/Icons'
 import { Tooltip } from 'react-tooltip'
+import Button from '../ui/Button'
 export default function CardFooter({ post,  }: { post: IRedditPost }) {
 
   const displayAwards = () => {

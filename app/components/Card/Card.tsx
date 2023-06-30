@@ -1,10 +1,11 @@
 'use client';
 import React, { ReactNode, useState } from 'react';
-import Button from '../Button';
+
 import { IRedditComment, IRedditPost } from '@/typings';
 import Link from 'next/link';
 import Paper from './Paper';
 import ActionBar from './ActionBar';
+import Button from '../ui/Button';
 
 interface PostProps {
   post: IRedditPost | IRedditComment;

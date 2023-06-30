@@ -1,9 +1,9 @@
 import { IRedditPost } from '@/typings';
 import React, { useEffect, useState } from 'react';
-import Button from '../Button';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { CloseIcon } from '../ui/Icons';
+import Button from '../ui/Button';
 
 
 export default function TextPost({ post }: { post: IRedditPost }) {

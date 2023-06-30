@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Hr from '../ui/Hr'
 import ListItem from '../ui/ListItem'
-import Button from '../Button'
+import Button from '../ui/Button'
 import Link from 'next/link'
 import SearchBar from './SearchBar'
 

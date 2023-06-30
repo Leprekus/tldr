@@ -1,8 +1,8 @@
 import { IRedditPost } from '@/typings'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
-import Button from '../Button';
 import Image from 'next/image';
+import Button from '../ui/Button';
 
 export default function LinkPost({ post }: { post: IRedditPost }) {
 

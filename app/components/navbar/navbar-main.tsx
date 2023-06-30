@@ -2,9 +2,7 @@
 import React from 'react';
 import navItems from '@/lib/navItems';
 import NavbarProfile from './navbar-profile';
-
-
-import Button from '../Button';
+import Button from '../ui/Button';
 
 export default function NavbarMain() {  
   return (

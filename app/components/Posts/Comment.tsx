@@ -1,5 +1,5 @@
 import React, { Component, ReactNode, Suspense, cache, useEffect, useState } from 'react'
-import Button from '../Button'
+import Button from '../ui/Button'
 import { IInitialState, IRedditComment, IRedditPost } from '@/typings'
 import useStore from '@/app/hooks/store'
 import { useSession } from 'next-auth/react'

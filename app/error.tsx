@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import React from 'react'
-import Button from './components/Button'
+import Button from './components/ui/Button'
 
 export default function error() {
    
